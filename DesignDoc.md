@@ -88,6 +88,13 @@ A balance of ancient nature and structured alchemy. The interface must feel like
 ### Cauldron
 - Visual representation of a cauldron — CSS/text-based for v1
 - Whether to use an illustration or image asset is deferred to a later design pass
+- **Glow behavior (reactive):**
+  - Base state (empty): Soft white glow
+  - As ingredients are added, glow shifts based on the combined stats of slotted ingredients:
+    - High potency → shifts toward Muted Gold (matching potency text color)
+    - High toxicity → shifts toward Purple Radiance (matching toxicity text color)
+    - High both → blends Gold and Purple
+  - Glow intensity scales with the stat values, not a binary on/off
 
 ### Brewing — The Magical Click
 - Transition: `0.8s cubic-bezier(0.22, 1, 0.36, 1)` — slow, fluid, weighty
