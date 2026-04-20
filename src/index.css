@@ -1,0 +1,161 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+  color: #222;
+  background: #fff;
+}
+
+header {
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#header-btns {
+  display: flex;
+  gap: 0.5rem;
+}
+
+#layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+section {
+  border: 1px solid #aaa;
+  padding: 1rem;
+}
+
+section h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.25rem;
+}
+
+#grimoire-inner {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+#grimoire-content, #grimoire-recipes {
+  flex: 1;
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  overflow-y: auto;
+}
+
+#grimoire-recipes h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.25rem;
+}
+
+.recipe-entry {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+#satchel-grid, #output-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+#cauldron-slots {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.slot {
+  border: 1px dashed #999;
+  padding: 0.5rem 1rem;
+  min-width: 120px;
+}
+
+button {
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+}
+
+#brew-message {
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* MODALS */
+#modal-overlay, #design-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+#modal, #design-modal {
+  background: #fff;
+  padding: 1.5rem;
+  max-width: 95vw;
+  max-height: 85vh;
+  overflow-y: auto;
+  border: 1px solid #aaa;
+}
+
+#modal { width: 640px; }
+#design-modal { width: 480px; }
+
+#modal h2, #design-modal h2 { margin-bottom: 0.25rem; }
+#modal h3, #design-modal h3 { margin: 0.75rem 0 0.25rem; }
+#modal hr, #design-modal hr { margin: 0.75rem 0; border: none; border-top: 1px solid #ddd; }
+#modal p, #design-modal p { font-size: 0.9rem; color: #555; margin-bottom: 0.5rem; }
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.form-row input, .form-row select {
+  flex: 1;
+  min-width: 120px;
+  padding: 0.3rem 0.5rem;
+}
+
+#custom-ing-list, #custom-rec-list {
+  font-size: 0.875rem;
+  padding-left: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+#custom-ing-list li, #custom-rec-list li {
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.design-section { margin-bottom: 0.5rem; }
