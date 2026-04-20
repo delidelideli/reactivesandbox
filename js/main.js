@@ -1,15 +1,23 @@
 const state = {
-  cauldron: [null, null],      // up to 2 ingredient IDs
-  brewed: []                   // list of brewed potion objects
+  cauldron: [null, null],
+  brewed: [],
+  counts: {}   // ingredient id -> remaining count
 };
+
+function initCounts() {
+  state.counts = {};
+  INGREDIENTS.forEach(i => { state.counts[i.id] = 3; });
+}
 
 function renderSatchel() {
   const grid = document.getElementById("satchel-grid");
   grid.innerHTML = "";
   INGREDIENTS.forEach(item => {
+    const count = state.counts[item.id] ?? 0;
     const btn = document.createElement("button");
-    btn.textContent = item.name;
+    btn.textContent = `${item.name} (${count})`;
     btn.dataset.id = item.id;
+    btn.disabled = count === 0;
     btn.addEventListener("click", () => {
       selectItem(item);
       addToCauldron(item.id);
@@ -59,9 +67,12 @@ function selectItem(item) {
 
 function addToCauldron(id) {
   const empty = state.cauldron.indexOf(null);
-  if (empty === -1) return; // both slots full
+  if (empty === -1) return;
+  if ((state.counts[id] ?? 0) === 0) return;
   state.cauldron[empty] = id;
+  state.counts[id]--;
   renderCauldron();
+  renderSatchel();
 }
 
 function renderCauldron() {
@@ -90,12 +101,18 @@ function brew() {
   state.cauldron = [null, null];
   renderCauldron();
   renderOutput();
+  renderSatchel();
   setBrewMessage(`Brewed: ${match.name}!`);
 }
 
 function clearCauldron() {
+  // return staged ingredients to inventory
+  state.cauldron.forEach(id => {
+    if (id) state.counts[id]++;
+  });
   state.cauldron = [null, null];
   renderCauldron();
+  renderSatchel();
   setBrewMessage("");
 }
 
@@ -114,6 +131,7 @@ function renderRecipeBook() {
 document.getElementById("brew-btn").addEventListener("click", brew);
 document.getElementById("clear-btn").addEventListener("click", clearCauldron);
 
+initCounts();
 renderSatchel();
 renderCauldron();
 renderOutput();

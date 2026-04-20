@@ -134,6 +134,7 @@ document.getElementById("apply-btn").addEventListener("click", () => {
   custom.recipes.forEach(r => RECIPES.push(r));
   state.cauldron = [null, null];
   state.brewed = [];
+  initCounts();
   renderSatchel();
   renderCauldron();
   renderOutput();
