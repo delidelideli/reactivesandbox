@@ -26,14 +26,17 @@ function refreshIngredientSelects() {
 
 function renderCustomIngList() {
   const list = document.getElementById("custom-ing-list");
-  list.innerHTML = custom.ingredients.map((ing, idx) =>
-    `<li>${ing.name} — ${ing.description} [${Object.entries(ing.stats).map(([k,v])=>`${k}:${v}`).join(", ")}]
-     <button data-idx="${idx}" class="remove-ing">x</button></li>`
-  ).join("");
+  list.innerHTML = custom.ingredients.length === 0
+    ? "<li><em>No ingredients yet.</em></li>"
+    : custom.ingredients.map((ing, idx) =>
+        `<li>${ing.name} — ${ing.description} [${Object.entries(ing.stats).map(([k,v])=>`${k}:${v}`).join(", ")}]
+         <button data-idx="${idx}" class="remove-ing">Remove</button></li>`
+      ).join("");
   list.querySelectorAll(".remove-ing").forEach(btn => {
     btn.addEventListener("click", () => {
       custom.ingredients.splice(Number(btn.dataset.idx), 1);
       renderCustomIngList();
+      renderCustomRecList();
       refreshIngredientSelects();
     });
   });
@@ -41,14 +44,16 @@ function renderCustomIngList() {
 
 function renderCustomRecList() {
   const list = document.getElementById("custom-rec-list");
-  list.innerHTML = custom.recipes.map((rec, idx) => {
-    const names = rec.inputs.map(id => {
-      const ing = custom.ingredients.find(i => i.id === id);
-      return ing ? ing.name : id;
-    });
-    return `<li>${rec.name} = ${names.join(" + ")}
-      <button data-idx="${idx}" class="remove-rec">x</button></li>`;
-  }).join("");
+  list.innerHTML = custom.recipes.length === 0
+    ? "<li><em>No recipes yet.</em></li>"
+    : custom.recipes.map((rec, idx) => {
+        const names = rec.inputs.map(id => {
+          const ing = custom.ingredients.find(i => i.id === id);
+          return ing ? ing.name : "(removed)";
+        });
+        return `<li>${rec.name} = ${names.join(" + ")}
+          <button data-idx="${idx}" class="remove-rec">Remove</button></li>`;
+      }).join("");
   list.querySelectorAll(".remove-rec").forEach(btn => {
     btn.addEventListener("click", () => {
       custom.recipes.splice(Number(btn.dataset.idx), 1);
@@ -57,11 +62,12 @@ function renderCustomRecList() {
   });
 }
 
+// Load current active data into the editor when opening
 document.getElementById("customize-btn").addEventListener("click", () => {
-  custom.ingredients = [];
-  custom.recipes = [];
-  ingIdCounter = 1;
-  recIdCounter = 1;
+  custom.ingredients = INGREDIENTS.map(i => ({ ...i, stats: { ...i.stats } }));
+  custom.recipes = RECIPES.map(r => ({ ...r, stats: { ...r.stats }, inputs: [...r.inputs] }));
+  ingIdCounter = custom.ingredients.length + 1;
+  recIdCounter = custom.recipes.length + 1;
   renderCustomIngList();
   renderCustomRecList();
   refreshIngredientSelects();
