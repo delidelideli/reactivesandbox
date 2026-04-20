@@ -145,7 +145,63 @@ Stats are currently raw numbers (max ~10). Will display as X/10 in the UI.
 
 ---
 
-## 8. Open Decisions
+## 8. User Customization Framework
+
+The Alchemist's Workshop is the example implementation. The goal is for any user to be able to take this framework and make it their own — different domain, different look, different labels — without touching code. Customization is built in three layers, tackled in this order:
+
+---
+
+### Layer 1 — Visual (CSS Custom Properties)
+*Highest impact, lowest complexity. Build this first.*
+
+Every color, font, glow, and spacing value is defined as a CSS variable. The Settings modal writes to these variables at runtime, giving instant live preview with no component rebuilding.
+
+Variables to expose:
+- `--bg-color` — background color
+- `--panel-bg` — panel surface color
+- `--grimoire-bg` — Grimoire surface color
+- `--accent-gold` — Muted Gold (interactive glow)
+- `--accent-blue` — Arcane Blue (Grimoire glow)
+- `--accent-purple` — Toxicity / failure color
+- `--text-color` — standard text
+- `--font-family` — typeface
+- `--panel-spacing` — padding / gap between panels
+
+**Result:** A user can fully reskin the visual atmosphere — colors, font, spacing — through the Settings modal alone.
+
+---
+
+### Layer 2 — Interface Config (`config.js`)
+*Moderate complexity. Build after Layer 1 is stable.*
+
+A `config.js` file alongside `data.js` controls the non-visual interface settings. The Settings modal edits this config, which React reads to render labels and structure.
+
+Config values to expose:
+- Panel names (e.g. "Satchel" → "Inventory", "Cauldron" → "Forge")
+- Action labels (e.g. "Brew" → "Craft", "Clear" → "Reset")
+- Site title
+- Number of Cauldron input slots (drives dynamic slot rendering)
+- Output panel name (e.g. "Output" → "Results")
+
+**Result:** A user can rename every label in the interface to match their domain — a crafting system, a deck builder, a job board — without the UI feeling like a reskinned potion brewer.
+
+---
+
+### Layer 3 — Full Export Bundle
+*Builds on Import/Export already planned. Completes the system.*
+
+Export packages all three layers into a single JSON file:
+- `data` — their items and recipes
+- `config` — their interface labels and slot settings
+- `theme` — their CSS variable values
+
+Importing that file fully restores their custom setup in one step. Users can share their configurations with others.
+
+**Result:** The full experience — content, structure, and visual style — is portable and shareable.
+
+---
+
+## 10. Open Decisions
 
 | Decision | Status |
 |----------|--------|
@@ -159,10 +215,11 @@ Stats are currently raw numbers (max ~10). Will display as X/10 in the UI.
 
 ---
 
-## 9. Revision History
+## 11. Revision History
 
 | Date | Change |
 |------|--------|
 | 2026-04-20 | Document created from PreAIDesignDoc + technical notes added |
 | 2026-04-20 | Font decided: IM Fell English. Background color decided: mid-tone grassy green. Cauldron visual deferred. Glow system expanded to all panels with Grimoire distinction. Failure state = message only, no sludge item. Leaf particles = abstract CSS shapes for v1. |
 | 2026-04-20 | Added brewing system and recipe discovery section — multi-ingredient brews, recipes hidden until discovered, Recipe Book is a living discovery log. |
+| 2026-04-20 | Added User Customization Framework section — three layers in priority order: CSS variables (visual), config.js (interface labels/structure), full export bundle (portable shareable setup). |
