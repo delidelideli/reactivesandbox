@@ -103,13 +103,31 @@ A balance of ancient nature and structured alchemy. The interface must feel like
 
 **Implementation note (Claude):** Success/failure feedback ties directly to the potency/toxicity stat system. Future enhancement: potency drives effect intensity, toxicity drives brew color. CSS-driven for v1 (keyframe animations + class toggling); canvas/particle effects possible in a later pass.
 
+---
+
+## 6. Brewing System & Recipe Discovery
+
+### Multi-Ingredient Brewing
+- Recipes are not limited to 2 ingredients — brews can require more
+- The Cauldron must support multiple ingredient slots accordingly
+- Max ingredient count per recipe TBD
+
+### Recipe Discovery
+- The Recipe Book (Ingredient Grimoire) starts empty — no recipes are shown upfront
+- Recipes are unknown until the player successfully brews them for the first time
+- Once discovered, the recipe permanently appears in the Recipe Book
+- Failed brews (wrong combination) produce no entry — the player must experiment to find working combinations
+- This turns the Recipe Book into a living record of the player's discoveries rather than a reference guide
+
+**Implementation note (Claude):** This changes the data model — recipes will need a `discovered: false` flag that flips to `true` on first successful brew. The Recipe Book renders only discovered recipes. The Cauldron component will need a dynamic number of slots based on the recipe system. Current 2-slot hardcoding will need to be refactored.
+
 ### Background Animation
 - Slow rhythmic "mystical glow" pulse on the forest green background
 - CSS-animated abstract leaf-shaped particles drift across the screen simulating a forest breeze — abstract shapes for v1, illustrated leaf assets possible in a later pass
 
 ---
 
-## 6. Data Model (Current)
+## 7. Data Model (Current)
 
 ```json
 {
@@ -127,7 +145,7 @@ Stats are currently raw numbers (max ~10). Will display as X/10 in the UI.
 
 ---
 
-## 7. Open Decisions
+## 8. Open Decisions
 
 | Decision | Status |
 |----------|--------|
@@ -137,12 +155,14 @@ Stats are currently raw numbers (max ~10). Will display as X/10 in the UI.
 | Canvas vs CSS for brewing effects | Decided — CSS for v1, canvas later |
 | Cauldron illustration / image asset | Deferred — CSS placeholder for v1 |
 | Customize / Settings modal visual style | Pending |
+| Max ingredients per recipe | Pending |
 
 ---
 
-## Revision History
+## 9. Revision History
 
 | Date | Change |
 |------|--------|
 | 2026-04-20 | Document created from PreAIDesignDoc + technical notes added |
 | 2026-04-20 | Font decided: IM Fell English. Background color decided: mid-tone grassy green. Cauldron visual deferred. Glow system expanded to all panels with Grimoire distinction. Failure state = message only, no sludge item. Leaf particles = abstract CSS shapes for v1. |
+| 2026-04-20 | Added brewing system and recipe discovery section — multi-ingredient brews, recipes hidden until discovered, Recipe Book is a living discovery log. |
