@@ -3,25 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ReactiveSandbox</title>
+  <title>Alchemist's Workshop</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+
   <header>
-    <h1>ReactiveSandbox</h1>
-    <nav>
-      <a href="index.html">Home</a>
-    </nav>
+    <h1>Alchemist's Workshop</h1>
   </header>
 
   <main>
-    <p>Welcome to ReactiveSandbox.</p>
+    <div id="layout">
+
+      <!-- SATCHEL: ingredient browser -->
+      <section id="satchel">
+        <h2>Satchel</h2>
+        <div id="satchel-grid"></div>
+      </section>
+
+      <!-- GRIMOIRE: detail view -->
+      <section id="grimoire">
+        <h2>Grimoire</h2>
+        <div id="grimoire-inner">
+          <div id="grimoire-content">
+            <p>Select an item to view details.</p>
+          </div>
+          <div id="grimoire-recipes">
+            <h3>Recipe Book</h3>
+            <div id="recipe-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CAULDRON: brewing controller -->
+      <section id="cauldron">
+        <h2>Cauldron</h2>
+        <div id="cauldron-slots">
+          <div class="slot" id="slot-1" data-slot="1">
+            <span>Slot 1: Empty</span>
+          </div>
+          <div class="slot" id="slot-2" data-slot="2">
+            <span>Slot 2: Empty</span>
+          </div>
+        </div>
+        <button id="brew-btn">Brew</button>
+        <button id="clear-btn">Clear</button>
+        <p id="brew-message"></p>
+      </section>
+
+      <!-- OUTPUT: finished potions -->
+      <section id="output">
+        <h2>Output</h2>
+        <div id="output-grid"></div>
+      </section>
+
+    </div>
   </main>
 
-  <footer>
-    <p>&copy; 2026 ReactiveSandbox</p>
-  </footer>
-
+  <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

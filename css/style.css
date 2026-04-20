@@ -14,28 +14,78 @@ body {
 header {
   padding: 1rem 2rem;
   border-bottom: 1px solid #ddd;
+}
+
+#layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+section {
+  border: 1px solid #aaa;
+  padding: 1rem;
+}
+
+section h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.25rem;
+}
+
+#grimoire-inner {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.5rem;
 }
 
-nav a {
-  margin-left: 1rem;
-  text-decoration: none;
-  color: inherit;
+#grimoire-content, #grimoire-recipes {
+  flex: 1;
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  overflow-y: auto;
 }
 
-main {
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 0 2rem;
+#grimoire-recipes h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.25rem;
 }
 
-footer {
-  margin-top: 4rem;
-  padding: 1rem 2rem;
-  border-top: 1px solid #ddd;
-  text-align: center;
-  font-size: 0.875rem;
-  color: #666;
+.recipe-entry {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+#satchel-grid, #output-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+#cauldron-slots {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.slot {
+  border: 1px dashed #999;
+  padding: 0.5rem 1rem;
+  min-width: 120px;
+}
+
+button {
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+}
+
+#brew-message {
+  margin-top: 0.5rem;
+  font-style: italic;
 }
