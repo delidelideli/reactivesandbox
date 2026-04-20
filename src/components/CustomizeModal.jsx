@@ -1,10 +1,14 @@
 import { useState } from 'react'
+import { MAX_CAULDRON_SLOTS, MIN_BREW_INGREDIENTS } from '../data'
 
 function parseStats(str) {
   const stats = {}
   str.split(',').forEach(pair => {
     const [k, v] = pair.split(':').map(s => s.trim())
-    if (k && v !== undefined) stats[k] = isNaN(v) ? v : Number(v)
+    if (k && v !== undefined) {
+      const num = Number(v)
+      stats[k] = isNaN(num) ? v : Math.min(num, 10)
+    }
   })
   return stats
 }
@@ -18,22 +22,21 @@ export default function CustomizeModal({ ingredients, recipes, onSave, onClose }
   const [ingName, setIngName] = useState('')
   const [ingDesc, setIngDesc] = useState('')
   const [ingStats, setIngStats] = useState('')
+
   const [recName, setRecName] = useState('')
   const [recDesc, setRecDesc] = useState('')
   const [recStats, setRecStats] = useState('')
-  const [recIng1, setRecIng1] = useState('')
-  const [recIng2, setRecIng2] = useState('')
+  const [recSlots, setRecSlots] = useState(['', ''])
 
   function addIngredient() {
     if (!ingName.trim()) return
-    const newIng = {
+    setIngs(prev => [...prev, {
       id: `ci${ingCounter}`,
       name: ingName.trim(),
       type: 'ingredient',
       description: ingDesc.trim(),
       stats: ingStats.trim() ? parseStats(ingStats) : {}
-    }
-    setIngs(prev => [...prev, newIng])
+    }])
     setIngCounter(c => c + 1)
     setIngName(''); setIngDesc(''); setIngStats('')
   }
@@ -44,25 +47,43 @@ export default function CustomizeModal({ ingredients, recipes, onSave, onClose }
     setRecs(prev => prev.filter(r => !r.inputs.includes(removed.id)))
   }
 
+  function updateSlot(i, val) {
+    setRecSlots(prev => prev.map((s, idx) => idx === i ? val : s))
+  }
+
+  function addSlot() {
+    if (recSlots.length >= MAX_CAULDRON_SLOTS) return
+    setRecSlots(prev => [...prev, ''])
+  }
+
+  function removeSlot() {
+    if (recSlots.length <= MIN_BREW_INGREDIENTS) return
+    setRecSlots(prev => prev.slice(0, -1))
+  }
+
   function addRecipe() {
-    if (!recName.trim() || !recIng1 || !recIng2 || recIng1 === recIng2) return
-    const newRec = {
+    const filled = recSlots.filter(s => s !== '')
+    if (!recName.trim() || filled.length < MIN_BREW_INGREDIENTS) return
+    const unique = new Set(filled)
+    if (unique.size !== filled.length) return // no duplicate ingredients
+    setRecs(prev => [...prev, {
       id: `cr${recCounter}`,
       name: recName.trim(),
       type: 'potion',
       description: recDesc.trim(),
       stats: recStats.trim() ? parseStats(recStats) : {},
-      inputs: [recIng1, recIng2],
+      inputs: filled,
       discovered: false
-    }
-    setRecs(prev => [...prev, newRec])
+    }])
     setRecCounter(c => c + 1)
-    setRecName(''); setRecDesc(''); setRecStats(''); setRecIng1(''); setRecIng2('')
+    setRecName(''); setRecDesc(''); setRecStats(''); setRecSlots(['', ''])
   }
 
   function removeRecipe(idx) {
     setRecs(prev => prev.filter((_, i) => i !== idx))
   }
+
+  const canAddRecipe = recName.trim() && recSlots.filter(s => s !== '').length >= MIN_BREW_INGREDIENTS
 
   return (
     <div id="modal-overlay">
@@ -76,7 +97,7 @@ export default function CustomizeModal({ ingredients, recipes, onSave, onClose }
         <div className="form-row">
           <input value={ingName} onChange={e => setIngName(e.target.value)} placeholder="Name" />
           <input value={ingDesc} onChange={e => setIngDesc(e.target.value)} placeholder="Description" />
-          <input value={ingStats} onChange={e => setIngStats(e.target.value)} placeholder="Stats (e.g. power:5, speed:3)" />
+          <input value={ingStats} onChange={e => setIngStats(e.target.value)} placeholder="Stats e.g. potency:8, toxicity:3 (max 10)" />
           <button onClick={addIngredient}>Add</button>
         </div>
         <ul id="custom-ing-list">
@@ -97,17 +118,25 @@ export default function CustomizeModal({ ingredients, recipes, onSave, onClose }
         <div className="form-row">
           <input value={recName} onChange={e => setRecName(e.target.value)} placeholder="Output name" />
           <input value={recDesc} onChange={e => setRecDesc(e.target.value)} placeholder="Description" />
-          <input value={recStats} onChange={e => setRecStats(e.target.value)} placeholder="Stats (e.g. power:10)" />
-          <select value={recIng1} onChange={e => setRecIng1(e.target.value)}>
-            <option value="">-- Ingredient 1 --</option>
-            {ings.map(i => <option key={i.id} value={i.id}>{i.name}</option>)}
-          </select>
-          <select value={recIng2} onChange={e => setRecIng2(e.target.value)}>
-            <option value="">-- Ingredient 2 --</option>
-            {ings.map(i => <option key={i.id} value={i.id}>{i.name}</option>)}
-          </select>
-          <button onClick={addRecipe}>Add</button>
+          <input value={recStats} onChange={e => setRecStats(e.target.value)} placeholder="Stats e.g. potency:9, toxicity:2 (max 10)" />
         </div>
+        <div className="form-row">
+          {recSlots.map((val, i) => (
+            <select key={i} value={val} onChange={e => updateSlot(i, e.target.value)}>
+              <option value="">-- Ingredient {i + 1} --</option>
+              {ings.map(ing => <option key={ing.id} value={ing.id}>{ing.name}</option>)}
+            </select>
+          ))}
+          {recSlots.length < MAX_CAULDRON_SLOTS && (
+            <button onClick={addSlot}>+ Slot</button>
+          )}
+          {recSlots.length > MIN_BREW_INGREDIENTS && (
+            <button onClick={removeSlot}>− Slot</button>
+          )}
+        </div>
+        <p><small>Min {MIN_BREW_INGREDIENTS} ingredients, max {MAX_CAULDRON_SLOTS}. No duplicates.</small></p>
+        <button onClick={addRecipe} disabled={!canAddRecipe}>Add Recipe</button>
+
         <ul id="custom-rec-list">
           {recs.length === 0
             ? <li><em>No recipes yet.</em></li>
