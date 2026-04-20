@@ -1,22 +1,24 @@
 import { useState } from 'react'
-import { INGREDIENTS, RECIPES, buildCounts } from './data'
+import { INGREDIENTS, RECIPES, buildCounts, buildCauldron, MIN_BREW_INGREDIENTS } from './data'
 import Satchel from './components/Satchel'
-import Grimoire from './components/Grimoire'
+import IngredientGrimoire from './components/IngredientGrimoire'
+import PotionGrimoire from './components/PotionGrimoire'
 import Cauldron from './components/Cauldron'
 import Output from './components/Output'
 import CustomizeModal from './components/CustomizeModal'
 import SettingsModal from './components/SettingsModal'
 
 export default function App() {
-  const [ingredients, setIngredients] = useState(INGREDIENTS)
-  const [recipes, setRecipes] = useState(RECIPES)
-  const [counts, setCounts] = useState(() => buildCounts(INGREDIENTS))
-  const [cauldron, setCauldron] = useState([null, null])
-  const [brewed, setBrewed] = useState([])
-  const [selectedItem, setSelectedItem] = useState(null)
-  const [brewMessage, setBrewMessage] = useState('')
-  const [showCustomize, setShowCustomize] = useState(false)
-  const [showSettings, setShowSettings] = useState(false)
+  const [ingredients, setIngredients]           = useState(INGREDIENTS)
+  const [recipes, setRecipes]                   = useState(RECIPES)
+  const [counts, setCounts]                     = useState(() => buildCounts(INGREDIENTS))
+  const [cauldron, setCauldron]                 = useState(buildCauldron)
+  const [brewed, setBrewed]                     = useState([])
+  const [selectedIngredient, setSelectedIngredient] = useState(null)
+  const [selectedPotion, setSelectedPotion]     = useState(null)
+  const [brewMessage, setBrewMessage]           = useState('')
+  const [showCustomize, setShowCustomize]       = useState(false)
+  const [showSettings, setShowSettings]         = useState(false)
 
   function addToCauldron(id) {
     const empty = cauldron.indexOf(null)
@@ -29,15 +31,26 @@ export default function App() {
   }
 
   function brew() {
-    const [a, b] = cauldron
-    if (!a || !b) { setBrewMessage('Need 2 ingredients to brew.'); return }
-    const match = recipes.find(r =>
-      (r.inputs[0] === a && r.inputs[1] === b) ||
-      (r.inputs[0] === b && r.inputs[1] === a)
-    )
-    if (!match) { setBrewMessage('No known recipe for these ingredients.'); return }
+    const filled = cauldron.filter(id => id !== null)
+    if (filled.length < MIN_BREW_INGREDIENTS) {
+      setBrewMessage(`Need at least ${MIN_BREW_INGREDIENTS} ingredients to brew.`)
+      return
+    }
+    const sortedFilled = [...filled].sort()
+    const match = recipes.find(r => {
+      const sortedInputs = [...r.inputs].sort()
+      return (
+        sortedInputs.length === sortedFilled.length &&
+        sortedInputs.every((id, i) => id === sortedFilled[i])
+      )
+    })
+    if (!match) {
+      setBrewMessage('No known recipe for these ingredients.')
+      return
+    }
     setBrewed(prev => [...prev, match])
-    setCauldron([null, null])
+    setRecipes(prev => prev.map(r => r.id === match.id ? { ...r, discovered: true } : r))
+    setCauldron(buildCauldron())
     setBrewMessage(`Brewed: ${match.name}!`)
   }
 
@@ -49,7 +62,7 @@ export default function App() {
       Object.entries(returned).forEach(([id, n]) => { next[id] = (next[id] ?? 0) + n })
       return next
     })
-    setCauldron([null, null])
+    setCauldron(buildCauldron())
     setBrewMessage('')
   }
 
@@ -57,9 +70,10 @@ export default function App() {
     setIngredients(newIngredients)
     setRecipes(newRecipes)
     setCounts(buildCounts(newIngredients))
-    setCauldron([null, null])
+    setCauldron(buildCauldron())
     setBrewed([])
-    setSelectedItem(null)
+    setSelectedIngredient(null)
+    setSelectedPotion(null)
     setBrewMessage('')
     setShowCustomize(false)
   }
@@ -79,11 +93,11 @@ export default function App() {
           <Satchel
             ingredients={ingredients}
             counts={counts}
-            onSelect={setSelectedItem}
+            onSelect={setSelectedIngredient}
             onAddToCauldron={addToCauldron}
           />
-          <Grimoire
-            selectedItem={selectedItem}
+          <IngredientGrimoire
+            selectedIngredient={selectedIngredient}
             ingredients={ingredients}
             recipes={recipes}
           />
@@ -96,7 +110,10 @@ export default function App() {
           />
           <Output
             brewed={brewed}
-            onSelect={setSelectedItem}
+            onSelect={setSelectedPotion}
+          />
+          <PotionGrimoire
+            selectedPotion={selectedPotion}
           />
         </div>
       </main>

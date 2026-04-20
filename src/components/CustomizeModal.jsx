@@ -52,7 +52,8 @@ export default function CustomizeModal({ ingredients, recipes, onSave, onClose }
       type: 'potion',
       description: recDesc.trim(),
       stats: recStats.trim() ? parseStats(recStats) : {},
-      inputs: [recIng1, recIng2]
+      inputs: [recIng1, recIng2],
+      discovered: false
     }
     setRecs(prev => [...prev, newRec])
     setRecCounter(c => c + 1)

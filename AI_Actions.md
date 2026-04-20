@@ -11,6 +11,8 @@ This file tracks every task requested during this project. Update it at the end 
 3. Updated the Grimoire to split into two halves: item detail view on the left, and a static recipe book on the right showing all known potions and their ingredient combinations.
 4. Created this AI_Actions.md log file and set up a memory note to continue logging in future sessions.
 5. Added a "Customize" button (top-right) that opens a modal allowing users to wipe the current data and define their own ingredients and recipes. Implemented in js/customize.js — users can add named ingredients with custom stats, pair them into recipes, and click Apply to replace all data and reset the interface.
+14. Data layer overhaul before visual pass: capped all potion stats at 10, added `discovered: false` to all recipes, added 3-ingredient demo recipe (Venom of the Void), exported MAX_CAULDRON_SLOTS/MIN_BREW_INGREDIENTS constants, rebuilt brew logic for order-independent N-ingredient matching, split selectedItem into selectedIngredient + selectedPotion, split Grimoire into IngredientGrimoire and PotionGrimoire components, Cauldron now shows 4 slots with min-2 enforcement, Recipe Book shows only discovered recipes.
+
 13. Updated README.md using the READMEEXAMPLE.md structure, populated with project-specific content. Left Records of Resistance, Five Question Reflection, and Images section blank for Connor to fill in. Deleted READMEEXAMPLE.md.
 
 12. Updated DesignDoc.md with finalized decisions: IM Fell English font, mid-tone grassy green background, glow system expanded to all panels with a distinct color for Grimoire panels, Cauldron visual deferred, failure state is message only, leaf particles are abstract CSS shapes for v1.

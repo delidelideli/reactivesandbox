@@ -8,12 +8,20 @@ export const INGREDIENTS = [
 ];
 
 export const RECIPES = [
-  { id: "p1", name: "Potion of Shadow", inputs: ["i1", "i5"], stats: { potency: 17, toxicity: 13 }, description: "A dangerous brew that shrouds the drinker in darkness." },
-  { id: "p2", name: "Healing Draught", inputs: ["i2", "i6"], stats: { potency: 7, toxicity: 1 }, description: "A gentle remedy that mends wounds." },
-  { id: "p3", name: "Fire Tincture", inputs: ["i3", "i6"], stats: { potency: 9, toxicity: 2 }, description: "Burns with inner warmth." },
-  { id: "p4", name: "Frost Elixir", inputs: ["i4", "i2"], stats: { potency: 9, toxicity: 1 }, description: "Slows the blood and sharpens the mind." }
+  { id: "p1", name: "Potion of Shadow",  inputs: ["i1", "i5"],       stats: { potency: 10, toxicity: 10 }, description: "A dangerous brew that shrouds the drinker in darkness.", discovered: false },
+  { id: "p2", name: "Healing Draught",   inputs: ["i2", "i6"],       stats: { potency: 7,  toxicity: 1  }, description: "A gentle remedy that mends wounds.",                  discovered: false },
+  { id: "p3", name: "Fire Tincture",     inputs: ["i3", "i6"],       stats: { potency: 9,  toxicity: 2  }, description: "Burns with inner warmth.",                           discovered: false },
+  { id: "p4", name: "Frost Elixir",      inputs: ["i4", "i2"],       stats: { potency: 9,  toxicity: 1  }, description: "Slows the blood and sharpens the mind.",             discovered: false },
+  { id: "p5", name: "Venom of the Void", inputs: ["i1", "i5", "i3"], stats: { potency: 10, toxicity: 10 }, description: "A three-part brew of terrifying potency.",            discovered: false }
 ];
+
+export const MAX_CAULDRON_SLOTS = 4;
+export const MIN_BREW_INGREDIENTS = 2;
 
 export function buildCounts(ingredients) {
   return Object.fromEntries(ingredients.map(i => [i.id, 3]));
+}
+
+export function buildCauldron() {
+  return Array(MAX_CAULDRON_SLOTS).fill(null);
 }
