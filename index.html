@@ -10,7 +10,10 @@
 
   <header>
     <h1>Alchemist's Workshop</h1>
-    <button id="customize-btn">Customize</button>
+    <div id="header-btns">
+      <button id="customize-btn">Customize</button>
+      <button id="settings-btn">Settings</button>
+    </div>
   </header>
 
   <main>
@@ -96,6 +99,54 @@
       <div class="modal-actions">
         <button id="apply-btn">Save Changes</button>
         <button id="cancel-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESIGN MODAL (placeholder) -->
+  <div id="design-overlay" class="hidden">
+    <div id="design-modal">
+      <h2>Customize Look & Feel</h2>
+      <p>Change the visual style of your interface. This section is coming soon.</p>
+
+      <hr>
+
+      <div class="design-section">
+        <h3>Colors</h3>
+        <div class="form-row">
+          <label>Background <input type="color" disabled value="#ffffff" /></label>
+          <label>Accent <input type="color" disabled value="#888888" /></label>
+          <label>Text <input type="color" disabled value="#222222" /></label>
+        </div>
+      </div>
+
+      <div class="design-section">
+        <h3>Font</h3>
+        <div class="form-row">
+          <select disabled>
+            <option>System Default</option>
+            <option>Serif</option>
+            <option>Monospace</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="design-section">
+        <h3>Layout</h3>
+        <div class="form-row">
+          <select disabled>
+            <option>2x2 Grid</option>
+            <option>Side by Side</option>
+            <option>Stacked</option>
+          </select>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="modal-actions">
+        <button id="design-apply-btn" disabled>Apply (Coming Soon)</button>
+        <button id="design-cancel-btn">Close</button>
       </div>
     </div>
   </div>

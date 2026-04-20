@@ -19,8 +19,13 @@ header {
   justify-content: space-between;
 }
 
+#header-btns {
+  display: flex;
+  gap: 0.5rem;
+}
+
 /* MODAL */
-#modal-overlay {
+#modal-overlay, #design-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.5);
@@ -30,9 +35,26 @@ header {
   z-index: 100;
 }
 
-#modal-overlay.hidden {
+#modal-overlay.hidden, #design-overlay.hidden {
   display: none;
 }
+
+#design-modal {
+  background: #fff;
+  padding: 1.5rem;
+  width: 480px;
+  max-width: 95vw;
+  max-height: 85vh;
+  overflow-y: auto;
+  border: 1px solid #aaa;
+}
+
+#design-modal h2 { margin-bottom: 0.25rem; }
+#design-modal h3 { margin: 0.75rem 0 0.25rem; }
+#design-modal hr { margin: 0.75rem 0; border: none; border-top: 1px solid #ddd; }
+#design-modal p  { font-size: 0.9rem; color: #555; margin-bottom: 0.5rem; }
+
+.design-section { margin-bottom: 0.5rem; }
 
 #modal {
   background: #fff;

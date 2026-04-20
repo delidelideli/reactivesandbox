@@ -118,6 +118,14 @@ document.getElementById("add-rec-btn").addEventListener("click", () => {
   renderCustomRecList();
 });
 
+document.getElementById("settings-btn").addEventListener("click", () => {
+  document.getElementById("design-overlay").classList.remove("hidden");
+});
+
+document.getElementById("design-cancel-btn").addEventListener("click", () => {
+  document.getElementById("design-overlay").classList.add("hidden");
+});
+
 document.getElementById("apply-btn").addEventListener("click", () => {
   if (custom.ingredients.length === 0) return;
   INGREDIENTS.length = 0;
