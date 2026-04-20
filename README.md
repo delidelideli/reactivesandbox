@@ -1,6 +1,10 @@
 # Alchemist's Workshop
 
-A reactive, browser-based potion-brewing interface built in React. Three connected panels share a single state object to simulate an in-world alchemist's workbench — inspired by the diegetic UI of games like Skyrim.
+A reactive, browser-based interface framework built in React — designed to be fully customizable by the user. The Alchemist's Workshop potion brewer is the example implementation, demonstrating what the system is capable of, but the underlying architecture is built to support any domain a user wants to bring to it.
+
+Users can define their own items, recipes, and outputs through the Customize modal, effectively replacing the potion-brewing theme with any game, system, or concept they choose. A future Settings panel will allow visual customization of the interface itself — colors, fonts, and layout — so the entire experience can be reskinned without touching code.
+
+The potion brewer is the proof of concept. The framework is the product.
 
 ## Features
 - **Reactive Panel Architecture:** Satchel, Cauldron, Output, and dual Grimoire panels all share a single source of truth in App.jsx — no data duplication across components.
