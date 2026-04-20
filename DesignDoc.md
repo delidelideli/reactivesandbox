@@ -77,7 +77,7 @@ A balance of ancient nature and structured alchemy. The interface must feel like
 
 ### Panel Glow System
 - **Satchel & Output panels:** Muted Gold rotating border glow on hover
-- **Grimoire panels (Ingredient & Potion):** Different glow color from Satchel/Output — exact color TBD, but should feel more scholarly/readable, less interactive. Likely a soft warm amber or cool silver.
+- **Grimoire panels (Ingredient & Potion):** Arcane Blue glow — distinct from the Muted Gold of interactive panels, signals "read" vs "interact."
 - All panels have a Muted Golden Glow box-shadow at rest to simulate magical enchantment
 
 ### Item Hover (All interactive panels)
@@ -124,7 +124,7 @@ Stats are currently raw numbers (max ~10). Will display as X/10 in the UI.
 
 | Decision | Status |
 |----------|--------|
-| Grimoire glow color | Pending — distinct from Muted Gold, direction: scholarly/ambient |
+| Grimoire glow color | Decided — Arcane Blue. Distinct from the Muted Gold of Satchel/Output; signals "read" vs "interact" |
 | Birch / parchment texture images | Deferred — CSS gradients for v1 |
 | Leaf particle shape/images | Deferred — abstract CSS shapes for v1 |
 | Canvas vs CSS for brewing effects | Decided — CSS for v1, canvas later |
