@@ -10,6 +10,7 @@
 
   <header>
     <h1>Alchemist's Workshop</h1>
+    <button id="customize-btn">Customize</button>
   </header>
 
   <main>
@@ -60,7 +61,47 @@
     </div>
   </main>
 
+  <!-- CUSTOMIZE MODAL -->
+  <div id="modal-overlay" class="hidden">
+    <div id="modal">
+      <h2>Customize Your Interface</h2>
+      <p>Define your own ingredients and recipes. Clicking Apply will wipe the current data and load yours.</p>
+
+      <hr>
+
+      <h3>Add Ingredient</h3>
+      <div class="form-row">
+        <input id="ing-name" type="text" placeholder="Name" />
+        <input id="ing-desc" type="text" placeholder="Description" />
+        <input id="ing-stats" type="text" placeholder='Stats (e.g. power:5, speed:3)' />
+        <button id="add-ing-btn">Add</button>
+      </div>
+      <ul id="custom-ing-list"></ul>
+
+      <hr>
+
+      <h3>Add Recipe</h3>
+      <div class="form-row">
+        <input id="rec-name" type="text" placeholder="Output name" />
+        <input id="rec-desc" type="text" placeholder="Description" />
+        <input id="rec-stats" type="text" placeholder='Stats (e.g. power:10)' />
+        <select id="rec-ing1"><option value="">Ingredient 1</option></select>
+        <select id="rec-ing2"><option value="">Ingredient 2</option></select>
+        <button id="add-rec-btn">Add</button>
+      </div>
+      <ul id="custom-rec-list"></ul>
+
+      <hr>
+
+      <div class="modal-actions">
+        <button id="apply-btn">Apply & Wipe</button>
+        <button id="cancel-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/customize.js"></script>
 </body>
 </html>
