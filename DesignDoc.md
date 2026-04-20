@@ -9,7 +9,7 @@
 ## 1. Mood & Visual Identity
 
 **Direction:** "Forgotten Verdure / Arcane Industrial"  
-A balance of ancient nature and structured alchemy. The interface must feel like a physical in-world tool — something that exists inside the game world, not a digital menu overlaid on top of it. Think a craftsman's workbench pulled from a forgotten forest workshop.
+A balance of ancient nature and structured alchemy. The interface must feel like a physical in-world tool — something that exists inside the game world, not a digital menu overlaid on top of it. Think a craftsman's workbench pulled from a forgotten forest workshop. The UI is laid out as if on grass in a forest clearing.
 
 **Reference point:** Skyrim's alchemy table — tactile, weighted, grounded in a world.
 
@@ -24,7 +24,7 @@ A balance of ancient nature and structured alchemy. The interface must feel like
 
 | Role | Value / Description |
 |------|-------------------|
-| Background | Deep Magical Forest Green — slow-glow pulse animation |
+| Background | Mid-tone grassy green — like the UI is laid on a forest floor. Slow-glow pulse animation. |
 | Panel surfaces | Weathered birch wood (CSS gradient approximation for v1, real texture later) |
 | Grimoire surface | Aged parchment (CSS gradient approximation for v1, real texture later) |
 | Accent / Interactive | Muted Gold |
@@ -40,13 +40,13 @@ A balance of ancient nature and structured alchemy. The interface must feel like
 
 ## 3. Typography
 
-| Level | Font Style | Used For |
-|-------|-----------|----------|
-| H1 / Item names | Elegant Handwritten Script (Uncial style) | Item names, potion names |
-| H2 / Stat labels | Same font, bold weight | POTENCY, TOXICITY labels |
-| Body | Same font, regular | Ingredient lore, brewing instructions |
+| Level | Font | Used For |
+|-------|------|----------|
+| H1 / Item names | IM Fell English | Item names, potion names |
+| H2 / Stat labels | IM Fell English, bold | POTENCY, TOXICITY labels |
+| Body | IM Fell English, regular | Ingredient lore, brewing instructions |
 
-**Font direction:** Search "uncial" on Google Fonts. Leading candidate: **Uncial Antiqua**. Alternatives: **Cinzel** (more refined/arcane), **IM Fell English** (old printed book). Final font TBD by Connor.
+**Font decision:** IM Fell English. Chosen for its aged, handmade quality that reads as magical without being overtly fantasy — fits the diegetic "real in-world object" direction. More legible at small sizes than Uncial Antiqua.
 
 **Stat display format:**
 - Potency renders as `Potency X/10` — Golden Glow that grows bolder with higher values
@@ -56,7 +56,7 @@ A balance of ancient nature and structured alchemy. The interface must feel like
 
 ## 4. Layout — The Workshop Stage
 
-**Structure:** Fixed 3-column "Tabletop" layout (not the current 2×2 grid)
+**Structure:** Fixed 3-column "Tabletop" layout
 
 | Column | Contents |
 |--------|----------|
@@ -69,26 +69,36 @@ A balance of ancient nature and structured alchemy. The interface must feel like
 **Panel rules:**
 - Fixed size — panels do not expand or collapse
 - Active panel receives a subtle glow to indicate current interaction focus
-- All panels use Muted Golden Glow box-shadow
+- All panels use a panel-specific glow color (see Interactive Behavior)
 
 ---
 
 ## 5. Interactive Behavior
 
-### Satchel Item Hover
+### Panel Glow System
+- **Satchel & Output panels:** Muted Gold rotating border glow on hover
+- **Grimoire panels (Ingredient & Potion):** Different glow color from Satchel/Output — exact color TBD, but should feel more scholarly/readable, less interactive. Likely a soft warm amber or cool silver.
+- All panels have a Muted Golden Glow box-shadow at rest to simulate magical enchantment
+
+### Item Hover (All interactive panels)
 - A border glow appears and rotates around the perimeter of the item card
-- Internal Muted Gold Glow intensifies on hover
+- Internal glow intensifies on hover
+- Grimoire panels use their own distinct glow color
+
+### Cauldron
+- Visual representation of a cauldron — CSS/text-based for v1
+- Whether to use an illustration or image asset is deferred to a later design pass
 
 ### Brewing — The Magical Click
 - Transition: `0.8s cubic-bezier(0.22, 1, 0.36, 1)` — slow, fluid, weighty
 - **Success:** Cauldron emits a Golden Flash; Output panel populates with the result
-- **Failure:** Cauldron emits Purple Sputtering Smoke; Output shows "Sludge" or remains empty
+- **Failure:** Cauldron emits Purple Sputtering Smoke; failure message displayed — no sludge item produced
 
-**Implementation note (Claude):** Success/failure feedback ties directly to the potency/toxicity stat system. Future enhancement discussed: potency drives effect intensity, toxicity drives brew color. CSS-driven for v1 (keyframe animations + class toggling); canvas/particle effects possible in a later pass.
+**Implementation note (Claude):** Success/failure feedback ties directly to the potency/toxicity stat system. Future enhancement: potency drives effect intensity, toxicity drives brew color. CSS-driven for v1 (keyframe animations + class toggling); canvas/particle effects possible in a later pass.
 
-### Background
-- Slow rhythmic "mystical glow" pulse animation on the forest green background
-- CSS-animated leaf particles drifting across the screen to simulate forest breeze
+### Background Animation
+- Slow rhythmic "mystical glow" pulse on the forest green background
+- CSS-animated abstract leaf-shaped particles drift across the screen simulating a forest breeze — abstract shapes for v1, illustrated leaf assets possible in a later pass
 
 ---
 
@@ -114,10 +124,11 @@ Stats are currently raw numbers (max ~10). Will display as X/10 in the UI.
 
 | Decision | Status |
 |----------|--------|
-| Final font selection | Pending — Connor to pick from Google Fonts |
+| Grimoire glow color | Pending — distinct from Muted Gold, direction: scholarly/ambient |
 | Birch / parchment texture images | Deferred — CSS gradients for v1 |
-| Leaf particle implementation | Pending |
-| Canvas vs CSS for brewing effects | Pending — CSS for v1 |
+| Leaf particle shape/images | Deferred — abstract CSS shapes for v1 |
+| Canvas vs CSS for brewing effects | Decided — CSS for v1, canvas later |
+| Cauldron illustration / image asset | Deferred — CSS placeholder for v1 |
 | Customize / Settings modal visual style | Pending |
 
 ---
@@ -127,3 +138,4 @@ Stats are currently raw numbers (max ~10). Will display as X/10 in the UI.
 | Date | Change |
 |------|--------|
 | 2026-04-20 | Document created from PreAIDesignDoc + technical notes added |
+| 2026-04-20 | Font decided: IM Fell English. Background color decided: mid-tone grassy green. Cauldron visual deferred. Glow system expanded to all panels with Grimoire distinction. Failure state = message only, no sludge item. Leaf particles = abstract CSS shapes for v1. |
