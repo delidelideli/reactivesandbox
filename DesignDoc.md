@@ -76,8 +76,8 @@ A balance of ancient nature and structured alchemy. The interface must feel like
 ## 5. Interactive Behavior
 
 ### Panel Glow System
-- **Satchel & Output panels:** Muted Gold rotating border glow on hover
-- **Grimoire panels (Ingredient & Potion):** Arcane Blue glow — distinct from the Muted Gold of interactive panels, signals "read" vs "interact."
+- **Satchel & Output panels:** Share the same Muted Gold rotating border glow — these are the two interactive/action panels
+- **Ingredient Grimoire & Potion Grimoire panels:** Share the same Arcane Blue glow — these are the two reading/detail panels. Distinct from Muted Gold to signal "read" vs "interact."
 - All panels have a Muted Golden Glow box-shadow at rest to simulate magical enchantment
 
 ### Item Hover (All interactive panels)
