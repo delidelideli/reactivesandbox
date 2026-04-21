@@ -62,72 +62,52 @@ style CustomizeModal fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
 ## AI Direction & Collaborative Guidance
 *This section documents key moments where the Lead Designer (Connor) steered the AI's technical execution to match a specific aesthetic vision.*
 
-1. **Splitting the Grimoire**
-   - **Asked:** Add a recipe book section to the Grimoire without changing its size.
-   - **Produced:** Proposed a single panel split 50/50 internally.
-   - **Decided:** Designer directed the split, establishing the read-only right half as a static recipe reference.
-
-2. **Customize Modal UX Refinement**
-   - **Asked:** The "Apply & Wipe" button felt misleading if only adding one item.
-   - **Produced:** Proposed pre-loading current data on open so it behaves as an editor.
-   - **Decided:** Designer approved the editor approach; button renamed to "Save Changes."
-
-3. **React Migration**
+1. **React Migration**
    - **Asked:** Migrate from vanilla JS to React + Vite to align with the course spec's useState + props requirements.
    - **Produced:** Proposed two options — Vite rewrite or CDN drop-in.
    - **Decided:** Designer chose Vite with a GitHub Actions deploy pipeline.
 
-4. **Font Selection**
+2. **Font Selection**
    - **Asked:** Guidance on choosing between Uncial Antiqua and IM Fell English.
    - **Produced:** Framed the tradeoff as loud magical (Uncial) vs. quiet diegetic (IM Fell).
    - **Decided:** Designer chose IM Fell English — fits the "real in-world object" direction better than a genre font.
 
-5. **Reactive Cauldron Glow**
-   - **Asked:** Cauldron should have a white base glow that reacts to ingredient stats.
-   - **Produced:** Proposed gold/purple shift based on combined potency and toxicity with intensity scaling.
-   - **Decided:** Designer confirmed — ties the visual system directly to the data model.
-
-6. **Recipe Discovery Mechanic**
+3. **Recipe Discovery Mechanic**
    - **Asked:** Recipes should be hidden and only appear in the Recipe Book after first successful brew.
    - **Produced:** Proposed a `discovered` flag on each recipe and dynamic Recipe Book rendering.
    - **Decided:** Designer confirmed — turns the Recipe Book into a living discovery log.
 
-7. **Glow Color System**
+4. **Glow Color System**
    - **Asked:** Define distinct glow colors for the two panel types.
    - **Produced:** Proposed silver-blue for Grimoires to contrast the interactive gold.
    - **Decided:** Designer upgraded to Arcane Blue — more atmospheric. Satchel + Output share Muted Gold; both Grimoires share Arcane Blue; Cauldron is reactive white/gold/purple.
 
-8. **Card Glow Directionality**
+5. **Card Glow Directionality**
    - **Asked:** Ingredient and potion cards needed distinct hover states.
    - **Produced:** Proposed a single rotating border-glow animation for all cards.
    - **Decided:** Designer split them — ingredients use a directional side-sweep (`card-glow-gold`/`card-glow-purple`) and potions use an omnidirectional pulse (`potion-hover-pulse`). Reflects the difference between tools you reach for vs. things you've created.
 
-9. **Cauldron Sigil**
-   - **Asked:** The cauldron bowl needed more visual presence at rest.
-   - **Produced:** Proposed three concentric rings with different rotation speeds (28s/18s/10s outer-to-inner).
-   - **Decided:** Designer confirmed — the speed differential gives the sigil an idle life without being distracting.
+6. **World-Language Flavor Text**
+   - **Asked:** Brew messages felt too much like UI copy.
+   - **Produced:** Rewrote all three states in in-world arcane register: "More essences are required." / "The essences resist each other — no formula takes hold." / "[Name] has been drawn forth!"
+   - **Decided:** Designer confirmed — no interface language, only the voice of the workshop itself.
 
-10. **World-Language Flavor Text**
-    - **Asked:** Brew messages felt too much like UI copy.
-    - **Produced:** Rewrote all three states in in-world arcane register: "More essences are required." / "The essences resist each other — no formula takes hold." / "[Name] has been drawn forth!"
-    - **Decided:** Designer confirmed — no interface language, only the voice of the workshop itself.
+7. **Settings Modal: From Placeholder to Functional**
+   - **Asked:** The Settings modal was a disabled stub; make it fully functional.
+   - **Produced:** 4 theme presets (Arcane, Crimson, Verdant, Void), live color pickers, font selector, spacing slider — all wired to CSS custom properties and `localStorage`.
+   - **Decided:** Designer confirmed — the settings system now covers the full visual customization spec from DesignDoc.md without touching code.
 
-11. **Settings Modal: From Placeholder to Functional**
-    - **Asked:** The Settings modal was a disabled stub; make it fully functional.
-    - **Produced:** 4 theme presets (Arcane, Crimson, Verdant, Void), live color pickers, font selector, spacing slider — all wired to CSS custom properties and `localStorage`.
-    - **Decided:** Designer confirmed — the settings system now covers the full visual customization spec from DesignDoc.md without touching code.
+8. **Evaluating an External Directive**
+   - **Asked:** Review a Gemini-generated "Master Implementation Directive" and assess what was worth building.
+   - **Produced:** Identified what was already implemented, what conflicted with the existing arcane palette, and isolated four genuinely new ideas: film grain, chromatic aberration, screen shake, stats bloom.
+   - **Decided:** Designer kept the current palette, dropped film grain and screen shake, kept chromatic aberration and stats bloom — two targeted additions tied directly to data rather than pure decoration.
 
-12. **Evaluating an External Directive**
-    - **Asked:** Review a Gemini-generated "Master Implementation Directive" and assess what was worth building.
-    - **Produced:** Identified what was already implemented, what conflicted with the existing arcane palette, and isolated four genuinely new ideas: film grain, chromatic aberration, screen shake, stats bloom.
-    - **Decided:** Designer kept the current palette, dropped film grain and screen shake, kept chromatic aberration and stats bloom — two targeted additions tied directly to data rather than pure decoration.
+9. **Proximity Hint as In-World Feedback**
+   - **Asked:** Fill the empty lower half of the Cauldron panel with something meaningful.
+   - **Produced:** Proposed a live essence readout (stat bars) and a recipe proximity hint as two complementary layers.
+   - **Decided:** Designer confirmed both — the bars make the glow system legible and the hint text stays atmospheric ("Something stirs in the confluence...") without spoiling undiscovered recipes.
 
-13. **Proximity Hint as In-World Feedback**
-    - **Asked:** Fill the empty lower half of the Cauldron panel with something meaningful.
-    - **Produced:** Proposed a live essence readout (stat bars) and a recipe proximity hint as two complementary layers.
-    - **Decided:** Designer confirmed both — the bars make the glow system legible and the hint text stays atmospheric ("Something stirs in the confluence...") without spoiling undiscovered recipes.
-
-14. **Hover vs. Click Separation**
+10. **Hover vs. Click Separation**
     - **Asked:** The Ingredient Grimoire should update on hover, not click — because clicking already adds to the Cauldron.
     - **Produced:** Separated `onMouseEnter` (grimoire preview) from `onClick` (cauldron add) in Satchel. Extended the same pattern to Output: hover previews the Potion Grimoire, click pins the selection.
     - **Decided:** Designer confirmed — both panels now follow the same hover-to-inspect, click-to-act logic, which makes the interaction model consistent across the whole workshop.
