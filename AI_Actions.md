@@ -4,6 +4,14 @@ This file tracks every task requested during this project. Update it at the end 
 
 ---
 
+## Session 4 (2026-04-21)
+
+1. Added 6 new ingredients: Moonbloom, Ashwood Bark, Stormcap, Crimson Spore, Dewglass, Thornvine (ids i7–i12) — each with distinct stats and flavour descriptions.
+2. Added 4 new recipes: Moonwater Tonic (2-cost), Thunderclap Draft (2-cost), Blight of the Briar (3-cost), Grand Tempest (4-cost).
+3. Rebalanced toxic dot coverage: adjusted Nightshade (potency 8→5, toxicity 5→8), Voidmoss (potency 9→8, toxicity 8→9), and Ashwood Bark (potency 4→3, toxicity 3→4) so that 5 of 12 ingredients render with purple dots instead of 2.
+
+---
+
 ## Session 3 (2026-04-21)
 
 1. Read tester.txt (Gemini-generated visual improvement directive) and evaluated each suggestion against the existing codebase — identified what was already done, what conflicted with the current palette, and what was genuinely worth adding.
