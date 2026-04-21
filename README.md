@@ -112,14 +112,24 @@ style CustomizeModal fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
     - **Produced:** Separated `onMouseEnter` (grimoire preview) from `onClick` (cauldron add) in Satchel. Extended the same pattern to Output: hover previews the Potion Grimoire, click pins the selection.
     - **Decided:** Designer confirmed — both panels now follow the same hover-to-inspect, click-to-act logic, which makes the interaction model consistent across the whole workshop.
 
+11. **Why CSS Variable Themes Weren't Enough**
+    - **Asked:** Add a Skyrim theme preset so we can compare it against the original look.
+    - **Produced:** Added the preset to SettingsModal — it looked nearly identical to Arcane because most visual appearance (panel backgrounds, border colors, orbs) is hardcoded in CSS, not driven by variables. Switched to a body class approach (`theme-skyrim`) so a full CSS override block could replace every hardcoded value.
+    - **Decided:** Designer confirmed the body class approach was the right call. The lesson: CSS variable theming only works if the full design is variable-driven from the start.
+
+12. **SkyUI as the Visual North Star**
+    - **Asked:** Full visual overhaul — make it feel like an alchemy station in a video game, not a website. Reference: SkyUI mod for Skyrim.
+    - **Produced:** Replaced the wood-gradient panel system with flat dark opaque panels, hid the floating orbs and sparkles, added the Skyrim wallpaper as background, unified the panel language around a single dark surface with amber/steel accents, gave the cauldron a stronger border to elevate it as focal point.
+    - **Decided:** Designer confirmed direction. Key constraint established: opaque panels, minimal but present decorative flourishes, keep IM Fell English, cauldron more decorated but not extreme.
+
 ## Records of Resistance
 *This section tracks AI output that was rejected or required designer intervention to correct.*
 
-1. 
+1. **Cauldron glow persisted after CSS fix** — Removing the glow from the cauldron panel via CSS had no effect because `computeCauldronGlow()` in App.jsx applies an inline `boxShadow` style that wins over any CSS rule. Required a separate fix in the JS logic to return `'none'` for the empty state. CSS-only thinking missed the inline style override entirely.
 
-2. 
+2. **Skyrim preset looked identical to Arcane** — First attempt at the Skyrim theme only swapped CSS variable values. Since most of the visual appearance is hardcoded (panel backgrounds, orb colors, border colors), the result was indistinguishable from the original. Required a full body class override system to actually change the appearance. The variable-only approach was technically correct but practically useless.
 
-3. 
+3. **Description text size changes had no visible effect** — Multiple attempts to increase the description text via `section p, section li` appeared to have no effect in the browser. Root cause was likely a combination of browser caching and the user viewing idle state text (`.grimoire-idle-text`) which has its own more specific rule. Required targeting `#grimoire-content > p` directly.
 
 ## Five Question Reflection
 

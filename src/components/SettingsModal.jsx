@@ -1,28 +1,66 @@
 import { useState } from 'react'
 
 const DEFAULTS = {
-  '--accent-gold':        '#c9a227',
-  '--accent-gold-light':  '#e8c84a',
-  '--accent-blue':        '#4a7fb5',
-  '--accent-blue-light':  '#6ba3d6',
-  '--accent-purple':      '#8b44b8',
-  '--accent-purple-light':'#c77dff',
-  '--text-color':         '#ddc898',
-  '--text-gold':          '#e8b422',
-  '--text-purple':        '#c77dff',
+  '--accent-gold':        '#c49a2a',
+  '--accent-gold-light':  '#d9b040',
+  '--accent-blue':        '#6a8fa8',
+  '--accent-blue-light':  '#88adc0',
+  '--accent-purple':      '#7a4090',
+  '--accent-purple-light':'#a060c8',
+  '--text-color':         '#c8bda8',
+  '--text-gold':          '#c49a2a',
+  '--text-purple':        '#a060c8',
   '--font-family':        "'IM Fell English', serif",
   '--panel-spacing':      '0.75rem',
-  '--bg-primary':         '#04061a',
-  '--bg-glow-color':      'rgba(40,55,180,0.3)',
-  '--panel-glow':         'rgba(201,162,39,0.12)',
-  '--grimoire-glow':      'rgba(74,127,181,0.12)',
+  '--bg-primary':         '#0e0c0a',
+  '--bg-glow-color':      'rgba(4,3,2,0.5)',
+  '--panel-glow':         'rgba(196,154,42,0.08)',
+  '--grimoire-glow':      'rgba(106,143,168,0.08)',
 }
 
 const THEMES = {
   arcane: {
-    label: 'Arcane Blue',
+    label: 'Arcane (Original)',
     swatch: ['#04061a', '#c9a227', '#4a7fb5', '#8b44b8'],
-    vars: { ...DEFAULTS },
+    vars: {
+      '--accent-gold':        '#c9a227',
+      '--accent-gold-light':  '#e8c84a',
+      '--accent-blue':        '#4a7fb5',
+      '--accent-blue-light':  '#6ba3d6',
+      '--accent-purple':      '#8b44b8',
+      '--accent-purple-light':'#c77dff',
+      '--text-color':         '#ddc898',
+      '--text-gold':          '#e8b422',
+      '--text-purple':        '#c77dff',
+      '--font-family':        "'IM Fell English', serif",
+      '--panel-spacing':      '0.75rem',
+      '--bg-primary':         '#04061a',
+      '--bg-glow-color':      'rgba(40,55,180,0.3)',
+      '--panel-glow':         'rgba(201,162,39,0.12)',
+      '--grimoire-glow':      'rgba(74,127,181,0.12)',
+    },
+  },
+  skyrim: {
+    label: 'Skyrim',
+    swatch: ['#0f0e0c', '#b8860b', '#7a8fa0', '#6a4080'],
+    bodyClass: 'theme-skyrim',
+    vars: {
+      '--accent-gold':        '#b8860b',
+      '--accent-gold-light':  '#d4a520',
+      '--accent-blue':        '#7a8fa0',
+      '--accent-blue-light':  '#9ab0c0',
+      '--accent-purple':      '#6a4080',
+      '--accent-purple-light':'#9060b8',
+      '--text-color':         '#d8cdb8',
+      '--text-gold':          '#c8a040',
+      '--text-purple':        '#9060b8',
+      '--font-family':        "'IM Fell English', serif",
+      '--panel-spacing':      '0.75rem',
+      '--bg-primary':         '#0f0e0c',
+      '--bg-glow-color':      'rgba(80,60,20,0.15)',
+      '--panel-glow':         'rgba(184,134,11,0.07)',
+      '--grimoire-glow':      'rgba(122,143,160,0.08)',
+    },
   },
   crimson: {
     label: 'Crimson Sanctum',
@@ -118,6 +156,9 @@ export default function SettingsModal({ onClose }) {
     setTextColor(v['--text-color'])
     setFontFamily(v['--font-family'])
     setSpacing(parseFloat(v['--panel-spacing']))
+    const bodyClasses = Object.values(THEMES).map(t => t.bodyClass).filter(Boolean)
+    document.body.classList.remove(...bodyClasses)
+    if (THEMES[key].bodyClass) document.body.classList.add(THEMES[key].bodyClass)
   }
 
   function setVar(name, value) {
@@ -179,6 +220,8 @@ export default function SettingsModal({ onClose }) {
     setFontFamily(DEFAULTS['--font-family'])
     setSpacing(0.75)
     setActiveTheme('arcane')
+    const bodyClasses = Object.values(THEMES).map(t => t.bodyClass).filter(Boolean)
+    document.body.classList.remove(...bodyClasses)
     localStorage.removeItem('workshop-settings')
   }
 

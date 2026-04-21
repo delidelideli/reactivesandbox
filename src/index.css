@@ -1,22 +1,22 @@
 /* ===== CSS VARIABLES ===== */
 :root {
-  --bg-color: #0c1c09;
-  --accent-gold: #c9a227;
-  --accent-gold-light: #e8c84a;
-  --accent-blue: #4a7fb5;
-  --accent-blue-light: #6ba3d6;
-  --accent-purple: #8b44b8;
-  --accent-purple-light: #c77dff;
-  --text-color: #ddc898;
-  --text-gold: #e8b422;
-  --text-purple: #c77dff;
+  --bg-color: #0a0908;
+  --accent-gold: #c49a2a;
+  --accent-gold-light: #d9b040;
+  --accent-blue: #6a8fa8;
+  --accent-blue-light: #88adc0;
+  --accent-purple: #7a4090;
+  --accent-purple-light: #a060c8;
+  --text-color: #c8bda8;
+  --text-gold: #c49a2a;
+  --text-purple: #a060c8;
   --font-family: 'IM Fell English', serif;
   --panel-spacing: 0.75rem;
   --header-height: 60px;
-  --bg-primary: #04061a;
-  --bg-glow-color: rgba(40,55,180,0.3);
-  --panel-glow: rgba(201,162,39,0.12);
-  --grimoire-glow: rgba(74,127,181,0.12);
+  --bg-primary: #0e0c0a;
+  --bg-glow-color: rgba(4,3,2,0.5);
+  --panel-glow: rgba(196,154,42,0.08);
+  --grimoire-glow: rgba(106,143,168,0.08);
 }
 
 /* ===== RESET ===== */
@@ -33,31 +33,25 @@ body {
   color: var(--text-color);
   height: 100vh;
   overflow: hidden;
-  background: linear-gradient(160deg, #020308 0%, var(--bg-primary) 45%, #020308 100%);
+  background-color: #0a0908;
+  background-image: url('../images/212336-The_Elder_Scrolls_V_Skyrim.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
 }
 
-/* Breathing glow overlay */
+/* Dark overlay to deepen the wallpaper behind panels */
 #bg-glow {
   position: fixed;
   inset: 0;
-  background: radial-gradient(ellipse 70% 50% at 50% 45%, var(--bg-glow-color) 0%, transparent 100%);
-  animation: bg-pulse 9s ease-in-out infinite;
+  background: rgba(4,3,2,0.48);
   pointer-events: none;
   z-index: 0;
 }
 
-@keyframes bg-pulse {
-  0%, 100% { opacity: 0.35; }
-  50%       { opacity: 1; }
-}
-
 /* ===== ARCANE BACKGROUND ORBS ===== */
 #arcane-bg-orbs {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  overflow: hidden;
+  display: none;
 }
 
 #arcane-bg-orbs span {
@@ -98,16 +92,16 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(180deg, #04060f 0%, #080c1e 100%);
-  border-bottom: 1px solid rgba(201,162,39,0.5);
-  box-shadow: 0 2px 20px rgba(0,0,0,0.6);
+  background: rgba(8,6,4,0.97);
+  border-bottom: 1px solid rgba(196,154,42,0.4);
+  box-shadow: 0 2px 18px rgba(0,0,0,0.9);
 }
 
 header h1 {
   font-size: 1.4rem;
   font-style: italic;
   color: var(--accent-gold-light);
-  text-shadow: 0 0 16px rgba(201,162,39,0.55);
+  text-shadow: 0 0 12px rgba(196,154,42,0.4);
   letter-spacing: 0.05em;
 }
 
@@ -135,14 +129,11 @@ main {
   height: 100%;
 }
 
-/* ===== PANEL BASE (DARK WALNUT WOOD) ===== */
+/* ===== PANEL BASE ===== */
 section {
-  background:
-    linear-gradient(155deg,
-      #241608 0%, #1a1006 20%, #201408 35%,
-      #181008 50%, #1e1408 65%, #261808 80%, #201408 100%);
-  border: 1px solid #5a3a18;
-  border-radius: 3px;
+  background: rgba(14,12,10,0.82);
+  border: 1px solid rgba(196,154,42,0.38);
+  border-radius: 2px;
   padding: 0.7rem;
   color: var(--text-color);
   display: flex;
@@ -150,12 +141,9 @@ section {
   overflow: hidden;
   min-height: 0;
   box-shadow:
-    0 8px 28px rgba(0,0,0,0.65),
-    0 3px 8px rgba(0,0,0,0.45),
-    0 0 14px 3px var(--panel-glow),
-    0 0 40px 10px rgba(55,15,90,0.07),
-    inset 0 1px 0 rgba(255,220,120,0.14),
-    inset 0 -1px 0 rgba(0,0,0,0.5);
+    0 8px 28px rgba(0,0,0,0.85),
+    0 3px 8px rgba(0,0,0,0.65),
+    inset 0 0 0 1px rgba(196,154,42,0.06);
   transition: box-shadow 0.4s ease;
   position: relative;
 }
@@ -169,31 +157,27 @@ section::before {
   pointer-events: none;
   z-index: 1;
   background:
-    /* top-left */
-    linear-gradient(to right,  rgba(201,162,39,0.6) 16px, transparent 16px) 0    0    / 16px 1px no-repeat,
-    linear-gradient(to bottom, rgba(201,162,39,0.6) 16px, transparent 16px) 0    0    / 1px 16px no-repeat,
-    /* top-right */
-    linear-gradient(to left,   rgba(201,162,39,0.6) 16px, transparent 16px) 100% 0    / 16px 1px no-repeat,
-    linear-gradient(to bottom, rgba(201,162,39,0.6) 16px, transparent 16px) 100% 0    / 1px 16px no-repeat,
-    /* bottom-left */
-    linear-gradient(to right,  rgba(201,162,39,0.6) 16px, transparent 16px) 0    100% / 16px 1px no-repeat,
-    linear-gradient(to top,    rgba(201,162,39,0.6) 16px, transparent 16px) 0    100% / 1px 16px no-repeat,
-    /* bottom-right */
-    linear-gradient(to left,   rgba(201,162,39,0.6) 16px, transparent 16px) 100% 100% / 16px 1px no-repeat,
-    linear-gradient(to top,    rgba(201,162,39,0.6) 16px, transparent 16px) 100% 100% / 1px 16px no-repeat;
+    linear-gradient(to right,  rgba(196,154,42,0.7) 14px, transparent 14px) 0    0    / 14px 1px no-repeat,
+    linear-gradient(to bottom, rgba(196,154,42,0.7) 14px, transparent 14px) 0    0    / 1px 14px no-repeat,
+    linear-gradient(to left,   rgba(196,154,42,0.7) 14px, transparent 14px) 100% 0    / 14px 1px no-repeat,
+    linear-gradient(to bottom, rgba(196,154,42,0.7) 14px, transparent 14px) 100% 0    / 1px 14px no-repeat,
+    linear-gradient(to right,  rgba(196,154,42,0.7) 14px, transparent 14px) 0    100% / 14px 1px no-repeat,
+    linear-gradient(to top,    rgba(196,154,42,0.7) 14px, transparent 14px) 0    100% / 1px 14px no-repeat,
+    linear-gradient(to left,   rgba(196,154,42,0.7) 14px, transparent 14px) 100% 100% / 14px 1px no-repeat,
+    linear-gradient(to top,    rgba(196,154,42,0.7) 14px, transparent 14px) 100% 100% / 1px 14px no-repeat;
 }
 
 #ingredient-grimoire::before,
 #potion-grimoire::before {
   background:
-    linear-gradient(to right,  rgba(74,127,181,0.6) 16px, transparent 16px) 0    0    / 16px 1px no-repeat,
-    linear-gradient(to bottom, rgba(74,127,181,0.6) 16px, transparent 16px) 0    0    / 1px 16px no-repeat,
-    linear-gradient(to left,   rgba(74,127,181,0.6) 16px, transparent 16px) 100% 0    / 16px 1px no-repeat,
-    linear-gradient(to bottom, rgba(74,127,181,0.6) 16px, transparent 16px) 100% 0    / 1px 16px no-repeat,
-    linear-gradient(to right,  rgba(74,127,181,0.6) 16px, transparent 16px) 0    100% / 16px 1px no-repeat,
-    linear-gradient(to top,    rgba(74,127,181,0.6) 16px, transparent 16px) 0    100% / 1px 16px no-repeat,
-    linear-gradient(to left,   rgba(74,127,181,0.6) 16px, transparent 16px) 100% 100% / 16px 1px no-repeat,
-    linear-gradient(to top,    rgba(74,127,181,0.6) 16px, transparent 16px) 100% 100% / 1px 16px no-repeat;
+    linear-gradient(to right,  rgba(106,143,168,0.65) 14px, transparent 14px) 0    0    / 14px 1px no-repeat,
+    linear-gradient(to bottom, rgba(106,143,168,0.65) 14px, transparent 14px) 0    0    / 1px 14px no-repeat,
+    linear-gradient(to left,   rgba(106,143,168,0.65) 14px, transparent 14px) 100% 0    / 14px 1px no-repeat,
+    linear-gradient(to bottom, rgba(106,143,168,0.65) 14px, transparent 14px) 100% 0    / 1px 14px no-repeat,
+    linear-gradient(to right,  rgba(106,143,168,0.65) 14px, transparent 14px) 0    100% / 14px 1px no-repeat,
+    linear-gradient(to top,    rgba(106,143,168,0.65) 14px, transparent 14px) 0    100% / 1px 14px no-repeat,
+    linear-gradient(to left,   rgba(106,143,168,0.65) 14px, transparent 14px) 100% 100% / 14px 1px no-repeat,
+    linear-gradient(to top,    rgba(106,143,168,0.65) 14px, transparent 14px) 100% 100% / 1px 14px no-repeat;
 }
 
 
@@ -218,19 +202,19 @@ section::before {
 }
 
 .sigil-ring--outer {
-  border: 1px dashed rgba(201,162,39,0.22);
+  border: 1px dashed rgba(196,154,42,0.18);
   animation: sigil-cw 28s linear infinite;
 }
 
 .sigil-ring--mid {
   inset: 22%;
-  border: 1px dashed rgba(139,68,184,0.22);
+  border: 1px dashed rgba(122,64,144,0.18);
   animation: sigil-ccw 18s linear infinite;
 }
 
 .sigil-ring--inner {
   inset: 42%;
-  border: 1px solid rgba(74,127,181,0.3);
+  border: 1px solid rgba(106,143,168,0.22);
   animation: sigil-cw 10s linear infinite;
 }
 
@@ -238,8 +222,8 @@ section::before {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: rgba(201,162,39,0.9);
-  box-shadow: 0 0 8px rgba(201,162,39,0.7), 0 0 18px rgba(201,162,39,0.25);
+  background: rgba(196,154,42,0.85);
+  box-shadow: 0 0 6px rgba(196,154,42,0.6), 0 0 14px rgba(196,154,42,0.2);
   animation: sigil-pulse 3.5s ease-in-out infinite;
 }
 
@@ -252,11 +236,7 @@ section::before {
 
 /* ===== ARCANE SPARKLES ===== */
 #arcane-sparkles {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 3;
-  overflow: hidden;
+  display: none;
 }
 
 #arcane-sparkles span {
@@ -280,20 +260,15 @@ section::before {
 #arcane-sparkles span:nth-child(7) { width:3px; height:3px; left:48%; top:62%; background:rgba(139,68,184,0.85); box-shadow:0 0 5px rgba(139,68,184,0.6); animation-duration:5.4s; animation-delay:4.1s; }
 #arcane-sparkles span:nth-child(8) { width:2px; height:2px; left:9%;  top:48%; background:rgba(120,160,255,0.9); box-shadow:0 0 4px rgba(120,160,255,0.7); animation-duration:3.1s; animation-delay:2.7s; }
 
-/* ===== GRIMOIRE PANELS (DARK PARCHMENT / LEATHER) ===== */
+/* ===== GRIMOIRE PANELS ===== */
 #ingredient-grimoire,
 #potion-grimoire {
-  background:
-    linear-gradient(145deg,
-      #2a1c0c 0%, #221408 25%, #281a0a 50%,
-      #241608 75%, #2c1e0e 100%);
-  border-color: #6a4a20;
+  background: rgba(14,12,10,0.82);
+  border-color: rgba(106,143,168,0.38);
   box-shadow:
-    0 8px 28px rgba(0,0,0,0.65),
-    0 3px 8px rgba(0,0,0,0.45),
-    0 0 14px 3px var(--grimoire-glow),
-    inset 0 1px 0 rgba(255,210,100,0.1),
-    inset 0 -1px 0 rgba(0,0,0,0.5);
+    0 8px 28px rgba(0,0,0,0.85),
+    0 3px 8px rgba(0,0,0,0.65),
+    inset 0 0 0 1px rgba(106,143,168,0.05);
 }
 
 
@@ -301,21 +276,19 @@ section::before {
 #satchel:hover,
 #output:hover {
   box-shadow:
-    0 10px 32px rgba(0,0,0,0.7),
-    0 3px 8px rgba(0,0,0,0.45),
-    0 0 24px 7px rgba(201,162,39,0.35),
-    inset 0 1px 0 rgba(255,220,120,0.14),
-    inset 0 -1px 0 rgba(0,0,0,0.5);
+    0 10px 32px rgba(0,0,0,0.9),
+    0 3px 8px rgba(0,0,0,0.7),
+    0 0 18px 4px rgba(106,143,168,0.18),
+    inset 0 0 0 1px rgba(106,143,168,0.08);
 }
 
 #ingredient-grimoire:hover,
 #potion-grimoire:hover {
   box-shadow:
-    0 10px 32px rgba(0,0,0,0.7),
-    0 3px 8px rgba(0,0,0,0.45),
-    0 0 24px 7px rgba(74,127,181,0.35),
-    inset 0 1px 0 rgba(255,210,100,0.1),
-    inset 0 -1px 0 rgba(0,0,0,0.5);
+    0 10px 32px rgba(0,0,0,0.9),
+    0 3px 8px rgba(0,0,0,0.7),
+    0 0 18px 4px rgba(106,143,168,0.18),
+    inset 0 0 0 1px rgba(106,143,168,0.08);
 }
 
 /* ===== GRID AREAS ===== */
@@ -325,13 +298,36 @@ section::before {
 #output              { grid-area: output; }
 #potion-grimoire     { grid-area: potion-grimoire; }
 
+/* Satchel and output share grimoire styling */
+#satchel,
+#output {
+  border-color: rgba(106,143,168,0.38);
+  box-shadow:
+    0 8px 28px rgba(0,0,0,0.85),
+    0 3px 8px rgba(0,0,0,0.65),
+    inset 0 0 0 1px rgba(106,143,168,0.05);
+}
+
+#satchel::before,
+#output::before {
+  background:
+    linear-gradient(to right,  rgba(106,143,168,0.65) 14px, transparent 14px) 0    0    / 14px 1px no-repeat,
+    linear-gradient(to bottom, rgba(106,143,168,0.65) 14px, transparent 14px) 0    0    / 1px 14px no-repeat,
+    linear-gradient(to left,   rgba(106,143,168,0.65) 14px, transparent 14px) 100% 0    / 14px 1px no-repeat,
+    linear-gradient(to bottom, rgba(106,143,168,0.65) 14px, transparent 14px) 100% 0    / 1px 14px no-repeat,
+    linear-gradient(to right,  rgba(106,143,168,0.65) 14px, transparent 14px) 0    100% / 14px 1px no-repeat,
+    linear-gradient(to top,    rgba(106,143,168,0.65) 14px, transparent 14px) 0    100% / 1px 14px no-repeat,
+    linear-gradient(to left,   rgba(106,143,168,0.65) 14px, transparent 14px) 100% 100% / 14px 1px no-repeat,
+    linear-gradient(to top,    rgba(106,143,168,0.65) 14px, transparent 14px) 100% 100% / 1px 14px no-repeat;
+}
+
 /* ===== SECTION HEADINGS ===== */
 section h2 {
   font-size: 1.1rem;
   font-style: italic;
   letter-spacing: 0.1em;
   color: var(--accent-gold-light);
-  text-shadow: 0 0 14px rgba(201,162,39,0.5);
+  text-shadow: 0 0 10px rgba(196,154,42,0.35);
   margin-bottom: 0.55rem;
   flex-shrink: 0;
   display: flex;
@@ -344,14 +340,14 @@ section h2::before {
   content: '';
   flex: 1;
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(201,162,39,0.45));
+  background: linear-gradient(to right, transparent, rgba(196,154,42,0.4));
 }
 
 section h2::after {
   content: '';
   flex: 1;
   height: 1px;
-  background: linear-gradient(to left, transparent, rgba(201,162,39,0.45));
+  background: linear-gradient(to left, transparent, rgba(196,154,42,0.4));
 }
 
 section h3 {
@@ -362,8 +358,14 @@ section h3 {
 }
 
 section p, section li {
-  font-size: 0.82rem;
-  line-height: 1.45;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+#grimoire-content > p,
+#potion-grimoire-content > p:not(.grimoire-idle-text) {
+  font-size: 1.1rem;
+  line-height: 1.6;
 }
 
 section ul { padding-left: 1.1rem; }
@@ -387,9 +389,10 @@ section ul { padding-left: 1.1rem; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.35rem;
+  justify-content: space-between;
   padding: 0.5rem 0.55rem 0.45rem;
   width: 86px;
+  height: 66px;
   background: linear-gradient(160deg, #d8c890 0%, #b89c60 55%, #c8b078 100%);
   border: 1px solid rgba(120,90,35,0.6);
   color: #120a02;
@@ -472,20 +475,15 @@ section ul { padding-left: 1.1rem; }
 
 /* ===== CAULDRON SECTION ===== */
 #cauldron {
-  background:
-    linear-gradient(165deg,
-      #1e1408 0%, #160e06 20%, #1a1206 35%,
-      #120e06 55%, #180e06 70%, #1c1408 85%, #1a1008 100%);
-  border: 1.5px solid rgba(201,162,39,0.45);
-  border-radius: 4px;
+  background: rgba(14,12,10,0.82);
+  border: 1.5px solid rgba(196,154,42,0.65);
+  border-radius: 3px;
   overflow: visible;
   align-items: center;
   box-shadow:
-    0 12px 40px rgba(0,0,0,0.75),
-    0 4px 12px rgba(0,0,0,0.5),
-    0 0 22px 5px rgba(201,162,39,0.14),
-    inset 0 1px 0 rgba(255,220,120,0.18),
-    inset 0 -1px 0 rgba(0,0,0,0.6);
+    0 12px 40px rgba(0,0,0,0.9),
+    0 4px 12px rgba(0,0,0,0.7),
+    inset 0 0 0 1px rgba(196,154,42,0.1);
 }
 
 #cauldron h2 {
@@ -657,6 +655,47 @@ section ul { padding-left: 1.1rem; }
   letter-spacing: 0.01em;
 }
 
+/* ===== BREW HISTORY LOG ===== */
+#brew-history {
+  width: 100%;
+  padding: 0.5rem 1.1rem 0.3rem;
+  border-top: 1px solid rgba(196,154,42,0.1);
+  margin-top: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+#brew-history-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(200,189,168,0.6);
+  margin-bottom: 0.1rem;
+}
+
+.brew-history-entry {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.brew-history-entry--success .brew-history-icon { color: var(--accent-gold); }
+.brew-history-entry--success .brew-history-text { color: var(--text-gold); }
+
+.brew-history-entry--failure .brew-history-icon { color: var(--accent-purple-light); }
+.brew-history-entry--failure .brew-history-text { color: rgba(200,189,168,0.75); }
+
+.brew-history-entry:not(:first-child) {
+  opacity: 0.65;
+}
+
+.brew-history-entry:not(:first-child):not(:nth-child(2)) {
+  opacity: 0.4;
+}
+
 /* ===== CAULDRON BREW FEEDBACK ===== */
 #cauldron.brew-success {
   animation: brew-golden-flash 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -694,18 +733,18 @@ button {
   font-family: var(--font-family);
   font-size: 0.85rem;
   padding: 0.3rem 0.85rem;
-  background: linear-gradient(180deg, #1e1208 0%, #120a04 100%);
+  background: #161210;
   color: var(--text-color);
-  border: 1px solid rgba(201,162,39,0.5);
+  border: 1px solid rgba(196,154,42,0.4);
   cursor: pointer;
   border-radius: 1px;
   transition: box-shadow 0.2s ease, border-color 0.2s ease;
-  box-shadow: 0 0 6px rgba(201,162,39,0.15);
+  box-shadow: 0 0 4px rgba(196,154,42,0.1);
 }
 
 button:hover:not(:disabled) {
   border-color: var(--accent-gold);
-  box-shadow: 0 0 14px rgba(201,162,39,0.5);
+  box-shadow: 0 0 12px rgba(196,154,42,0.4);
 }
 
 button:disabled {
@@ -880,15 +919,15 @@ button:disabled {
 }
 
 #modal, #design-modal {
-  background: linear-gradient(145deg, #2a1c0c 0%, #221408 50%, #281a0a 100%);
+  background: #0e0c0a;
   color: var(--text-color);
   font-family: var(--font-family);
   padding: 1.75rem;
   max-width: 95vw;
   max-height: 85vh;
   overflow-y: auto;
-  border: 1px solid rgba(201,162,39,0.4);
-  box-shadow: 0 0 50px rgba(201,162,39,0.25), 0 8px 40px rgba(0,0,0,0.8);
+  border: 1px solid rgba(196,154,42,0.45);
+  box-shadow: 0 0 40px rgba(0,0,0,0.95), 0 8px 40px rgba(0,0,0,0.85);
 }
 
 #modal { width: 640px; }
@@ -1052,4 +1091,127 @@ button:disabled {
   width: 100%;
   cursor: pointer;
   margin-top: 0.25rem;
+}
+
+/* ===== SKYRIM THEME OVERRIDES ===== */
+body.theme-skyrim {
+  background: linear-gradient(160deg, #0a0908 0%, #0f0e0c 45%, #0a0908 100%);
+}
+
+body.theme-skyrim #bg-glow {
+  background: radial-gradient(ellipse 70% 50% at 50% 45%, rgba(80,60,20,0.15) 0%, transparent 100%);
+}
+
+body.theme-skyrim #arcane-bg-orbs span {
+  display: none;
+}
+
+body.theme-skyrim #arcane-sparkles span {
+  display: none;
+}
+
+body.theme-skyrim header {
+  background: linear-gradient(180deg, #0d0c09 0%, #110f0c 100%);
+  border-bottom: 1px solid rgba(184,134,11,0.35);
+}
+
+body.theme-skyrim section {
+  background: linear-gradient(155deg,
+    #1e1c18 0%, #181613 20%, #1c1a16 35%,
+    #161412 50%, #1a1815 65%, #1e1c18 80%, #1a1815 100%);
+  border: 1px solid #3a3028;
+  box-shadow:
+    0 8px 28px rgba(0,0,0,0.75),
+    0 3px 8px rgba(0,0,0,0.55),
+    0 0 10px 2px var(--panel-glow),
+    inset 0 1px 0 rgba(200,160,60,0.07),
+    inset 0 -1px 0 rgba(0,0,0,0.65);
+}
+
+body.theme-skyrim section::before {
+  background:
+    linear-gradient(to right,  rgba(184,134,11,0.45) 16px, transparent 16px) 0    0    / 16px 1px no-repeat,
+    linear-gradient(to bottom, rgba(184,134,11,0.45) 16px, transparent 16px) 0    0    / 1px 16px no-repeat,
+    linear-gradient(to left,   rgba(184,134,11,0.45) 16px, transparent 16px) 100% 0    / 16px 1px no-repeat,
+    linear-gradient(to bottom, rgba(184,134,11,0.45) 16px, transparent 16px) 100% 0    / 1px 16px no-repeat,
+    linear-gradient(to right,  rgba(184,134,11,0.45) 16px, transparent 16px) 0    100% / 16px 1px no-repeat,
+    linear-gradient(to top,    rgba(184,134,11,0.45) 16px, transparent 16px) 0    100% / 1px 16px no-repeat,
+    linear-gradient(to left,   rgba(184,134,11,0.45) 16px, transparent 16px) 100% 100% / 16px 1px no-repeat,
+    linear-gradient(to top,    rgba(184,134,11,0.45) 16px, transparent 16px) 100% 100% / 1px 16px no-repeat;
+}
+
+body.theme-skyrim #ingredient-grimoire,
+body.theme-skyrim #potion-grimoire {
+  background: linear-gradient(145deg,
+    #1c1a15 0%, #181510 25%, #1a1813 50%,
+    #161310 75%, #1c1a14 100%);
+  border-color: #2e2820;
+  box-shadow:
+    0 8px 28px rgba(0,0,0,0.75),
+    0 3px 8px rgba(0,0,0,0.55),
+    0 0 10px 2px var(--grimoire-glow),
+    inset 0 1px 0 rgba(180,150,80,0.06),
+    inset 0 -1px 0 rgba(0,0,0,0.6);
+}
+
+body.theme-skyrim #ingredient-grimoire::before,
+body.theme-skyrim #potion-grimoire::before {
+  background:
+    linear-gradient(to right,  rgba(122,143,160,0.4) 16px, transparent 16px) 0    0    / 16px 1px no-repeat,
+    linear-gradient(to bottom, rgba(122,143,160,0.4) 16px, transparent 16px) 0    0    / 1px 16px no-repeat,
+    linear-gradient(to left,   rgba(122,143,160,0.4) 16px, transparent 16px) 100% 0    / 16px 1px no-repeat,
+    linear-gradient(to bottom, rgba(122,143,160,0.4) 16px, transparent 16px) 100% 0    / 1px 16px no-repeat,
+    linear-gradient(to right,  rgba(122,143,160,0.4) 16px, transparent 16px) 0    100% / 16px 1px no-repeat,
+    linear-gradient(to top,    rgba(122,143,160,0.4) 16px, transparent 16px) 0    100% / 1px 16px no-repeat,
+    linear-gradient(to left,   rgba(122,143,160,0.4) 16px, transparent 16px) 100% 100% / 16px 1px no-repeat,
+    linear-gradient(to top,    rgba(122,143,160,0.4) 16px, transparent 16px) 100% 100% / 1px 16px no-repeat;
+}
+
+body.theme-skyrim #satchel:hover,
+body.theme-skyrim #output:hover {
+  box-shadow:
+    0 10px 32px rgba(0,0,0,0.8),
+    0 3px 8px rgba(0,0,0,0.55),
+    0 0 16px 4px rgba(184,134,11,0.18),
+    inset 0 1px 0 rgba(200,160,60,0.07),
+    inset 0 -1px 0 rgba(0,0,0,0.65);
+}
+
+body.theme-skyrim #ingredient-grimoire:hover,
+body.theme-skyrim #potion-grimoire:hover {
+  box-shadow:
+    0 10px 32px rgba(0,0,0,0.8),
+    0 3px 8px rgba(0,0,0,0.55),
+    0 0 16px 4px rgba(122,143,160,0.18),
+    inset 0 1px 0 rgba(180,150,80,0.06),
+    inset 0 -1px 0 rgba(0,0,0,0.6);
+}
+
+body.theme-skyrim .sigil-ring--outer {
+  border-color: rgba(184,134,11,0.14);
+}
+
+body.theme-skyrim .sigil-ring--mid {
+  border-color: rgba(106,64,128,0.14);
+}
+
+body.theme-skyrim .sigil-ring--inner {
+  border-color: rgba(122,143,160,0.18);
+}
+
+body.theme-skyrim .sigil-center {
+  background: rgba(184,134,11,0.7);
+  box-shadow: 0 0 6px rgba(184,134,11,0.4), 0 0 14px rgba(184,134,11,0.12);
+}
+
+body.theme-skyrim section h2 {
+  text-shadow: 0 0 10px rgba(184,134,11,0.3);
+}
+
+body.theme-skyrim section h2::before {
+  background: linear-gradient(to right, transparent, rgba(184,134,11,0.35));
+}
+
+body.theme-skyrim section h2::after {
+  background: linear-gradient(to left, transparent, rgba(184,134,11,0.35));
 }

@@ -4,6 +4,22 @@ This file tracks every task requested during this project. Update it at the end 
 
 ---
 
+## Session 5 (2026-04-21)
+
+1. Added Skyrim theme preset to Settings modal — initially CSS variables only, which revealed that most visual appearance (panel backgrounds, orbs, borders) is hardcoded and not variable-driven. Preset looked nearly identical to Arcane.
+2. Implemented body class system (`theme-skyrim` on `<body>`) to enable full structural theme overrides in CSS, not just color variable swaps.
+3. Full visual overhaul of `index.css` to SkyUI/Skyrim aesthetic: Skyrim wallpaper as background, flat opaque dark panels (`#0e0c0a`) replacing wood gradients, arcane orbs and sparkles hidden, dark overlay replacing breathing bg-glow, all panel borders and corner flourishes updated to new palette.
+4. Satchel and Output panels recoloured to match Grimoire steel-blue accent (separated from cauldron amber).
+5. Cauldron glow removed — CSS fix alone did not work because `computeCauldronGlow()` in App.jsx applies an inline `boxShadow` style that overrides CSS. Fixed by returning `'none'` for empty cauldron state.
+6. Made all panels semi-transparent (`rgba(14,12,10,0.82)`) so wallpaper bleeds through slightly.
+7. Increased description text size in grimoire panels via direct `#grimoire-content > p` selector.
+8. Fixed ingredient/potion card sizing: added `height: 66px` and `justify-content: space-between` so all cards are the same size and dots are always pinned to the bottom.
+9. Added Workshop Log (brew history) to the Cauldron panel: last 4 brews, newest at top with fading opacity on older entries, gold for success / purple for failure. Session-only state in App.jsx, oldest entry drops off automatically.
+10. Made essence readout (Potency/Toxicity bars) always visible — previously hidden when cauldron was empty. Now shows at 0 and fills as ingredients are slotted.
+11. Increased Workshop Log font sizes and visibility (label `0.75rem`, entries `0.9rem`, raised opacity on failure text and older entries).
+
+---
+
 ## Session 4 (2026-04-21)
 
 1. Added 6 new ingredients: Moonbloom, Ashwood Bark, Stormcap, Crimson Spore, Dewglass, Thornvine (ids i7–i12) — each with distinct stats and flavour descriptions.

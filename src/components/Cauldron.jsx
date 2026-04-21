@@ -9,7 +9,7 @@ function getEssenceText(filled, total, min) {
   return `${word.charAt(0).toUpperCase() + word.slice(1)} of ${total} essences gathered`
 }
 
-export default function Cauldron({ cauldron, ingredients, brewMessage, brewResult, cauldronGlow, essenceStats, proximityHint, onBrew, onClear, onRemoveFromCauldron }) {
+export default function Cauldron({ cauldron, ingredients, brewMessage, brewResult, cauldronGlow, essenceStats, proximityHint, brewHistory, onBrew, onClear, onRemoveFromCauldron }) {
   const filledCount = cauldron.filter(id => id !== null).length
   const brewReady = filledCount >= MIN_BREW_INGREDIENTS
 
@@ -62,23 +62,35 @@ export default function Cauldron({ cauldron, ingredients, brewMessage, brewResul
 
       {brewMessage && <p id="brew-message">{brewMessage}</p>}
 
-      {essenceStats && (
+      {(() => { const stats = essenceStats || { potency: 0, toxicity: 0 }; return (
         <div id="essence-readout">
           <div className="essence-bar">
             <span className="essence-label">Potency</span>
             <div className="essence-track">
-              <div className="essence-fill essence-fill--potency" style={{ width: `${essenceStats.potency * 10}%` }} />
+              <div className="essence-fill essence-fill--potency" style={{ width: `${stats.potency * 10}%` }} />
             </div>
-            <span className="essence-value">{essenceStats.potency.toFixed(1)}</span>
+            <span className="essence-value">{stats.potency.toFixed(1)}</span>
           </div>
           <div className="essence-bar">
             <span className="essence-label">Toxicity</span>
             <div className="essence-track">
-              <div className="essence-fill essence-fill--toxicity" style={{ width: `${essenceStats.toxicity * 10}%` }} />
+              <div className="essence-fill essence-fill--toxicity" style={{ width: `${stats.toxicity * 10}%` }} />
             </div>
-            <span className="essence-value">{essenceStats.toxicity.toFixed(1)}</span>
+            <span className="essence-value">{stats.toxicity.toFixed(1)}</span>
           </div>
           {proximityHint && <p className="proximity-hint">{proximityHint}</p>}
+        </div>
+      ); })()}
+
+      {brewHistory.length > 0 && (
+        <div id="brew-history">
+          <p id="brew-history-label">Workshop Log</p>
+          {brewHistory.map((entry, i) => (
+            <div key={i} className={`brew-history-entry brew-history-entry--${entry.outcome}`}>
+              <span className="brew-history-icon">{entry.outcome === 'success' ? '✦' : '✕'}</span>
+              <span className="brew-history-text">{entry.text}</span>
+            </div>
+          ))}
         </div>
       )}
     </section>

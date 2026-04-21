@@ -48,7 +48,7 @@ function getProximityHint(cauldron, recipes) {
 
 function computeCauldronGlow(cauldron, ingredients) {
   const filled = cauldron.filter(id => id !== null)
-  if (filled.length === 0) return '0 0 22px 8px rgba(255,255,255,0.2)'
+  if (filled.length === 0) return 'none'
 
   const avgPotency = filled.reduce((s, id) => {
     return s + (ingredients.find(x => x.id === id)?.stats?.potency ?? 0)
@@ -92,6 +92,7 @@ export default function App() {
   const [hoveredPotion, setHoveredPotion]       = useState(null)
   const [brewMessage, setBrewMessage]           = useState('')
   const [brewResult, setBrewResult]             = useState(null)
+  const [brewHistory, setBrewHistory]           = useState([])
   const [showCustomize, setShowCustomize]       = useState(false)
   const [showSettings, setShowSettings]         = useState(false)
 
@@ -133,6 +134,7 @@ export default function App() {
     if (!match) {
       setBrewMessage('The essences resist each other — no formula takes hold.')
       triggerBrewResult('failure')
+      setBrewHistory(h => [{ outcome: 'failure', text: 'The essences resisted.' }, ...h].slice(0, 4))
       return
     }
     setBrewed(prev => [...prev, match])
@@ -140,6 +142,7 @@ export default function App() {
     setCauldron(buildCauldron())
     setBrewMessage(`${match.name} has been drawn forth!`)
     triggerBrewResult('success')
+    setBrewHistory(h => [{ outcome: 'success', text: match.name }, ...h].slice(0, 4))
   }
 
   function removeFromCauldron(index) {
@@ -216,6 +219,7 @@ export default function App() {
             liquidColor={liquidColor}
             essenceStats={essenceStats}
             proximityHint={proximityHint}
+            brewHistory={brewHistory}
             onBrew={brew}
             onClear={clearCauldron}
             onRemoveFromCauldron={removeFromCauldron}
