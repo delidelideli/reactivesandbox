@@ -6,7 +6,7 @@ function statBloom(k, v) {
   return { filter: `drop-shadow(0 0 ${(2 + v * 0.5).toFixed(1)}px rgba(${color},${inner})) drop-shadow(0 0 ${(v * 1.8).toFixed(1)}px rgba(${color},${outer}))` }
 }
 
-export default function PotionGrimoire({ selectedPotion }) {
+export default function PotionGrimoire({ selectedPotion, statNames }) {
   return (
     <section id="potion-grimoire">
       <h2>Potion Grimoire</h2>
@@ -22,7 +22,7 @@ export default function PotionGrimoire({ selectedPotion }) {
                     className={k === 'potency' ? 'stat-potency' : k === 'toxicity' ? 'stat-toxicity' : ''}
                     style={statBloom(k, v)}
                   >
-                    {k.charAt(0).toUpperCase() + k.slice(1)} {v}/10
+                    {(statNames?.[k] ?? k.charAt(0).toUpperCase() + k.slice(1))} {v}/10
                   </span>
                 </li>
               ))}

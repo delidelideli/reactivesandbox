@@ -17,8 +17,8 @@ The potion brewer is the proof of concept. The framework is the product.
 - **Stat Bloom:** Potency and Toxicity values in the Grimoires emit layered `drop-shadow` glow proportional to their numeric value — high stats visibly bleed light onto the surrounding panel.
 - **Dual Grimoire System:** Hovering an ingredient previews it in the Ingredient Grimoire; hovering a brewed potion previews it in the Potion Grimoire. Clicking a potion pins it.
 - **Individual Slot Removal:** Clicking a filled Cauldron slot returns that ingredient to the Satchel.
-- **Customize Modal:** Users can define their own ingredients, recipes, and outputs to build a custom brewing interface for any game domain.
-- **Settings Modal:** 4 theme presets (Arcane, Crimson, Verdant, Void), live color pickers, font selector, and spacing slider — all changes write to CSS custom properties and persist via `localStorage`.
+- **Customize Modal:** Users can define their own ingredients, recipes, and outputs. Laid out as two side-by-side columns (Ingredients / Recipes) so both sections are visible at once without scrolling.
+- **Settings Modal:** 5 theme presets (Magical & Mystical, Skyrim, Crimson Sanctum, Verdant Workshop, Void), live border/stat color pickers, stat renaming, font selector, spacing slider, background upload, and theme export/import — all changes write to CSS custom properties and persist via `localStorage`. Laid out as a three-column panel to avoid scrolling.
 - **Import / Export:** *(Coming soon)* Save and load custom ingredient and recipe sets.
 
 ## User Flow Diagram
@@ -116,6 +116,16 @@ style CustomizeModal fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
     - **Asked:** Add a Skyrim theme preset so we can compare it against the original look.
     - **Produced:** Added the preset to SettingsModal — it looked nearly identical to Arcane because most visual appearance (panel backgrounds, border colors, orbs) is hardcoded in CSS, not driven by variables. Switched to a body class approach (`theme-skyrim`) so a full CSS override block could replace every hardcoded value.
     - **Decided:** Designer confirmed the body class approach was the right call. The lesson: CSS variable theming only works if the full design is variable-driven from the start.
+
+13. **Modal Layout — Side-by-Side Over Scroll**
+    - **Asked:** Customize modal made users scroll to reach the Recipe section; Settings modal required scrolling through all options.
+    - **Produced:** Redesigned both modals as multi-column layouts at 860px width — Customize splits into Ingredients/Recipes columns with a shared footer; Settings into Theme Presets / Colors / Appearance & File columns.
+    - **Decided:** Designer confirmed — both modals now expose all controls at once. Scrollbars remain only inside the item lists themselves.
+
+14. **"Magical & Mystical" as the Default Identity**
+    - **Asked:** Rename the default theme to "Magical & Mystical" — retire the "Arcane (Original)" label.
+    - **Produced:** Renamed the theme entry and matched its vars to the current site default palette, making it the first preset in the list.
+    - **Decided:** Designer confirmed — the name now reflects the actual aesthetic rather than referencing an earlier iteration of the project.
 
 12. **SkyUI as the Visual North Star**
     - **Asked:** Full visual overhaul — make it feel like an alchemy station in a video game, not a website. Reference: SkyUI mod for Skyrim.

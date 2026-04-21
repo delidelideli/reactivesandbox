@@ -93,6 +93,10 @@ export default function App() {
   const [brewMessage, setBrewMessage]           = useState('')
   const [brewResult, setBrewResult]             = useState(null)
   const [brewHistory, setBrewHistory]           = useState([])
+  const [statNames, setStatNames]               = useState(() => {
+    try { return JSON.parse(localStorage.getItem('stat-names')) || { potency: 'Potency', toxicity: 'Toxicity' } }
+    catch { return { potency: 'Potency', toxicity: 'Toxicity' } }
+  })
   const [showCustomize, setShowCustomize]       = useState(false)
   const [showSettings, setShowSettings]         = useState(false)
 
@@ -209,6 +213,7 @@ export default function App() {
             selectedIngredient={hoveredIngredient ?? selectedIngredient}
             ingredients={ingredients}
             recipes={recipes}
+            statNames={statNames}
           />
           <Cauldron
             cauldron={cauldron}
@@ -220,6 +225,7 @@ export default function App() {
             essenceStats={essenceStats}
             proximityHint={proximityHint}
             brewHistory={brewHistory}
+            statNames={statNames}
             onBrew={brew}
             onClear={clearCauldron}
             onRemoveFromCauldron={removeFromCauldron}
@@ -231,6 +237,7 @@ export default function App() {
           />
           <PotionGrimoire
             selectedPotion={hoveredPotion ?? selectedPotion}
+            statNames={statNames}
           />
         </div>
       </main>
@@ -245,7 +252,14 @@ export default function App() {
       )}
 
       {showSettings && (
-        <SettingsModal onClose={() => setShowSettings(false)} />
+        <SettingsModal
+          statNames={statNames}
+          onStatNamesChange={names => {
+            setStatNames(names)
+            localStorage.setItem('stat-names', JSON.stringify(names))
+          }}
+          onClose={() => setShowSettings(false)}
+        />
       )}
     </>
   )

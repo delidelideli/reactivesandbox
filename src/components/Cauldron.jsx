@@ -9,7 +9,7 @@ function getEssenceText(filled, total, min) {
   return `${word.charAt(0).toUpperCase() + word.slice(1)} of ${total} essences gathered`
 }
 
-export default function Cauldron({ cauldron, ingredients, brewMessage, brewResult, cauldronGlow, essenceStats, proximityHint, brewHistory, onBrew, onClear, onRemoveFromCauldron }) {
+export default function Cauldron({ cauldron, ingredients, brewMessage, brewResult, cauldronGlow, essenceStats, proximityHint, brewHistory, statNames, onBrew, onClear, onRemoveFromCauldron }) {
   const filledCount = cauldron.filter(id => id !== null).length
   const brewReady = filledCount >= MIN_BREW_INGREDIENTS
 
@@ -65,14 +65,14 @@ export default function Cauldron({ cauldron, ingredients, brewMessage, brewResul
       {(() => { const stats = essenceStats || { potency: 0, toxicity: 0 }; return (
         <div id="essence-readout">
           <div className="essence-bar">
-            <span className="essence-label">Potency</span>
+            <span className="essence-label">{statNames?.potency ?? 'Potency'}</span>
             <div className="essence-track">
               <div className="essence-fill essence-fill--potency" style={{ width: `${stats.potency * 10}%` }} />
             </div>
             <span className="essence-value">{stats.potency.toFixed(1)}</span>
           </div>
           <div className="essence-bar">
-            <span className="essence-label">Toxicity</span>
+            <span className="essence-label">{statNames?.toxicity ?? 'Toxicity'}</span>
             <div className="essence-track">
               <div className="essence-fill essence-fill--toxicity" style={{ width: `${stats.toxicity * 10}%` }} />
             </div>

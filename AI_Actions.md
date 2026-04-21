@@ -4,6 +4,16 @@ This file tracks every task requested during this project. Update it at the end 
 
 ---
 
+## Session 6 (2026-04-21)
+
+1. Added missing CSS for new SettingsModal UI elements from the previous session's JSX rewrite: `.settings-stat-row`, `.settings-stat-name`, `.settings-bg-row`, `.settings-bg-label`, `.settings-upload-btn` — the modal was rendering unstyled without these rules.
+2. Redesigned the Customize modal layout: side-by-side columns (Ingredients left, Recipes right) separated by a gold divider, with Save/Export/Import/Cancel pinned at the bottom. Modal widened to 860px. Eliminated the need to scroll to reach the recipe section.
+3. Fixed scrollbar collision in Customize modal: added `padding-right: 10px` to `.customize-list` so Remove buttons don't sit flush against the scrollbar track.
+4. Renamed the "Arcane (Original)" theme to "Magical & Mystical" and set its vars to match the current site default look (the active palette). This makes it the first and default theme in the preset list.
+5. Redesigned the Settings modal layout: widened to 860px with a three-column layout (Theme Presets / Colors / Appearance & File) separated by gold dividers. Eliminated all scrolling from the settings panel.
+
+---
+
 ## Session 5 (2026-04-21)
 
 1. Added Skyrim theme preset to Settings modal — initially CSS variables only, which revealed that most visual appearance (panel backgrounds, orbs, borders) is hardcoded and not variable-driven. Preset looked nearly identical to Arcane.
