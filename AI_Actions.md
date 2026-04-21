@@ -18,6 +18,7 @@ This file tracks every task requested during this project. Update it at the end 
 10. Added hover-preview + click-to-pin behavior for Potion Grimoire: hovering an Output card previews the potion detail; mousing off the grid reverts to the pinned selection; clicking locks it. Implemented via `hoveredPotion ?? selectedPotion` in App.jsx.
 11. Extended hover-preview + click-to-pin to the Ingredient Grimoire: hovering a Satchel card previews the ingredient; mousing off the grid clears it back to idle; clicking pins it (and also adds to cauldron). Implemented via `hoveredIngredient ?? selectedIngredient` in App.jsx.
 12. Set documentation-after-every-prompt rule: AI_Actions.md and README are now updated after each task, not just at session end.
+13. Attempted SVG `border-image` ornate frame system (double-line brackets, diamond medallions, tick marks) — rejected by designer, reverted to original gradient corner flourishes. Opened discussion on what a better UI direction looks like.
 
 ---
 
