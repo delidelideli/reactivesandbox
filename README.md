@@ -67,70 +67,50 @@ style CustomizeModal fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
    - **Produced:** Proposed two options — Vite rewrite or CDN drop-in.
    - **Decided:** Designer chose Vite with a GitHub Actions deploy pipeline.
 
-2. **Font Selection**
-   - **Asked:** Guidance on choosing between Uncial Antiqua and IM Fell English.
-   - **Produced:** Framed the tradeoff as loud magical (Uncial) vs. quiet diegetic (IM Fell).
-   - **Decided:** Designer chose IM Fell English — fits the "real in-world object" direction better than a genre font.
-
-3. **Recipe Discovery Mechanic**
+2. **Recipe Discovery Mechanic**
    - **Asked:** Recipes should be hidden and only appear in the Recipe Book after first successful brew.
    - **Produced:** Proposed a `discovered` flag on each recipe and dynamic Recipe Book rendering.
-   - **Decided:** Designer confirmed — turns the Recipe Book into a living discovery log.
+   - **Decided:** Designer confirmed — turns the Recipe Book into a living discovery log rather than a pre-filled reference.
 
-4. **Glow Color System**
-   - **Asked:** Define distinct glow colors for the two panel types.
-   - **Produced:** Proposed silver-blue for Grimoires to contrast the interactive gold.
-   - **Decided:** Designer upgraded to Arcane Blue — more atmospheric. Satchel + Output share Muted Gold; both Grimoires share Arcane Blue; Cauldron is reactive white/gold/purple.
-
-5. **Card Glow Directionality**
-   - **Asked:** Ingredient and potion cards needed distinct hover states.
-   - **Produced:** Proposed a single rotating border-glow animation for all cards.
-   - **Decided:** Designer split them — ingredients use a directional side-sweep (`card-glow-gold`/`card-glow-purple`) and potions use an omnidirectional pulse (`potion-hover-pulse`). Reflects the difference between tools you reach for vs. things you've created.
-
-6. **World-Language Flavor Text**
+3. **World-Language Flavor Text**
    - **Asked:** Brew messages felt too much like UI copy.
    - **Produced:** Rewrote all three states in in-world arcane register: "More essences are required." / "The essences resist each other — no formula takes hold." / "[Name] has been drawn forth!"
    - **Decided:** Designer confirmed — no interface language, only the voice of the workshop itself.
 
-7. **Settings Modal: From Placeholder to Functional**
+4. **Settings Modal: From Placeholder to Functional**
    - **Asked:** The Settings modal was a disabled stub; make it fully functional.
-   - **Produced:** 4 theme presets (Arcane, Crimson, Verdant, Void), live color pickers, font selector, spacing slider — all wired to CSS custom properties and `localStorage`.
-   - **Decided:** Designer confirmed — the settings system now covers the full visual customization spec from DesignDoc.md without touching code.
+   - **Produced:** Theme presets, live color pickers, font selector, spacing slider — all wired to CSS custom properties and `localStorage`.
+   - **Decided:** Designer confirmed — then expanded scope further to include stat renaming, stat color pickers, background upload, and theme export/import.
 
-8. **Evaluating an External Directive**
+5. **Evaluating an External Directive**
    - **Asked:** Review a Gemini-generated "Master Implementation Directive" and assess what was worth building.
-   - **Produced:** Identified what was already implemented, what conflicted with the existing arcane palette, and isolated four genuinely new ideas: film grain, chromatic aberration, screen shake, stats bloom.
-   - **Decided:** Designer kept the current palette, dropped film grain and screen shake, kept chromatic aberration and stats bloom — two targeted additions tied directly to data rather than pure decoration.
+   - **Produced:** Identified what was already implemented, what conflicted with the existing palette, and isolated four genuinely new ideas: film grain, chromatic aberration, screen shake, stats bloom.
+   - **Decided:** Designer dropped film grain and screen shake, kept chromatic aberration and stats bloom — two additions tied directly to data rather than pure decoration.
 
-9. **Proximity Hint as In-World Feedback**
+6. **Proximity Hint as In-World Feedback**
    - **Asked:** Fill the empty lower half of the Cauldron panel with something meaningful.
    - **Produced:** Proposed a live essence readout (stat bars) and a recipe proximity hint as two complementary layers.
    - **Decided:** Designer confirmed both — the bars make the glow system legible and the hint text stays atmospheric ("Something stirs in the confluence...") without spoiling undiscovered recipes.
 
-10. **Hover vs. Click Separation**
-    - **Asked:** The Ingredient Grimoire should update on hover, not click — because clicking already adds to the Cauldron.
-    - **Produced:** Separated `onMouseEnter` (grimoire preview) from `onClick` (cauldron add) in Satchel. Extended the same pattern to Output: hover previews the Potion Grimoire, click pins the selection.
-    - **Decided:** Designer confirmed — both panels now follow the same hover-to-inspect, click-to-act logic, which makes the interaction model consistent across the whole workshop.
+7. **Hover vs. Click Separation**
+   - **Asked:** The Ingredient Grimoire should update on hover, not click — because clicking already adds to the Cauldron.
+   - **Produced:** Separated `onMouseEnter` (grimoire preview) from `onClick` (cauldron add) in Satchel. Extended the same pattern to Output: hover previews the Potion Grimoire, click pins the selection.
+   - **Decided:** Designer confirmed — both panels now follow the same hover-to-inspect, click-to-act logic across the whole workshop.
 
-11. **Why CSS Variable Themes Weren't Enough**
-    - **Asked:** Add a Skyrim theme preset so we can compare it against the original look.
-    - **Produced:** Added the preset to SettingsModal — it looked nearly identical to Arcane because most visual appearance (panel backgrounds, border colors, orbs) is hardcoded in CSS, not driven by variables. Switched to a body class approach (`theme-skyrim`) so a full CSS override block could replace every hardcoded value.
-    - **Decided:** Designer confirmed the body class approach was the right call. The lesson: CSS variable theming only works if the full design is variable-driven from the start.
+8. **Why CSS Variable Themes Weren't Enough**
+   - **Asked:** Add a Skyrim theme preset so we can compare it against the original look.
+   - **Produced:** Added the preset — it looked nearly identical to Arcane because most visual appearance is hardcoded in CSS, not driven by variables. Switched to a body class approach (`theme-skyrim`) so a full CSS override block could replace every hardcoded value.
+   - **Decided:** Designer confirmed the body class approach. The lesson: CSS variable theming only works if the full design is variable-driven from the start.
 
-13. **Modal Layout — Side-by-Side Over Scroll**
+9. **SkyUI as the Visual North Star**
+   - **Asked:** Full visual overhaul — make it feel like an alchemy station in a video game, not a website. Reference: SkyUI mod for Skyrim.
+   - **Produced:** Replaced the wood-gradient panel system with flat dark opaque panels, hid floating orbs and sparkles, added the Skyrim wallpaper as background, unified the panel language around a single dark surface with amber/steel accents.
+   - **Decided:** Designer confirmed direction. Key constraint established: opaque panels, minimal but present decorative flourishes, keep IM Fell English, cauldron as focal point.
+
+10. **Modal Layout — Side-by-Side Over Scroll**
     - **Asked:** Customize modal made users scroll to reach the Recipe section; Settings modal required scrolling through all options.
-    - **Produced:** Redesigned both modals as multi-column layouts at 860px width — Customize splits into Ingredients/Recipes columns with a shared footer; Settings into Theme Presets / Colors / Appearance & File columns.
-    - **Decided:** Designer confirmed — both modals now expose all controls at once. Scrollbars remain only inside the item lists themselves.
-
-14. **"Magical & Mystical" as the Default Identity**
-    - **Asked:** Rename the default theme to "Magical & Mystical" — retire the "Arcane (Original)" label.
-    - **Produced:** Renamed the theme entry and matched its vars to the current site default palette, making it the first preset in the list.
-    - **Decided:** Designer confirmed — the name now reflects the actual aesthetic rather than referencing an earlier iteration of the project.
-
-12. **SkyUI as the Visual North Star**
-    - **Asked:** Full visual overhaul — make it feel like an alchemy station in a video game, not a website. Reference: SkyUI mod for Skyrim.
-    - **Produced:** Replaced the wood-gradient panel system with flat dark opaque panels, hid the floating orbs and sparkles, added the Skyrim wallpaper as background, unified the panel language around a single dark surface with amber/steel accents, gave the cauldron a stronger border to elevate it as focal point.
-    - **Decided:** Designer confirmed direction. Key constraint established: opaque panels, minimal but present decorative flourishes, keep IM Fell English, cauldron more decorated but not extreme.
+    - **Produced:** Redesigned both modals as multi-column layouts at 860px — Customize splits into Ingredients/Recipes columns with a shared footer; Settings into Theme Presets / Colors / Appearance & File columns.
+    - **Decided:** Designer confirmed — both modals now expose all controls at once without scrolling.
 
 ## Records of Resistance
 *This section tracks AI output that was rejected or required designer intervention to correct.*
