@@ -4,11 +4,11 @@ function getDominant(stats) {
   return 'balanced'
 }
 
-export default function Satchel({ ingredients, counts, onSelect, onAddToCauldron }) {
+export default function Satchel({ ingredients, counts, onHover, onPin, onAddToCauldron }) {
   return (
     <section id="satchel">
       <h2>Satchel</h2>
-      <div id="satchel-grid">
+      <div id="satchel-grid" onMouseLeave={() => onHover(null)}>
         {ingredients.map(item => {
           const count = counts[item.id] ?? 0
           const dominant = getDominant(item.stats)
@@ -17,8 +17,8 @@ export default function Satchel({ ingredients, counts, onSelect, onAddToCauldron
               key={item.id}
               className={`ingredient-btn card--${dominant}`}
               disabled={count === 0}
-              onMouseEnter={() => onSelect(item)}
-              onClick={() => onAddToCauldron(item.id)}
+              onMouseEnter={() => onHover(item)}
+              onClick={() => { onPin(item); onAddToCauldron(item.id) }}
             >
               <span className="card-name">{item.name}</span>
               <div className="card-dots">

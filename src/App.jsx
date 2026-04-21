@@ -87,6 +87,7 @@ export default function App() {
   const [cauldron, setCauldron]                 = useState(buildCauldron)
   const [brewed, setBrewed]                     = useState([])
   const [selectedIngredient, setSelectedIngredient] = useState(null)
+  const [hoveredIngredient, setHoveredIngredient]   = useState(null)
   const [selectedPotion, setSelectedPotion]     = useState(null)
   const [hoveredPotion, setHoveredPotion]       = useState(null)
   const [brewMessage, setBrewMessage]           = useState('')
@@ -197,11 +198,12 @@ export default function App() {
           <Satchel
             ingredients={ingredients}
             counts={counts}
-            onSelect={setSelectedIngredient}
+            onHover={setHoveredIngredient}
+            onPin={setSelectedIngredient}
             onAddToCauldron={addToCauldron}
           />
           <IngredientGrimoire
-            selectedIngredient={selectedIngredient}
+            selectedIngredient={hoveredIngredient ?? selectedIngredient}
             ingredients={ingredients}
             recipes={recipes}
           />
