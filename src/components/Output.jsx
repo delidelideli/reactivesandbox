@@ -1,17 +1,39 @@
-export default function Output({ brewed, onSelect }) {
+function getDominant(stats) {
+  if (stats.potency > stats.toxicity) return 'potent'
+  if (stats.toxicity > stats.potency) return 'toxic'
+  return 'balanced'
+}
+
+export default function Output({ brewed, onHover, onPin }) {
   return (
     <section id="output">
       <h2>Output</h2>
-      <div id="output-grid">
-        {brewed.length === 0
-          ? <p>No potions brewed yet.</p>
-          : brewed.map((potion, i) => (
-              <button key={`${potion.id}-${i}`} onClick={() => onSelect(potion)}>
-                {potion.name}
+      {brewed.length === 0 ? (
+        <div className="grimoire-idle">
+          <span className="grimoire-idle-glyph">◈</span>
+          <p className="grimoire-idle-text">Brewed potions will appear here.</p>
+        </div>
+      ) : (
+        <div id="output-grid" onMouseLeave={() => onHover(null)}>
+          {brewed.map((potion, i) => {
+            const dominant = getDominant(potion.stats)
+            return (
+              <button
+                key={`${potion.id}-${i}`}
+                className={`potion-card card--${dominant}`}
+                onMouseEnter={() => onHover(potion)}
+                onClick={() => onPin(potion)}
+              >
+                <span className="card-name">{potion.name}</span>
+                <div className="card-dots">
+                  <span className="dot dot--filled dot--potent" />
+                  <span className="dot dot--filled dot--toxic" />
+                </div>
               </button>
-            ))
-        }
-      </div>
+            )
+          })}
+        </div>
+      )}
     </section>
   )
 }

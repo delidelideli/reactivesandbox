@@ -4,6 +4,41 @@ This file tracks every task requested during this project. Update it at the end 
 
 ---
 
+## Session 3 (2026-04-21)
+
+1. Read tester.txt (Gemini-generated visual improvement directive) and evaluated each suggestion against the existing codebase — identified what was already done, what conflicted with the current palette, and what was genuinely worth adding.
+2. Implemented chromatic aberration on brew failure: `brew-chromatic` keyframe alternates red/cyan `drop-shadow` offsets on the cauldron panel during `brew-failure`, decaying over 0.65s alongside the existing purple smoke animation.
+3. Implemented stats bloom: `statBloom()` helper in IngredientGrimoire and PotionGrimoire computes a two-layer `filter: drop-shadow` scaled to the raw stat value (0–10). Higher stat = wider, more opaque bloom bleeding onto surrounding content.
+4. Fixed recipe book idle text centering: `.grimoire-idle--small` changed from `justify-content: flex-start` to `center`.
+5. Improved ingredient card dot visibility: darkened filled dot colors to `#b85c00` (potent), `#5c1a8a` (toxic), `#6b5200` (balanced) to contrast against the beige card background. Empty dot border brightened.
+6. Added live essence readout to cauldron: two animated stat bars (Potency gold / Toxicity purple) appear when any ingredient is slotted, sized proportionally to the averaged stat values and transitioning with the standard `cubic-bezier(0.22, 1, 0.36, 1)`.
+7. Added proximity hint flavor text below the essence readout: "A formula takes hold." / "Something stirs in the confluence..." / "The essences resist each other's presence." — driven by recipe subset matching, no spoilers on undiscovered recipes.
+8. Made cauldron slots individually removable: clicking a filled slot returns that ingredient to the Satchel. Hover state shifts slot border to red to signal the destructive action.
+9. Changed Ingredient Grimoire to update on hover rather than click — hover previews the ingredient detail; click still adds to Cauldron. Separates the two actions completely.
+10. Added hover-preview + click-to-pin behavior for Potion Grimoire: hovering an Output card previews the potion detail; mousing off the grid reverts to the pinned selection; clicking locks it. Implemented via `hoveredPotion ?? selectedPotion` in App.jsx.
+
+---
+
+## Session 2 (2026-04-21)
+
+1. Full visual design overhaul: complete rewrite of index.css with arcane midnight-blue palette, dark walnut panel backgrounds, IM Fell English typography, and a 3-column CSS Grid tabletop layout (`satchel / cauldron / output` over `ingredient-grimoire / cauldron / potion-grimoire`).
+2. Added atmospheric background system: large blurred CSS orbs (`#arcane-bg-orbs`, 12 spans with `filter: blur`) behind panels, sharp sparkle points (`#arcane-sparkles`, 8 spans with `sparkle-pulse`), and a breathing radial `#bg-glow` using CSS custom properties.
+3. Implemented reactive cauldron glow: `computeCauldronGlow()` in App.jsx averages potency/toxicity of slotted ingredients and returns a layered `box-shadow` string (white base + gold/purple additive glows).
+4. Added cauldron sigil: three concentric rings with `sigil-cw`/`sigil-ccw` CSS animations at different speeds (28s/18s/10s) inside `#cauldron-bowl`.
+5. Implemented corner flourishes on all panels via `section::before` with 8 gradient segments (gold for wood panels, blue for grimoires).
+6. Added ingredient/potion card system: `.ingredient-btn` uses directional `card-glow-gold`/`card-glow-purple` rotate animations; `.potion-card` uses omnidirectional `potion-hover-pulse`. Each card shows name + dot indicators.
+7. Changed cauldron slot display to 64px circles with `◈` CSS `::before` placeholder when empty, 2×2 grid layout.
+8. Rewrote `h2` title plates as symmetric flex lines (`::before`/`::after` gradient fade on each side).
+9. Styled brew button as a wax-seal style element with `✦` flanking marks, double border via `outline + outline-offset`, press-down `:active` state, and `brew-ready-pulse` animation when ready.
+10. Implemented functional Settings modal: 4 theme presets (Arcane, Crimson, Verdant, Void), live color pickers, font selector, spacing slider. All settings write to CSS custom properties via `setProperty` and persist to `localStorage`.
+11. Added `brewResult` state with `triggerBrewResult()` + 1000ms timeout for CSS class-based animation on cauldron: `brew-success` → `brew-golden-flash`, `brew-failure` → `brew-purple-smoke`.
+12. Added grimoire idle states: `.grimoire-idle` with breathing glyph animation across all four grimoire/output panels.
+13. Added `getEssenceText()` flavor function to Cauldron.jsx with word-number system; renamed "Clear" to "Dispel".
+14. Rewrote all three brew messages to world-language flavor text: "More essences are required." / "The essences resist each other — no formula takes hold." / "[Name] has been drawn forth!"
+15. Fixed Output and PotionGrimoire idle text centering: moved Output's idle state outside `#output-grid` so it's a direct section child; added `min-height: 0` to sections to allow flex children to fill allocated grid space.
+
+---
+
 ## Session 1 (2026-04-20)
 
 1. Read the design document "Reactive sandbox design intent.md" and confirmed understanding of the project concept.

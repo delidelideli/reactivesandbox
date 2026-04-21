@@ -12,11 +12,14 @@ The potion brewer is the proof of concept. The framework is the product.
 - **Ingredient Count System:** The Satchel tracks available counts per ingredient and reacts visually when the Cauldron consumes them — demonstrating live Browser → Controller reactivity.
 - **Recipe Discovery:** Recipes are hidden until successfully brewed for the first time. The Recipe Book is a living log of discovered combinations, not a pre-filled reference guide.
 - **Reactive Cauldron Glow:** The Cauldron's glow color shifts from white → gold (potency) or purple (toxicity) based on the combined stats of slotted ingredients.
-- **Brewing Feedback:** Success emits a Golden Flash; failure emits Purple Sputtering Smoke. Transitions use a `0.8s cubic-bezier(0.22, 1, 0.36, 1)` for a weighty, magical feel.
-- **Dual Grimoire System:** Selecting an ingredient updates the Ingredient Grimoire (left); selecting a brewed potion updates the Potion Grimoire (right).
+- **Brewing Feedback:** Success emits a Golden Flash; failure emits Chromatic Aberration + Purple Smoke. Transitions use a `0.8s cubic-bezier(0.22, 1, 0.36, 1)` for a weighty, magical feel.
+- **Live Essence Readout:** While ingredients are slotted, animated Potency and Toxicity bars show the combined stat averages in real time, with a proximity hint that updates as the formula approaches a known recipe.
+- **Stat Bloom:** Potency and Toxicity values in the Grimoires emit layered `drop-shadow` glow proportional to their numeric value — high stats visibly bleed light onto the surrounding panel.
+- **Dual Grimoire System:** Hovering an ingredient previews it in the Ingredient Grimoire; hovering a brewed potion previews it in the Potion Grimoire. Clicking a potion pins it.
+- **Individual Slot Removal:** Clicking a filled Cauldron slot returns that ingredient to the Satchel.
 - **Customize Modal:** Users can define their own ingredients, recipes, and outputs to build a custom brewing interface for any game domain.
+- **Settings Modal:** 4 theme presets (Arcane, Crimson, Verdant, Void), live color pickers, font selector, and spacing slider — all changes write to CSS custom properties and persist via `localStorage`.
 - **Import / Export:** *(Coming soon)* Save and load custom ingredient and recipe sets.
-- **Settings / Design Modal:** *(Coming soon)* User-facing visual customization controls.
 
 ## User Flow Diagram
 ```mermaid
@@ -94,6 +97,41 @@ style CustomizeModal fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
    - **Produced:** Proposed silver-blue for Grimoires to contrast the interactive gold.
    - **Decided:** Designer upgraded to Arcane Blue — more atmospheric. Satchel + Output share Muted Gold; both Grimoires share Arcane Blue; Cauldron is reactive white/gold/purple.
 
+8. **Card Glow Directionality**
+   - **Asked:** Ingredient and potion cards needed distinct hover states.
+   - **Produced:** Proposed a single rotating border-glow animation for all cards.
+   - **Decided:** Designer split them — ingredients use a directional side-sweep (`card-glow-gold`/`card-glow-purple`) and potions use an omnidirectional pulse (`potion-hover-pulse`). Reflects the difference between tools you reach for vs. things you've created.
+
+9. **Cauldron Sigil**
+   - **Asked:** The cauldron bowl needed more visual presence at rest.
+   - **Produced:** Proposed three concentric rings with different rotation speeds (28s/18s/10s outer-to-inner).
+   - **Decided:** Designer confirmed — the speed differential gives the sigil an idle life without being distracting.
+
+10. **World-Language Flavor Text**
+    - **Asked:** Brew messages felt too much like UI copy.
+    - **Produced:** Rewrote all three states in in-world arcane register: "More essences are required." / "The essences resist each other — no formula takes hold." / "[Name] has been drawn forth!"
+    - **Decided:** Designer confirmed — no interface language, only the voice of the workshop itself.
+
+11. **Settings Modal: From Placeholder to Functional**
+    - **Asked:** The Settings modal was a disabled stub; make it fully functional.
+    - **Produced:** 4 theme presets (Arcane, Crimson, Verdant, Void), live color pickers, font selector, spacing slider — all wired to CSS custom properties and `localStorage`.
+    - **Decided:** Designer confirmed — the settings system now covers the full visual customization spec from DesignDoc.md without touching code.
+
+12. **Evaluating an External Directive**
+    - **Asked:** Review a Gemini-generated "Master Implementation Directive" and assess what was worth building.
+    - **Produced:** Identified what was already implemented, what conflicted with the existing arcane palette, and isolated four genuinely new ideas: film grain, chromatic aberration, screen shake, stats bloom.
+    - **Decided:** Designer kept the current palette, dropped film grain and screen shake, kept chromatic aberration and stats bloom — two targeted additions tied directly to data rather than pure decoration.
+
+13. **Proximity Hint as In-World Feedback**
+    - **Asked:** Fill the empty lower half of the Cauldron panel with something meaningful.
+    - **Produced:** Proposed a live essence readout (stat bars) and a recipe proximity hint as two complementary layers.
+    - **Decided:** Designer confirmed both — the bars make the glow system legible and the hint text stays atmospheric ("Something stirs in the confluence...") without spoiling undiscovered recipes.
+
+14. **Hover vs. Click Separation**
+    - **Asked:** The Ingredient Grimoire should update on hover, not click — because clicking already adds to the Cauldron.
+    - **Produced:** Separated `onMouseEnter` (grimoire preview) from `onClick` (cauldron add) in Satchel. Extended the same pattern to Output: hover previews the Potion Grimoire, click pins the selection.
+    - **Decided:** Designer confirmed — both panels now follow the same hover-to-inspect, click-to-act logic, which makes the interaction model consistent across the whole workshop.
+
 ## Records of Resistance
 *This section tracks AI output that was rejected or required designer intervention to correct.*
 
@@ -126,11 +164,12 @@ style CustomizeModal fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
 ## Project Structure
 - `src/App.jsx` — Single source of truth; all state lives here
 - `src/components/Satchel.jsx` — Ingredient browser (Browser panel)
-- `src/components/Grimoire.jsx` — Ingredient + Potion detail views (Detail panel)
+- `src/components/IngredientGrimoire.jsx` — Ingredient detail view (left Detail panel)
+- `src/components/PotionGrimoire.jsx` — Discovered potion detail view (right Detail panel)
 - `src/components/Cauldron.jsx` — Brewing controller (Controller panel)
 - `src/components/Output.jsx` — Brewed potion results
 - `src/components/CustomizeModal.jsx` — User-defined ingredient and recipe editor
-- `src/components/SettingsModal.jsx` — Visual customization controls *(placeholder)*
+- `src/components/SettingsModal.jsx` — Theme presets, live color pickers, font selector, spacing slider
 - `src/data.js` — Ingredient and recipe data model
 - `src/index.css` — All styling and animations
 - `DesignDoc.md` — Living collaborative design document (Connor + Claude)

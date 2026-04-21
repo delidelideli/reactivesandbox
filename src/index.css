@@ -1,22 +1,114 @@
+/* ===== CSS VARIABLES ===== */
+:root {
+  --bg-color: #0c1c09;
+  --accent-gold: #c9a227;
+  --accent-gold-light: #e8c84a;
+  --accent-blue: #4a7fb5;
+  --accent-blue-light: #6ba3d6;
+  --accent-purple: #8b44b8;
+  --accent-purple-light: #c77dff;
+  --text-color: #ddc898;
+  --text-gold: #e8b422;
+  --text-purple: #c77dff;
+  --font-family: 'IM Fell English', serif;
+  --panel-spacing: 0.75rem;
+  --header-height: 60px;
+  --bg-primary: #04061a;
+  --bg-glow-color: rgba(40,55,180,0.3);
+  --panel-glow: rgba(201,162,39,0.12);
+  --grimoire-glow: rgba(74,127,181,0.12);
+}
+
+/* ===== RESET ===== */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+/* ===== BODY & BACKGROUND ===== */
 body {
-  font-family: system-ui, sans-serif;
-  line-height: 1.6;
-  color: #222;
-  background: #fff;
+  font-family: var(--font-family);
+  line-height: 1.5;
+  color: var(--text-color);
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(160deg, #020308 0%, var(--bg-primary) 45%, #020308 100%);
 }
 
+/* Breathing glow overlay */
+#bg-glow {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 50% 45%, var(--bg-glow-color) 0%, transparent 100%);
+  animation: bg-pulse 9s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes bg-pulse {
+  0%, 100% { opacity: 0.35; }
+  50%       { opacity: 1; }
+}
+
+/* ===== ARCANE BACKGROUND ORBS ===== */
+#arcane-bg-orbs {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+#arcane-bg-orbs span {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  opacity: 0;
+  animation: orb-drift ease-in-out infinite;
+}
+
+@keyframes orb-drift {
+  0%   { opacity: 0;    transform: scale(0.85) translate(0, 0); }
+  18%  { opacity: 1; }
+  50%  { opacity: 0.65; transform: scale(1.12) translate(18px, -22px); }
+  82%  { opacity: 0.8; }
+  100% { opacity: 0;    transform: scale(0.9) translate(-10px, 12px); }
+}
+
+#arcane-bg-orbs span:nth-child(1)  { width:110px; height:110px; left:4%;   top:18%;  background:rgba(30,50,200,0.55);   filter:blur(42px); animation-duration:22s; animation-delay:0s;    }
+#arcane-bg-orbs span:nth-child(2)  { width:80px;  height:80px;  left:18%;  top:60%;  background:rgba(100,20,180,0.5);   filter:blur(34px); animation-duration:28s; animation-delay:4s;    }
+#arcane-bg-orbs span:nth-child(3)  { width:95px;  height:95px;  left:38%;  top:8%;   background:rgba(50,30,190,0.48);   filter:blur(38px); animation-duration:19s; animation-delay:8s;    }
+#arcane-bg-orbs span:nth-child(4)  { width:70px;  height:70px;  left:55%;  top:72%;  background:rgba(80,15,160,0.55);   filter:blur(30px); animation-duration:24s; animation-delay:2s;    }
+#arcane-bg-orbs span:nth-child(5)  { width:55px;  height:55px;  left:62%;  top:35%;  background:rgba(160,100,20,0.4);   filter:blur(26px); animation-duration:31s; animation-delay:11s;   }
+#arcane-bg-orbs span:nth-child(6)  { width:90px;  height:90px;  left:75%;  top:15%;  background:rgba(60,20,200,0.5);    filter:blur(40px); animation-duration:20s; animation-delay:6s;    }
+#arcane-bg-orbs span:nth-child(7)  { width:75px;  height:75px;  left:82%;  top:58%;  background:rgba(110,25,175,0.48);  filter:blur(32px); animation-duration:26s; animation-delay:14s;   }
+#arcane-bg-orbs span:nth-child(8)  { width:60px;  height:60px;  left:28%;  top:82%;  background:rgba(40,60,210,0.45);   filter:blur(28px); animation-duration:23s; animation-delay:7s;    }
+#arcane-bg-orbs span:nth-child(9)  { width:100px; height:100px; left:88%;  top:40%;  background:rgba(90,10,160,0.52);   filter:blur(44px); animation-duration:18s; animation-delay:3s;    }
+#arcane-bg-orbs span:nth-child(10) { width:65px;  height:65px;  left:46%;  top:50%;  background:rgba(20,40,180,0.4);    filter:blur(30px); animation-duration:29s; animation-delay:9s;    }
+#arcane-bg-orbs span:nth-child(11) { width:50px;  height:50px;  left:10%;  top:88%;  background:rgba(150,90,15,0.38);   filter:blur(24px); animation-duration:25s; animation-delay:16s;   }
+#arcane-bg-orbs span:nth-child(12) { width:85px;  height:85px;  left:50%;  top:25%;  background:rgba(70,15,150,0.45);   filter:blur(38px); animation-duration:21s; animation-delay:5s;    }
+
+/* ===== HEADER ===== */
 header {
-  padding: 1rem 2rem;
-  border-bottom: 1px solid #ddd;
+  position: relative;
+  z-index: 10;
+  height: var(--header-height);
+  padding: 0 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background: linear-gradient(180deg, #04060f 0%, #080c1e 100%);
+  border-bottom: 1px solid rgba(201,162,39,0.5);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.6);
+}
+
+header h1 {
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--accent-gold-light);
+  text-shadow: 0 0 16px rgba(201,162,39,0.55);
+  letter-spacing: 0.05em;
 }
 
 #header-btns {
@@ -24,85 +116,763 @@ header {
   gap: 0.5rem;
 }
 
+/* ===== MAIN & LAYOUT ===== */
+main {
+  position: relative;
+  z-index: 2;
+  height: calc(100vh - var(--header-height));
+}
+
 #layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 1rem;
-  padding: 1rem;
+  grid-template-columns: 1fr 1.35fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "satchel cauldron output"
+    "ingredient-grimoire cauldron potion-grimoire";
+  gap: var(--panel-spacing);
+  padding: var(--panel-spacing);
+  height: 100%;
 }
 
+/* ===== PANEL BASE (DARK WALNUT WOOD) ===== */
 section {
-  border: 1px solid #aaa;
-  padding: 1rem;
-}
-
-section h2 {
-  margin-bottom: 0.5rem;
-  font-size: 1.1rem;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 0.25rem;
-}
-
-#grimoire-inner {
+  background:
+    linear-gradient(155deg,
+      #241608 0%, #1a1006 20%, #201408 35%,
+      #181008 50%, #1e1408 65%, #261808 80%, #201408 100%);
+  border: 1px solid #5a3a18;
+  border-radius: 3px;
+  padding: 0.7rem;
+  color: var(--text-color);
   display: flex;
-  gap: 1rem;
-  margin-top: 0.5rem;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+  box-shadow:
+    0 8px 28px rgba(0,0,0,0.65),
+    0 3px 8px rgba(0,0,0,0.45),
+    0 0 14px 3px var(--panel-glow),
+    0 0 40px 10px rgba(55,15,90,0.07),
+    inset 0 1px 0 rgba(255,220,120,0.14),
+    inset 0 -1px 0 rgba(0,0,0,0.5);
+  transition: box-shadow 0.4s ease;
+  position: relative;
 }
 
-#grimoire-content, #grimoire-recipes {
+
+/* ===== CORNER FLOURISHES ===== */
+section::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    /* top-left */
+    linear-gradient(to right,  rgba(201,162,39,0.6) 16px, transparent 16px) 0    0    / 16px 1px no-repeat,
+    linear-gradient(to bottom, rgba(201,162,39,0.6) 16px, transparent 16px) 0    0    / 1px 16px no-repeat,
+    /* top-right */
+    linear-gradient(to left,   rgba(201,162,39,0.6) 16px, transparent 16px) 100% 0    / 16px 1px no-repeat,
+    linear-gradient(to bottom, rgba(201,162,39,0.6) 16px, transparent 16px) 100% 0    / 1px 16px no-repeat,
+    /* bottom-left */
+    linear-gradient(to right,  rgba(201,162,39,0.6) 16px, transparent 16px) 0    100% / 16px 1px no-repeat,
+    linear-gradient(to top,    rgba(201,162,39,0.6) 16px, transparent 16px) 0    100% / 1px 16px no-repeat,
+    /* bottom-right */
+    linear-gradient(to left,   rgba(201,162,39,0.6) 16px, transparent 16px) 100% 100% / 16px 1px no-repeat,
+    linear-gradient(to top,    rgba(201,162,39,0.6) 16px, transparent 16px) 100% 100% / 1px 16px no-repeat;
+}
+
+#ingredient-grimoire::before,
+#potion-grimoire::before {
+  background:
+    linear-gradient(to right,  rgba(74,127,181,0.6) 16px, transparent 16px) 0    0    / 16px 1px no-repeat,
+    linear-gradient(to bottom, rgba(74,127,181,0.6) 16px, transparent 16px) 0    0    / 1px 16px no-repeat,
+    linear-gradient(to left,   rgba(74,127,181,0.6) 16px, transparent 16px) 100% 0    / 16px 1px no-repeat,
+    linear-gradient(to bottom, rgba(74,127,181,0.6) 16px, transparent 16px) 100% 0    / 1px 16px no-repeat,
+    linear-gradient(to right,  rgba(74,127,181,0.6) 16px, transparent 16px) 0    100% / 16px 1px no-repeat,
+    linear-gradient(to top,    rgba(74,127,181,0.6) 16px, transparent 16px) 0    100% / 1px 16px no-repeat,
+    linear-gradient(to left,   rgba(74,127,181,0.6) 16px, transparent 16px) 100% 100% / 16px 1px no-repeat,
+    linear-gradient(to top,    rgba(74,127,181,0.6) 16px, transparent 16px) 100% 100% / 1px 16px no-repeat;
+}
+
+
+/* ===== CAULDRON SIGIL ===== */
+#cauldron-sigil {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72%;
+  height: 72%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.sigil-ring {
+  position: absolute;
+  border-radius: 50%;
+  inset: 0;
+}
+
+.sigil-ring--outer {
+  border: 1px dashed rgba(201,162,39,0.22);
+  animation: sigil-cw 28s linear infinite;
+}
+
+.sigil-ring--mid {
+  inset: 22%;
+  border: 1px dashed rgba(139,68,184,0.22);
+  animation: sigil-ccw 18s linear infinite;
+}
+
+.sigil-ring--inner {
+  inset: 42%;
+  border: 1px solid rgba(74,127,181,0.3);
+  animation: sigil-cw 10s linear infinite;
+}
+
+.sigil-center {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(201,162,39,0.9);
+  box-shadow: 0 0 8px rgba(201,162,39,0.7), 0 0 18px rgba(201,162,39,0.25);
+  animation: sigil-pulse 3.5s ease-in-out infinite;
+}
+
+@keyframes sigil-cw    { to { transform: rotate(360deg);  } }
+@keyframes sigil-ccw   { to { transform: rotate(-360deg); } }
+@keyframes sigil-pulse {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%       { opacity: 1;    transform: scale(1.4); }
+}
+
+/* ===== ARCANE SPARKLES ===== */
+#arcane-sparkles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  overflow: hidden;
+}
+
+#arcane-sparkles span {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+  animation: sparkle-pulse ease-in-out infinite;
+}
+
+@keyframes sparkle-pulse {
+  0%, 100% { opacity: 0; transform: scale(0.4); }
+  50%       { opacity: 1; transform: scale(1); }
+}
+
+#arcane-sparkles span:nth-child(1) { width:3px; height:3px; left:13%; top:22%; background:rgba(201,162,39,0.95); box-shadow:0 0 5px rgba(201,162,39,0.8); animation-duration:2.8s; animation-delay:0s;   }
+#arcane-sparkles span:nth-child(2) { width:2px; height:2px; left:38%; top:58%; background:rgba(139,68,184,0.9);  box-shadow:0 0 4px rgba(139,68,184,0.7); animation-duration:4.2s; animation-delay:1.1s; }
+#arcane-sparkles span:nth-child(3) { width:3px; height:3px; left:68%; top:32%; background:rgba(74,127,181,0.9);  box-shadow:0 0 5px rgba(74,127,181,0.7); animation-duration:3.6s; animation-delay:2.3s; }
+#arcane-sparkles span:nth-child(4) { width:2px; height:2px; left:84%; top:68%; background:rgba(201,162,39,0.85); box-shadow:0 0 4px rgba(201,162,39,0.6); animation-duration:5.1s; animation-delay:0.7s; }
+#arcane-sparkles span:nth-child(5) { width:4px; height:4px; left:24%; top:78%; background:rgba(200,180,255,0.7); box-shadow:0 0 6px rgba(200,180,255,0.5); animation-duration:3.9s; animation-delay:3.2s; }
+#arcane-sparkles span:nth-child(6) { width:2px; height:2px; left:58%; top:14%; background:rgba(201,162,39,0.9);  box-shadow:0 0 4px rgba(201,162,39,0.7); animation-duration:3.3s; animation-delay:1.9s; }
+#arcane-sparkles span:nth-child(7) { width:3px; height:3px; left:48%; top:62%; background:rgba(139,68,184,0.85); box-shadow:0 0 5px rgba(139,68,184,0.6); animation-duration:5.4s; animation-delay:4.1s; }
+#arcane-sparkles span:nth-child(8) { width:2px; height:2px; left:9%;  top:48%; background:rgba(120,160,255,0.9); box-shadow:0 0 4px rgba(120,160,255,0.7); animation-duration:3.1s; animation-delay:2.7s; }
+
+/* ===== GRIMOIRE PANELS (DARK PARCHMENT / LEATHER) ===== */
+#ingredient-grimoire,
+#potion-grimoire {
+  background:
+    linear-gradient(145deg,
+      #2a1c0c 0%, #221408 25%, #281a0a 50%,
+      #241608 75%, #2c1e0e 100%);
+  border-color: #6a4a20;
+  box-shadow:
+    0 8px 28px rgba(0,0,0,0.65),
+    0 3px 8px rgba(0,0,0,0.45),
+    0 0 14px 3px var(--grimoire-glow),
+    inset 0 1px 0 rgba(255,210,100,0.1),
+    inset 0 -1px 0 rgba(0,0,0,0.5);
+}
+
+
+/* ===== PANEL GLOW ON HOVER ===== */
+#satchel:hover,
+#output:hover {
+  box-shadow:
+    0 10px 32px rgba(0,0,0,0.7),
+    0 3px 8px rgba(0,0,0,0.45),
+    0 0 24px 7px rgba(201,162,39,0.35),
+    inset 0 1px 0 rgba(255,220,120,0.14),
+    inset 0 -1px 0 rgba(0,0,0,0.5);
+}
+
+#ingredient-grimoire:hover,
+#potion-grimoire:hover {
+  box-shadow:
+    0 10px 32px rgba(0,0,0,0.7),
+    0 3px 8px rgba(0,0,0,0.45),
+    0 0 24px 7px rgba(74,127,181,0.35),
+    inset 0 1px 0 rgba(255,210,100,0.1),
+    inset 0 -1px 0 rgba(0,0,0,0.5);
+}
+
+/* ===== GRID AREAS ===== */
+#satchel             { grid-area: satchel; }
+#ingredient-grimoire { grid-area: ingredient-grimoire; }
+#cauldron            { grid-area: cauldron; }
+#output              { grid-area: output; }
+#potion-grimoire     { grid-area: potion-grimoire; }
+
+/* ===== SECTION HEADINGS ===== */
+section h2 {
+  font-size: 1.1rem;
+  font-style: italic;
+  letter-spacing: 0.1em;
+  color: var(--accent-gold-light);
+  text-shadow: 0 0 14px rgba(201,162,39,0.5);
+  margin-bottom: 0.55rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  white-space: nowrap;
+}
+
+section h2::before {
+  content: '';
   flex: 1;
-  border: 1px solid #ddd;
-  padding: 0.5rem;
-  overflow-y: auto;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(201,162,39,0.45));
 }
 
-#grimoire-recipes h3 {
-  margin-bottom: 0.5rem;
-  font-size: 1rem;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 0.25rem;
+section h2::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to left, transparent, rgba(201,162,39,0.45));
 }
 
-.recipe-entry {
-  margin-bottom: 0.5rem;
+section h3 {
   font-size: 0.9rem;
+  font-style: italic;
+  margin-bottom: 0.25rem;
+  color: var(--accent-gold-light);
 }
 
-#satchel-grid, #output-grid {
+section p, section li {
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+section ul { padding-left: 1.1rem; }
+
+/* ===== SATCHEL & OUTPUT GRIDS ===== */
+#satchel-grid,
+#output-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
+  gap: 0.4rem;
+  overflow-y: auto;
+  align-content: flex-start;
+  flex: 1;
 }
 
-#cauldron-slots {
+
+/* ===== INGREDIENT / POTION CARDS ===== */
+.ingredient-btn,
+.potion-card {
+  font-family: var(--font-family);
   display: flex;
-  gap: 1rem;
-  margin-bottom: 0.5rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0.55rem 0.45rem;
+  width: 86px;
+  background: linear-gradient(160deg, #d8c890 0%, #b89c60 55%, #c8b078 100%);
+  border: 1px solid rgba(120,90,35,0.6);
+  color: #120a02;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: transform 0.12s ease, box-shadow 0.2s ease;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.6);
+  position: relative;
+}
+
+.card--potent  { border-color: rgba(201,162,39,0.7);  box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 6px rgba(201,162,39,0.2); }
+.card--toxic   { border-color: rgba(139,68,184,0.7);   box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 6px rgba(139,68,184,0.2); }
+.card--balanced{ border-color: rgba(140,110,55,0.55); }
+
+.card-name {
+  font-size: 0.78rem;
+  text-align: center;
+  line-height: 1.2;
+  word-break: break-word;
+}
+
+.card-dots {
+  display: flex;
+  gap: 0.28rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: opacity 0.3s ease;
+}
+
+.dot--empty    { background: rgba(60,40,10,0.25); border: 1px solid rgba(100,75,30,0.7); }
+.dot--filled.dot--potent  { background: #b85c00; box-shadow: 0 0 4px rgba(184,92,0,0.6); }
+.dot--filled.dot--toxic   { background: #5c1a8a; box-shadow: 0 0 4px rgba(92,26,138,0.6); }
+.dot--filled.dot--balanced{ background: #6b5200; box-shadow: 0 0 3px rgba(107,82,0,0.5); }
+
+.ingredient-btn:disabled,
+.potion-card:disabled { opacity: 0.28; cursor: default; }
+
+/* Ingredient cards — directional glow rotate (picking up an object) */
+.ingredient-btn:not(:disabled):hover { transform: translateY(-2px); }
+.ingredient-btn.card--potent:not(:disabled):hover   { animation: card-glow-gold   1.6s linear infinite; }
+.ingredient-btn.card--toxic:not(:disabled):hover    { animation: card-glow-purple 1.6s linear infinite; }
+.ingredient-btn.card--balanced:not(:disabled):hover { animation: card-glow-gold   1.6s linear infinite; }
+
+/* Potion cards — soft omnidirectional pulse (mysterious, not grabbed) */
+.potion-card:not(:disabled):hover { transform: translateY(-1px); animation: potion-hover-pulse 2s ease-in-out infinite; }
+.potion-card.card--toxic:not(:disabled):hover { animation: potion-hover-pulse-purple 2s ease-in-out infinite; }
+
+@keyframes potion-hover-pulse {
+  0%, 100% { box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 8px rgba(201,162,39,0.25); }
+  50%       { box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 20px rgba(201,162,39,0.55); }
+}
+
+@keyframes potion-hover-pulse-purple {
+  0%, 100% { box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 8px rgba(139,68,184,0.25); }
+  50%       { box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 20px rgba(139,68,184,0.55); }
+}
+
+@keyframes card-glow-gold {
+  0%   { box-shadow: 2px 0 0 1px rgba(201,162,39,0.9), 2px 0 10px rgba(201,162,39,0.6); transform: translateY(-2px); }
+  25%  { box-shadow: 0 2px 0 1px rgba(201,162,39,0.9), 0 2px 10px rgba(201,162,39,0.6); }
+  50%  { box-shadow: -2px 0 0 1px rgba(201,162,39,0.9), -2px 0 10px rgba(201,162,39,0.6); }
+  75%  { box-shadow: 0 -2px 0 1px rgba(201,162,39,0.9), 0 -2px 10px rgba(201,162,39,0.6); }
+  100% { box-shadow: 2px 0 0 1px rgba(201,162,39,0.9), 2px 0 10px rgba(201,162,39,0.6); }
+}
+
+@keyframes card-glow-purple {
+  0%   { box-shadow: 2px 0 0 1px rgba(139,68,184,0.9), 2px 0 10px rgba(139,68,184,0.6); transform: translateY(-2px); }
+  25%  { box-shadow: 0 2px 0 1px rgba(139,68,184,0.9), 0 2px 10px rgba(139,68,184,0.6); }
+  50%  { box-shadow: -2px 0 0 1px rgba(139,68,184,0.9), -2px 0 10px rgba(139,68,184,0.6); }
+  75%  { box-shadow: 0 -2px 0 1px rgba(139,68,184,0.9), 0 -2px 10px rgba(139,68,184,0.6); }
+  100% { box-shadow: 2px 0 0 1px rgba(139,68,184,0.9), 2px 0 10px rgba(139,68,184,0.6); }
+}
+
+/* ===== CAULDRON SECTION ===== */
+#cauldron {
+  background:
+    linear-gradient(165deg,
+      #1e1408 0%, #160e06 20%, #1a1206 35%,
+      #120e06 55%, #180e06 70%, #1c1408 85%, #1a1008 100%);
+  border: 1.5px solid rgba(201,162,39,0.45);
+  border-radius: 4px;
+  overflow: visible;
+  align-items: center;
+  box-shadow:
+    0 12px 40px rgba(0,0,0,0.75),
+    0 4px 12px rgba(0,0,0,0.5),
+    0 0 22px 5px rgba(201,162,39,0.14),
+    inset 0 1px 0 rgba(255,220,120,0.18),
+    inset 0 -1px 0 rgba(0,0,0,0.6);
+}
+
+#cauldron h2 {
+  width: 100%;
+}
+
+/* Cauldron bowl visual */
+#cauldron-bowl {
+  width: min(170px, 52%);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 35% 30%, #2e2e2e 0%, #141414 55%, #080808 100%);
+  border: 3px solid #484848;
+  margin: 0.4rem auto 0.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    inset 0 0 35px rgba(0,0,0,0.95),
+    inset 0 4px 8px rgba(255,255,255,0.03),
+    0 6px 20px rgba(0,0,0,0.7);
+  flex-shrink: 0;
+  position: relative;
+  transition: box-shadow 0.5s ease;
+}
+
+#cauldron-bowl::after {
+  content: '';
+  position: absolute;
+  top: 10%; left: 15%;
+  width: 28%; height: 13%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.06) 0%, transparent 70%);
+}
+
+/* ===== CAULDRON SLOTS ===== */
+#cauldron-slots {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  width: min(148px, 80%);
+  margin: 0 auto 0.45rem;
+  flex-shrink: 0;
 }
 
 .slot {
-  border: 1px dashed #999;
-  padding: 0.5rem 1rem;
-  min-width: 120px;
+  font-family: var(--font-family);
+  font-size: 0.62rem;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,162,39,0.2);
+  background: radial-gradient(circle, rgba(201,162,39,0.03) 0%, transparent 70%);
+  color: rgba(221,200,152,0.0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1.2;
+  position: relative;
+  padding: 0.4rem;
 }
 
-button {
-  padding: 0.4rem 0.8rem;
+.slot:not(.slot--filled)::before {
+  content: '◈';
+  position: absolute;
+  font-size: 1.1rem;
+  color: rgba(201,162,39,0.12);
+}
+
+.slot--filled {
+  border: 1px solid rgba(201,162,39,0.55);
+  background: radial-gradient(circle, rgba(201,162,39,0.1) 0%, rgba(201,162,39,0.03) 65%, transparent 100%);
+  color: var(--text-color);
+  box-shadow: 0 0 10px rgba(201,162,39,0.18), inset 0 0 8px rgba(201,162,39,0.06);
+}
+
+.slot--removable {
   cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.slot--removable:hover {
+  border-color: rgba(255,80,80,0.6);
+  box-shadow: 0 0 12px rgba(255,60,60,0.25), inset 0 0 8px rgba(255,60,60,0.08);
+  opacity: 0.8;
+}
+
+#cauldron-count {
+  font-size: 0.72rem;
+  color: rgba(221,200,152,0.5);
+  margin-bottom: 0.35rem;
+  text-align: center;
+  flex-shrink: 0;
 }
 
 #brew-message {
-  margin-top: 0.5rem;
   font-style: italic;
+  font-size: 0.82rem;
+  text-align: center;
+  margin-top: 0.35rem;
+  color: var(--text-color);
+  flex-shrink: 0;
 }
 
-/* MODALS */
+/* ===== ESSENCE READOUT ===== */
+#essence-readout {
+  width: 100%;
+  padding: 0.6rem 1.1rem 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  border-top: 1px solid rgba(201,162,39,0.12);
+  margin-top: 0.3rem;
+}
+
+.essence-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.essence-label {
+  width: 48px;
+  font-size: 0.68rem;
+  font-style: italic;
+  color: rgba(221,200,152,0.5);
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.essence-track {
+  flex: 1;
+  height: 3px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.essence-fill--potency {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(201,162,39,0.5), rgba(232,196,74,1));
+  box-shadow: 0 0 6px rgba(201,162,39,0.9);
+  border-radius: 2px;
+  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.essence-fill--toxicity {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(100,40,160,0.5), rgba(170,90,220,1));
+  box-shadow: 0 0 6px rgba(139,68,184,0.9);
+  border-radius: 2px;
+  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.essence-value {
+  width: 26px;
+  font-size: 0.68rem;
+  color: rgba(221,200,152,0.45);
+  flex-shrink: 0;
+}
+
+.proximity-hint {
+  font-style: italic;
+  font-size: 0.7rem;
+  color: rgba(221,200,152,0.38);
+  text-align: center;
+  padding-top: 0.15rem;
+  letter-spacing: 0.01em;
+}
+
+/* ===== CAULDRON BREW FEEDBACK ===== */
+#cauldron.brew-success {
+  animation: brew-golden-flash 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+#cauldron.brew-failure {
+  animation: brew-purple-smoke 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+             brew-chromatic 0.65s ease-out forwards;
+}
+
+@keyframes brew-golden-flash {
+  0%   { box-shadow: 0 0 14px 3px rgba(201,162,39,0.12); }
+  25%  { box-shadow: 0 0 60px 24px rgba(232,196,74,0.85), 0 0 100px 40px rgba(201,162,39,0.5); }
+  100% { box-shadow: 0 0 14px 3px rgba(201,162,39,0.12); }
+}
+
+@keyframes brew-chromatic {
+  0%   { filter: none; }
+  8%   { filter: drop-shadow( 3px 0 0 rgba(255,30, 30,0.9)) drop-shadow(-3px 0 0 rgba(30,200,255,0.9)); }
+  18%  { filter: drop-shadow(-4px 0 0 rgba(255,30, 30,0.7)) drop-shadow( 4px 0 0 rgba(30,200,255,0.7)); }
+  32%  { filter: drop-shadow( 2px 0 0 rgba(255,30, 30,0.5)) drop-shadow(-2px 0 0 rgba(30,200,255,0.5)); }
+  50%  { filter: drop-shadow(-1px 0 0 rgba(255,30, 30,0.25)) drop-shadow(1px 0 0 rgba(30,200,255,0.25)); }
+  100% { filter: none; }
+}
+
+@keyframes brew-purple-smoke {
+  0%   { box-shadow: 0 0 14px 3px rgba(139,68,184,0.12); }
+  20%  { box-shadow: 0 0 50px 20px rgba(139,68,184,0.75), 0 0 80px 30px rgba(139,68,184,0.4); }
+  60%  { box-shadow: 0 0 30px 12px rgba(139,68,184,0.4); }
+  100% { box-shadow: 0 0 14px 3px rgba(201,162,39,0.12); }
+}
+
+/* ===== ACTION BUTTONS ===== */
+button {
+  font-family: var(--font-family);
+  font-size: 0.85rem;
+  padding: 0.3rem 0.85rem;
+  background: linear-gradient(180deg, #1e1208 0%, #120a04 100%);
+  color: var(--text-color);
+  border: 1px solid rgba(201,162,39,0.5);
+  cursor: pointer;
+  border-radius: 1px;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 0 6px rgba(201,162,39,0.15);
+}
+
+button:hover:not(:disabled) {
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 14px rgba(201,162,39,0.5);
+}
+
+button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+#cauldron-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  margin-top: 0.3rem;
+  width: 100%;
+}
+
+#brew-btn {
+  font-size: 1.05rem;
+  letter-spacing: 0.14em;
+  padding: 0.55rem 2rem;
+  width: 82%;
+  border: 1px solid rgba(201,162,39,0.4);
+  outline: 1px solid rgba(201,162,39,0.12);
+  outline-offset: 3px;
+  box-shadow:
+    0 4px 14px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,220,100,0.1),
+    inset 0 -2px 4px rgba(0,0,0,0.35);
+}
+
+#brew-btn::before { content: '✦ '; font-size: 0.65em; opacity: 0.7; }
+#brew-btn::after  { content: ' ✦'; font-size: 0.65em; opacity: 0.7; }
+
+#brew-btn.brew-btn--ready {
+  border-color: rgba(201,162,39,0.75);
+  outline-color: rgba(201,162,39,0.2);
+  animation: brew-ready-pulse 2.5s ease-in-out infinite;
+}
+
+#brew-btn:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow:
+    0 2px 6px rgba(0,0,0,0.6),
+    inset 0 2px 5px rgba(0,0,0,0.45);
+  outline-offset: 1px;
+}
+
+@keyframes brew-ready-pulse {
+  0%, 100% { box-shadow: 0 4px 14px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,220,100,0.1), 0 0 8px rgba(201,162,39,0.2); }
+  50%       { box-shadow: 0 4px 14px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,220,100,0.1), 0 0 28px rgba(201,162,39,0.6), 0 0 55px rgba(201,162,39,0.15); }
+}
+
+#clear-btn {
+  font-size: 0.72rem;
+  padding: 0.18rem 0.85rem;
+  opacity: 0.5;
+  border-color: rgba(201,162,39,0.2);
+  letter-spacing: 0.06em;
+}
+
+/* ===== GRIMOIRE CONTENT ===== */
+#grimoire-inner {
+  display: flex;
+  gap: 0.65rem;
+  flex: 1;
+  overflow: hidden;
+}
+
+#grimoire-content,
+#grimoire-recipes {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+#grimoire-recipes {
+  border-left: 1px solid rgba(201,162,39,0.15);
+  padding-left: 0.65rem;
+}
+
+#grimoire-recipes h3 {
+  border-bottom: 1px solid rgba(201,162,39,0.15);
+  padding-bottom: 0.2rem;
+  margin-bottom: 0.3rem;
+}
+
+.recipe-entry {
+  font-size: 0.78rem;
+  padding: 0.2rem 0;
+  border-bottom: 1px solid rgba(201,162,39,0.08);
+  color: var(--text-color);
+}
+
+/* Stat display */
+.stat-potency {
+  color: var(--text-gold);
+  text-shadow: 0 0 8px rgba(232,180,34,0.45);
+}
+
+.stat-toxicity {
+  color: var(--text-purple);
+  text-shadow: 0 0 8px rgba(199,125,255,0.45);
+}
+
+#potion-grimoire-content {
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== GRIMOIRE IDLE STATES ===== */
+.grimoire-idle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.grimoire-idle--small {
+  gap: 0.4rem;
+  justify-content: center;
+}
+
+.grimoire-idle-glyph {
+  font-size: 2.2rem;
+  color: var(--accent-gold);
+  opacity: 0.35;
+  display: block;
+  animation: idle-glyph-breathe 4s ease-in-out infinite;
+}
+
+.grimoire-idle-glyph--small {
+  font-size: 1.3rem;
+}
+
+@keyframes idle-glyph-breathe {
+  0%, 100% { opacity: 0.25; transform: scale(1); }
+  50%       { opacity: 0.5;  transform: scale(1.06); }
+}
+
+.grimoire-idle-text {
+  font-style: italic;
+  font-size: 0.78rem;
+  color: rgba(221,200,152,0.38);
+  line-height: 1.55;
+  max-width: 85%;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(201,162,39,0.25); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(201,162,39,0.45); }
+
+/* ===== MODALS ===== */
 #modal-overlay, #design-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.75);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -110,21 +880,44 @@ button {
 }
 
 #modal, #design-modal {
-  background: #fff;
-  padding: 1.5rem;
+  background: linear-gradient(145deg, #2a1c0c 0%, #221408 50%, #281a0a 100%);
+  color: var(--text-color);
+  font-family: var(--font-family);
+  padding: 1.75rem;
   max-width: 95vw;
   max-height: 85vh;
   overflow-y: auto;
-  border: 1px solid #aaa;
+  border: 1px solid rgba(201,162,39,0.4);
+  box-shadow: 0 0 50px rgba(201,162,39,0.25), 0 8px 40px rgba(0,0,0,0.8);
 }
 
 #modal { width: 640px; }
 #design-modal { width: 480px; }
 
-#modal h2, #design-modal h2 { margin-bottom: 0.25rem; }
-#modal h3, #design-modal h3 { margin: 0.75rem 0 0.25rem; }
-#modal hr, #design-modal hr { margin: 0.75rem 0; border: none; border-top: 1px solid #ddd; }
-#modal p, #design-modal p { font-size: 0.9rem; color: #555; margin-bottom: 0.5rem; }
+#modal h2, #design-modal h2 {
+  font-style: italic;
+  font-size: 1.2rem;
+  margin-bottom: 0.4rem;
+  color: var(--accent-gold-light);
+}
+
+#modal h3, #design-modal h3 {
+  margin: 0.75rem 0 0.25rem;
+  font-style: italic;
+  color: var(--accent-gold-light);
+}
+
+#modal hr, #design-modal hr {
+  margin: 0.75rem 0;
+  border: none;
+  border-top: 1px solid rgba(201,162,39,0.2);
+}
+
+#modal p, #design-modal p {
+  font-size: 0.85rem;
+  color: rgba(221,200,152,0.7);
+  margin-bottom: 0.5rem;
+}
 
 .form-row {
   display: flex;
@@ -137,6 +930,10 @@ button {
   flex: 1;
   min-width: 120px;
   padding: 0.3rem 0.5rem;
+  font-family: var(--font-family);
+  background: rgba(255,200,80,0.06);
+  border: 1px solid rgba(201,162,39,0.35);
+  color: var(--text-color);
 }
 
 #custom-ing-list, #custom-rec-list {
@@ -155,7 +952,104 @@ button {
 .modal-actions {
   display: flex;
   gap: 0.5rem;
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
 }
 
-.design-section { margin-bottom: 0.5rem; }
+.design-section { margin-bottom: 0.75rem; }
+
+/* ===== SETTINGS MODAL ===== */
+#theme-presets {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.theme-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.65rem 0.5rem;
+  background: rgba(255,200,80,0.04);
+  border: 1px solid rgba(201,162,39,0.2);
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: 0.8rem;
+  color: var(--text-color);
+  border-radius: 2px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+}
+
+.theme-btn:hover {
+  border-color: rgba(201,162,39,0.5);
+  box-shadow: 0 0 10px rgba(201,162,39,0.2);
+}
+
+.theme-btn--active {
+  border-color: var(--accent-gold) !important;
+  box-shadow: 0 0 14px rgba(201,162,39,0.35) !important;
+}
+
+.theme-swatches {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.theme-swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.settings-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.settings-row label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  color: rgba(221,200,152,0.75);
+}
+
+.settings-row input[type="color"] {
+  width: 52px;
+  height: 30px;
+  border: 1px solid rgba(201,162,39,0.35);
+  border-radius: 2px;
+  background: rgba(0,0,0,0.3);
+  cursor: pointer;
+  padding: 2px;
+}
+
+.settings-row--slider {
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.8rem;
+  color: rgba(221,200,152,0.6);
+}
+
+.settings-row--slider input[type="range"] {
+  flex: 1;
+  accent-color: var(--accent-gold);
+  cursor: pointer;
+}
+
+#design-modal select {
+  font-family: var(--font-family);
+  font-size: 0.85rem;
+  background: rgba(255,200,80,0.06);
+  border: 1px solid rgba(201,162,39,0.35);
+  color: var(--text-color);
+  padding: 0.35rem 0.5rem;
+  width: 100%;
+  cursor: pointer;
+  margin-top: 0.25rem;
+}
