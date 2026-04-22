@@ -31,6 +31,7 @@ This file tracks every task requested during this project. Update it at the end 
 23. Recolored the cauldron sigil SVG to match the vessel purple — all gold `rgba(196,154,42,...)` values in the Flamel symbol (outer rings, tick marks, inner orbit ring, cross, serpent, snake head, eye sockets, nose, teeth) replaced with `rgba(105,50,185,...)` so the symbol matches the panel's new indigo-violet identity.
 24. Replaced the Flamel SVG paths in the cauldron bowl with a single centered ⚗ alchemical glyph — cleaner and more legible than the hand-drawn paths. Kept the outer rotating rings and inner orbit ring. Added an SVG `feGaussianBlur` filter for a soft purple glow around the glyph.
 25. Replaced the ⚗ glyph with a more pronounced inner magic circle as the cauldron focal point — double concentric rings, 8 tick marks, and a center dot with a small halo ring, all glowing via SVG blur filter. The inner group still rotates faster than the outer rings.
+26. Made the outer ring more pronounced to match — increased stroke width from 1/0.5 to 1.5/0.75, raised opacity on the ring and tick marks, and applied the same SVG glow filter as the inner circle.
 
 ---
 

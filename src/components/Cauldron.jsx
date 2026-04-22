@@ -36,16 +36,16 @@ export default function Cauldron({ cauldron, ingredients, brewMessage, brewResul
           </defs>
 
           {/* Outer rings + tick marks — slow CW */}
-          <g className="sigil-group sigil-group--outer">
-            <circle cx="100" cy="100" r="92" fill="none" stroke="rgba(105,50,185,0.45)" strokeWidth="1"/>
-            <circle cx="100" cy="100" r="83" fill="none" stroke="rgba(105,50,185,0.2)" strokeWidth="0.5"/>
+          <g className="sigil-group sigil-group--outer" filter="url(#circle-glow)">
+            <circle cx="100" cy="100" r="92" fill="none" stroke="rgba(105,50,185,0.75)" strokeWidth="1.5"/>
+            <circle cx="100" cy="100" r="83" fill="none" stroke="rgba(105,50,185,0.4)"  strokeWidth="0.75"/>
             {Array.from({ length: 24 }, (_, i) => {
               const a = (i * 15 * Math.PI) / 180
               return (
                 <line key={i}
                   x1={100 + 87 * Math.cos(a)} y1={100 + 87 * Math.sin(a)}
                   x2={100 + 93 * Math.cos(a)} y2={100 + 93 * Math.sin(a)}
-                  stroke="rgba(105,50,185,0.3)" strokeWidth="0.75"
+                  stroke="rgba(105,50,185,0.65)" strokeWidth="1.2"
                 />
               )
             })}
