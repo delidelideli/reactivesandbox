@@ -20,6 +20,8 @@ This file tracks every task requested during this project. Update it at the end 
 12. Persisted custom ingredient and recipe data across page refreshes — `ingredients` and `recipes` state now initialise from `localStorage` if saved data exists, falling back to `data.json` defaults. Custom data is saved on every Customize modal save, and discovered recipe flags are saved immediately on successful brew.
 13. Recipe discovery state intentionally resets on refresh — recipes load from localStorage with all `discovered` flags forced to `false`, so the Recipe Book starts empty each session. Custom recipe definitions still persist; only the discovery progress resets.
 14. Fixed ingredient name color in the Ingredient Grimoire — toxic ingredients now display their name in purple (`stat-toxicity`) instead of gold. Potent and balanced ingredients remain gold. Color is derived from the same `getDominant()` logic used by the Satchel cards.
+15. Fixed cauldron glow persisting after brewing — `cauldron-bowl` was concatenating `'none'` into a comma-separated `box-shadow` list (invalid CSS), preventing the glow from clearing. Now conditionally omits the glow when the cauldron is empty.
+16. Reduced brew success and failure glow intensity — `brew-golden-flash` peak opacity reduced from 0.85 to 0.40 and spread from 60px/100px to 35px/55px; `brew-purple-smoke` peak from 0.75 to 0.35 and spread from 50px/80px to 30px/50px.
 
 ---
 

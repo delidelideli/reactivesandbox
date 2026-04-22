@@ -21,7 +21,7 @@ export default function Cauldron({ cauldron, ingredients, brewMessage, brewResul
     >
       <h2>{labels?.cauldron || 'Cauldron'}</h2>
 
-      <div id="cauldron-bowl" style={{ boxShadow: `inset 0 0 30px rgba(0,0,0,0.9), inset 0 4px 8px rgba(255,255,255,0.04), 0 6px 18px rgba(0,0,0,0.55), ${cauldronGlow}` }}>
+      <div id="cauldron-bowl" style={{ boxShadow: `inset 0 0 30px rgba(0,0,0,0.9), inset 0 4px 8px rgba(255,255,255,0.04), 0 6px 18px rgba(0,0,0,0.55)${cauldronGlow !== 'none' ? `, ${cauldronGlow}` : ''}` }}>
         <svg id="cauldron-sigil" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
 
           {/* Outer rings + tick marks — slow CW */}

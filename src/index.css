@@ -721,7 +721,7 @@ section ul { padding-left: 1.1rem; }
 
 @keyframes brew-golden-flash {
   0%   { box-shadow: 0 0 14px 3px rgba(201,162,39,0.12); }
-  25%  { box-shadow: 0 0 60px 24px rgba(232,196,74,0.85), 0 0 100px 40px rgba(201,162,39,0.5); }
+  25%  { box-shadow: 0 0 35px 12px rgba(232,196,74,0.4), 0 0 55px 20px rgba(201,162,39,0.22); }
   100% { box-shadow: 0 0 14px 3px rgba(201,162,39,0.12); }
 }
 
@@ -736,8 +736,8 @@ section ul { padding-left: 1.1rem; }
 
 @keyframes brew-purple-smoke {
   0%   { box-shadow: 0 0 14px 3px rgba(139,68,184,0.12); }
-  20%  { box-shadow: 0 0 50px 20px rgba(139,68,184,0.75), 0 0 80px 30px rgba(139,68,184,0.4); }
-  60%  { box-shadow: 0 0 30px 12px rgba(139,68,184,0.4); }
+  20%  { box-shadow: 0 0 30px 10px rgba(139,68,184,0.35), 0 0 50px 18px rgba(139,68,184,0.18); }
+  60%  { box-shadow: 0 0 18px 6px rgba(139,68,184,0.2); }
   100% { box-shadow: 0 0 14px 3px rgba(201,162,39,0.12); }
 }
 
