@@ -19,6 +19,7 @@ The potion brewer is the proof of concept. The framework is the product.
 - **Stat Bloom:** Potency and Toxicity values in the Grimoires emit layered `drop-shadow` glow proportional to their numeric value — high stats visibly bleed light onto the surrounding panel.
 - **Dual Grimoire System:** Hovering an ingredient previews it in the Ingredient Grimoire; hovering a brewed potion previews it in the Potion Grimoire. Clicking a potion pins it.
 - **Individual Slot Removal:** Clicking a filled Cauldron slot returns that ingredient to the Satchel.
+- **Three-Tier Panel Color Language:** Panels are visually grouped by role — the Cauldron uses deep indigo-violet (the brewing vessel), the Satchel and Output use gold (action/inventory panels), and the Grimoires use steel blue (reading/reference panels). Each tier has its own border color, corner accents, title glow, and hover state.
 - **Customize Modal:** Users can define their own ingredients, recipes, and outputs. Laid out as two side-by-side columns (Ingredients / Recipes) so both sections are visible at once without scrolling.
 - **Theme Settings Modal:** Tabbed interface with two panels — **Theme** (5 presets, live color pickers, stat renaming, font selector, spacing slider, background upload, theme export/import) and **Labels** (rename site title, all 5 panel headers, and the Brew/Dispel buttons). All changes apply live and persist via `localStorage`.
 - **Import / Export:** Export the current ingredient and recipe set as a `workshop-data.json` file. Import a previously exported file to restore a custom setup instantly.
@@ -153,8 +154,9 @@ style CustomizeModal fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
 - `src/components/Cauldron.jsx` — Brewing controller (Controller panel)
 - `src/components/Output.jsx` — Brewed potion results
 - `src/components/CustomizeModal.jsx` — User-defined ingredient and recipe editor
-- `src/components/SettingsModal.jsx` — Theme presets, live color pickers, font selector, spacing slider
-- `src/data.js` — Ingredient and recipe data model
+- `src/components/SettingsModal.jsx` — Tabbed modal: Theme tab (presets, color pickers, font, spacing, background upload, export/import) and Labels tab (rename all panel headers and buttons)
+- `src/data.json` — Central data file: all ingredients and recipes as pure JSON
+- `src/data.js` — Data interface layer: imports `data.json`, re-exports alongside constants and helpers
 - `src/index.css` — All styling and animations
 - `DesignDoc.md` — Living collaborative design document (Connor + Claude)
 - `AI_Actions.md` — Full log of every task requested during the project
