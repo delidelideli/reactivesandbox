@@ -197,7 +197,7 @@ export default function App() {
         <h1>Alchemist's Workshop</h1>
         <div id="header-btns">
           <button onClick={() => setShowCustomize(true)}>Customize</button>
-          <button onClick={() => setShowSettings(true)}>Settings</button>
+          <button onClick={() => setShowSettings(true)}>Theme Settings</button>
         </div>
       </header>
 

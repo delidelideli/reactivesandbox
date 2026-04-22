@@ -393,8 +393,15 @@ export default function SettingsModal({ statNames, onStatNamesChange, onClose })
   return (
     <div id="design-overlay" onClick={e => e.target === e.currentTarget && onClose()}>
       <div id="design-modal">
-        <h2>Settings</h2>
-        <p>Changes apply instantly. Save to keep them after refresh.</p>
+        <div className="modal-header">
+          <div>
+            <h2>Theme Settings</h2>
+            <p>Changes apply instantly. Save to keep them after refresh.</p>
+          </div>
+          <div className="modal-warning">
+            ⚠ Theme changes are not saved permanently.<br />Use <strong>Export Theme</strong> to save your settings as a file.
+          </div>
+        </div>
         <hr />
 
         <div id="settings-columns">

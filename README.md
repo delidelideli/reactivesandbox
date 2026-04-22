@@ -18,7 +18,7 @@ The potion brewer is the proof of concept. The framework is the product.
 - **Dual Grimoire System:** Hovering an ingredient previews it in the Ingredient Grimoire; hovering a brewed potion previews it in the Potion Grimoire. Clicking a potion pins it.
 - **Individual Slot Removal:** Clicking a filled Cauldron slot returns that ingredient to the Satchel.
 - **Customize Modal:** Users can define their own ingredients, recipes, and outputs. Laid out as two side-by-side columns (Ingredients / Recipes) so both sections are visible at once without scrolling.
-- **Settings Modal:** 5 theme presets (Magical & Mystical, Skyrim, Crimson Sanctum, Verdant Workshop, Void), live border/stat color pickers, stat renaming, font selector, spacing slider, background upload, and theme export/import — all changes write to CSS custom properties and persist via `localStorage`. Laid out as a three-column panel to avoid scrolling.
+- **Theme Settings Modal:** 5 theme presets (Magical & Mystical, Skyrim, Crimson Sanctum, Verdant Workshop, Void), live border/stat color pickers, stat renaming, font selector, spacing slider, background upload, and theme export/import — all changes write to CSS custom properties and persist via `localStorage`. Laid out as a three-column panel to avoid scrolling.
 - **Import / Export:** Export the current ingredient and recipe set as a `workshop-data.json` file. Import a previously exported file to restore a custom setup instantly.
 
 ## User Flow Diagram
