@@ -89,8 +89,13 @@ body {
 
 /* ===== HEADER ===== */
 @keyframes star-twinkle {
-  0%, 100% { opacity: 0.15; transform: scale(1); }
-  50%       { opacity: 0.9;  transform: scale(1.4); }
+  0%, 100% { opacity: 0.15; }
+  50%       { opacity: 0.9;  }
+}
+
+@keyframes star-drift {
+  0%   { transform: translate(0, 0); }
+  100% { transform: translate(var(--dx, 4px), var(--dy, -3px)); }
 }
 
 #header-stars {
@@ -104,7 +109,7 @@ body {
   position: absolute;
   border-radius: 50%;
   background: #fff;
-  animation: star-twinkle linear infinite;
+  animation: star-twinkle linear infinite, star-drift ease-in-out infinite alternate;
   box-shadow: 0 0 3px rgba(255,255,255,0.6);
 }
 

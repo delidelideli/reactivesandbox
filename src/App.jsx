@@ -194,18 +194,18 @@ export default function App() {
 
       <header>
         <div id="header-stars" aria-hidden="true">
-          <span style={{left:'4%',   top:'25%', width:'2px',   height:'2px',   animationDuration:'3.1s', animationDelay:'0s'}}   />
-          <span style={{left:'9%',   top:'68%', width:'1.5px', height:'1.5px', animationDuration:'4.4s', animationDelay:'1.2s'}} />
-          <span style={{left:'16%',  top:'38%', width:'1px',   height:'1px',   animationDuration:'2.7s', animationDelay:'0.5s'}} />
-          <span style={{left:'23%',  top:'72%', width:'2px',   height:'2px',   animationDuration:'3.8s', animationDelay:'2.1s'}} />
-          <span style={{left:'31%',  top:'20%', width:'1.5px', height:'1.5px', animationDuration:'5.0s', animationDelay:'0.8s'}} />
-          <span style={{left:'42%',  top:'55%', width:'1px',   height:'1px',   animationDuration:'3.3s', animationDelay:'3.0s'}} />
-          <span style={{left:'58%',  top:'30%', width:'1px',   height:'1px',   animationDuration:'4.1s', animationDelay:'1.7s'}} />
-          <span style={{left:'67%',  top:'75%', width:'2px',   height:'2px',   animationDuration:'2.9s', animationDelay:'0.3s'}} />
-          <span style={{left:'75%',  top:'22%', width:'1.5px', height:'1.5px', animationDuration:'4.7s', animationDelay:'2.5s'}} />
-          <span style={{left:'83%',  top:'62%', width:'1px',   height:'1px',   animationDuration:'3.6s', animationDelay:'1.0s'}} />
-          <span style={{left:'89%',  top:'35%', width:'2px',   height:'2px',   animationDuration:'5.2s', animationDelay:'0.6s'}} />
-          <span style={{left:'95%',  top:'70%', width:'1.5px', height:'1.5px', animationDuration:'3.0s', animationDelay:'2.8s'}} />
+          <span style={{left:'4%',   top:'25%', width:'2px',   height:'2px',   animationDuration:'3.1s, 11s',  animationDelay:'0s',   '--dx': '3px',  '--dy': '-4px'}} />
+          <span style={{left:'9%',   top:'68%', width:'1.5px', height:'1.5px', animationDuration:'4.4s, 13s',  animationDelay:'1.2s', '--dx': '-4px', '--dy': '3px'}}  />
+          <span style={{left:'16%',  top:'38%', width:'1px',   height:'1px',   animationDuration:'2.7s, 9s',   animationDelay:'0.5s', '--dx': '4px',  '--dy': '2px'}}  />
+          <span style={{left:'23%',  top:'72%', width:'2px',   height:'2px',   animationDuration:'3.8s, 14s',  animationDelay:'2.1s', '--dx': '-3px', '--dy': '-3px'}} />
+          <span style={{left:'31%',  top:'20%', width:'1.5px', height:'1.5px', animationDuration:'5.0s, 10s',  animationDelay:'0.8s', '--dx': '5px',  '--dy': '-2px'}} />
+          <span style={{left:'42%',  top:'55%', width:'1px',   height:'1px',   animationDuration:'3.3s, 12s',  animationDelay:'3.0s', '--dx': '-2px', '--dy': '4px'}}  />
+          <span style={{left:'58%',  top:'30%', width:'1px',   height:'1px',   animationDuration:'4.1s, 8s',   animationDelay:'1.7s', '--dx': '3px',  '--dy': '3px'}}  />
+          <span style={{left:'67%',  top:'75%', width:'2px',   height:'2px',   animationDuration:'2.9s, 15s',  animationDelay:'0.3s', '--dx': '-4px', '--dy': '-2px'}} />
+          <span style={{left:'75%',  top:'22%', width:'1.5px', height:'1.5px', animationDuration:'4.7s, 11s',  animationDelay:'2.5s', '--dx': '2px',  '--dy': '-5px'}} />
+          <span style={{left:'83%',  top:'62%', width:'1px',   height:'1px',   animationDuration:'3.6s, 9s',   animationDelay:'1.0s', '--dx': '-3px', '--dy': '3px'}}  />
+          <span style={{left:'89%',  top:'35%', width:'2px',   height:'2px',   animationDuration:'5.2s, 13s',  animationDelay:'0.6s', '--dx': '4px',  '--dy': '-3px'}} />
+          <span style={{left:'95%',  top:'70%', width:'1.5px', height:'1.5px', animationDuration:'3.0s, 10s',  animationDelay:'2.8s', '--dx': '-2px', '--dy': '-4px'}} />
         </div>
         <div id="header-spacer" />
         <h1>Alchemist's Workshop</h1>
