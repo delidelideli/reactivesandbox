@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { MAX_CAULDRON_SLOTS, MIN_BREW_INGREDIENTS } from '../data'
 
 function parseStats(str) {
@@ -28,6 +28,35 @@ export default function CustomizeModal({ ingredients, recipes, statNames, onSave
   const [recDesc, setRecDesc] = useState('')
   const [recStats, setRecStats] = useState('')
   const [recSlots, setRecSlots] = useState(['', ''])
+  const fileInputRef = useRef(null)
+
+  function handleExport() {
+    const blob = new Blob([JSON.stringify({ ingredients: ings, recipes: recs }, null, 2)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'workshop-data.json'
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
+  function handleImport(e) {
+    const file = e.target.files[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = evt => {
+      try {
+        const parsed = JSON.parse(evt.target.result)
+        if (!Array.isArray(parsed.ingredients) || !Array.isArray(parsed.recipes)) return
+        setIngs(parsed.ingredients.map(i => ({ ...i, stats: { ...i.stats } })))
+        setRecs(parsed.recipes.map(r => ({ ...r, stats: { ...r.stats }, inputs: [...r.inputs] })))
+        setIngCounter(parsed.ingredients.length + 1)
+        setRecCounter(parsed.recipes.length + 1)
+      } catch {}
+    }
+    reader.readAsText(file)
+    e.target.value = ''
+  }
 
   function addIngredient() {
     if (!ingName.trim()) return
@@ -180,8 +209,9 @@ export default function CustomizeModal({ ingredients, recipes, statNames, onSave
 
         <div className="modal-actions">
           <button onClick={() => ings.length > 0 && onSave(ings, recs)}>Save Changes</button>
-          <button>Export</button>
-          <button>Import</button>
+          <button onClick={handleExport}>Export</button>
+          <button onClick={() => fileInputRef.current.click()}>Import</button>
+          <input ref={fileInputRef} type="file" accept=".json" style={{ display: 'none' }} onChange={handleImport} />
           <button onClick={onClose}>Cancel</button>
         </div>
       </div>
