@@ -1,3 +1,9 @@
+function getDominant(stats) {
+  if (stats.potency > stats.toxicity) return 'potent'
+  if (stats.toxicity > stats.potency) return 'toxic'
+  return 'balanced'
+}
+
 function statBloom(k, v) {
   const color = k === 'potency' ? '232,180,34' : k === 'toxicity' ? '199,125,255' : null
   if (!color) return {}
@@ -17,7 +23,7 @@ export default function IngredientGrimoire({ selectedIngredient, ingredients, re
         <div id="grimoire-content">
           {selectedIngredient ? (
             <>
-              <h3>{selectedIngredient.name}</h3>
+              <h3 className={getDominant(selectedIngredient.stats) === 'toxic' ? 'stat-toxicity' : 'stat-potency'}>{selectedIngredient.name}</h3>
               <p>{selectedIngredient.description}</p>
               <ul>
                 {Object.entries(selectedIngredient.stats).map(([k, v]) => (

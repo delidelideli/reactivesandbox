@@ -19,6 +19,7 @@ This file tracks every task requested during this project. Update it at the end 
 11. Added Labels tab to Theme Settings modal — tabbed layout (Theme / Labels) replaces single-column header. Labels tab exposes 8 rename fields: Site Title, Satchel, Cauldron, Output, Ingredient Grimoire, Potion Grimoire, Brew, and Dispel. Changes apply live and persist to localStorage. All components updated to read from `labels` prop with fallback to defaults.
 12. Persisted custom ingredient and recipe data across page refreshes — `ingredients` and `recipes` state now initialise from `localStorage` if saved data exists, falling back to `data.json` defaults. Custom data is saved on every Customize modal save, and discovered recipe flags are saved immediately on successful brew.
 13. Recipe discovery state intentionally resets on refresh — recipes load from localStorage with all `discovered` flags forced to `false`, so the Recipe Book starts empty each session. Custom recipe definitions still persist; only the discovery progress resets.
+14. Fixed ingredient name color in the Ingredient Grimoire — toxic ingredients now display their name in purple (`stat-toxicity`) instead of gold. Potent and balanced ingredients remain gold. Color is derived from the same `getDominant()` logic used by the Satchel cards.
 
 ---
 
