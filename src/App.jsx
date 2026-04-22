@@ -193,6 +193,7 @@ export default function App() {
       </div>
 
       <header>
+        <div id="header-spacer" />
         <h1>Alchemist's Workshop</h1>
         <div id="header-btns">
           <button onClick={() => setShowCustomize(true)}>Customize</button>

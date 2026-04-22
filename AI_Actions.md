@@ -4,6 +4,12 @@ This file tracks every task requested during this project. Update it at the end 
 
 ---
 
+## Session 7 (2026-04-22)
+
+1. Centered the header title and increased font size from 1.4rem to 1.7rem. Title uses `position: absolute; left: 50%; transform: translateX(-50%)` for true centering regardless of button width. Added `#header-spacer` flex div to balance the layout.
+
+---
+
 ## Session 6 (2026-04-21)
 
 1. Added missing CSS for new SettingsModal UI elements from the previous session's JSX rewrite: `.settings-stat-row`, `.settings-stat-name`, `.settings-bg-row`, `.settings-bg-label`, `.settings-upload-btn` — the modal was rendering unstyled without these rules.

@@ -102,11 +102,18 @@ header {
 }
 
 header h1 {
-  font-size: 1.4rem;
+  font-size: 1.7rem;
   font-style: italic;
   color: var(--accent-gold-light);
   text-shadow: 0 0 12px rgba(196,154,42,0.4);
   letter-spacing: 0.05em;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#header-spacer {
+  flex: 1;
 }
 
 #header-btns {
