@@ -13,6 +13,7 @@ This file tracks every task requested during this project. Update it at the end 
 5. Added a persistent export warning to the top-right of the Customize modal header — gold-tinted notice reminding users that changes are session-only and to Export if they want to save their data.
 6. Renamed the "Settings" header button to "Theme Settings" for clarity. Updated the modal h2 title to match.
 7. Added the same export warning to the Theme Settings modal header — reminds users to Export Theme if they want changes saved permanently.
+8. Fixed warning box layout in both modals: switched to `align-items: center`, `text-align: left`, and `white-space: nowrap` so the warning renders as a clean single block without awkward wrapping.
 
 ---
 

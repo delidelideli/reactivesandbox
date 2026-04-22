@@ -1109,7 +1109,7 @@ button:disabled {
 .modal-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 1.5rem;
 }
 
@@ -1121,9 +1121,9 @@ button:disabled {
   border-radius: 6px;
   padding: 0.5rem 0.75rem;
   font-size: 0.78rem;
-  line-height: 1.5;
-  text-align: right;
-  max-width: 240px;
+  line-height: 1.6;
+  text-align: left;
+  white-space: nowrap;
 }
 
 .modal-actions {
