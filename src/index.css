@@ -1407,12 +1407,8 @@ button:disabled {
 }
 
 /* ===== SKYRIM THEME OVERRIDES ===== */
-body.theme-skyrim {
-  background: linear-gradient(160deg, #0a0908 0%, #0f0e0c 45%, #0a0908 100%);
-}
-
 body.theme-skyrim #bg-glow {
-  background: radial-gradient(ellipse 70% 50% at 50% 45%, rgba(80,60,20,0.15) 0%, transparent 100%);
+  background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(30,20,5,0.55) 0%, transparent 100%);
 }
 
 body.theme-skyrim #arcane-bg-orbs span {

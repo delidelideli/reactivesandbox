@@ -23,6 +23,7 @@ This file tracks every task requested during this project. Update it at the end 
 15. Fixed cauldron glow persisting after brewing — `cauldron-bowl` was concatenating `'none'` into a comma-separated `box-shadow` list (invalid CSS), preventing the glow from clearing. Now conditionally omits the glow when the cauldron is empty.
 16. Reduced brew success and failure glow intensity — `brew-golden-flash` peak opacity reduced from 0.85 to 0.40 and spread from 60px/100px to 35px/55px; `brew-purple-smoke` peak from 0.75 to 0.35 and spread from 50px/80px to 30px/50px.
 17. Updated Skyrim theme: panels changed from fully opaque solid gradients to semi-transparent `rgba` backgrounds (`rgba(12,10,7,0.82)` for action panels, `rgba(8,11,14,0.84)` for grimoires) so the wallpaper bleeds through. Palette updated to true Skyrim amber (`#c8960a`), cold steel blue (`#5a7a90`), and dragon purple (`#7a3878`).
+18. Fixed Skyrim theme transparency — the `body.theme-skyrim` override was replacing `background-image` with a solid gradient, hiding the wallpaper entirely. Removed the override so the base wallpaper shows through the semi-transparent panels as intended.
 
 ---
 
