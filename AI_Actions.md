@@ -25,6 +25,7 @@ This file tracks every task requested during this project. Update it at the end 
 17. Updated Skyrim theme: panels changed from fully opaque solid gradients to semi-transparent `rgba` backgrounds (`rgba(12,10,7,0.82)` for action panels, `rgba(8,11,14,0.84)` for grimoires) so the wallpaper bleeds through. Palette updated to true Skyrim amber (`#c8960a`), cold steel blue (`#5a7a90`), and dragon purple (`#7a3878`).
 18. Fixed Skyrim theme transparency — the `body.theme-skyrim` override was replacing `background-image` with a solid gradient, hiding the wallpaper entirely. Removed the override so the base wallpaper shows through the semi-transparent panels as intended.
 19. Made Skyrim theme visually distinct from the default — action panels changed to warm dark amber tint (`rgba(22,16,8,0.86)`) with iron-brown borders; grimoire panels changed to cold blue-steel tint (`rgba(8,13,18,0.87)`); CSS vars pushed further: brighter amber (`#d4950a`/`#f0b020`), cold steel blue (`#4a6878`), stronger dragon purple (`#703068`), lighter text (`#e0d8c8`).
+20. Fixed Satchel and Output hover glow color — was hardcoded blue (`rgba(106,143,168,...)`) matching the grimoire panels, contradicting the gold/blue action-vs-reading distinction. Changed to `rgba(var(--border-cauldron-rgb),...)` so the hover glow matches the gold title and border of those panels, and automatically adapts per theme.
 
 ---
 
