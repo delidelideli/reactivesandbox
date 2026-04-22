@@ -123,8 +123,15 @@ export default function CustomizeModal({ ingredients, recipes, statNames, onSave
   return (
     <div id="modal-overlay" onClick={e => e.target === e.currentTarget && onClose()}>
       <div id="modal">
-        <h2>Customize Your Interface</h2>
-        <p>Add or remove ingredients and recipes. Click <strong>Save Changes</strong> when done.</p>
+        <div className="modal-header">
+          <div>
+            <h2>Customize Your Interface</h2>
+            <p>Add or remove ingredients and recipes. Click <strong>Save Changes</strong> when done.</p>
+          </div>
+          <div className="modal-warning">
+            ⚠ Changes are not saved permanently.<br />Use <strong>Export</strong> to save your data as a file.
+          </div>
+        </div>
 
         <hr />
 

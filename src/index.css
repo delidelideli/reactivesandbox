@@ -1106,6 +1106,26 @@ button:disabled {
   color: rgba(180,100,220,0.9);
 }
 
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.modal-warning {
+  flex-shrink: 0;
+  background: rgba(180, 120, 0, 0.12);
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  color: rgba(201, 168, 76, 0.85);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  text-align: right;
+  max-width: 240px;
+}
+
 .modal-actions {
   display: flex;
   gap: 0.5rem;
