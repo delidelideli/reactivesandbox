@@ -86,7 +86,11 @@ export default function App() {
     catch { return INGREDIENTS }
   })
   const [recipes, setRecipes]                   = useState(() => {
-    try { return JSON.parse(localStorage.getItem('custom-recipes')) || RECIPES }
+    try {
+      const saved = JSON.parse(localStorage.getItem('custom-recipes'))
+      if (saved) return saved.map(r => ({ ...r, discovered: false }))
+      return RECIPES
+    }
     catch { return RECIPES }
   })
   const [counts, setCounts]                     = useState(() => {
@@ -155,11 +159,7 @@ export default function App() {
       return
     }
     setBrewed(prev => [...prev, match])
-    setRecipes(prev => {
-      const next = prev.map(r => r.id === match.id ? { ...r, discovered: true } : r)
-      localStorage.setItem('custom-recipes', JSON.stringify(next))
-      return next
-    })
+    setRecipes(prev => prev.map(r => r.id === match.id ? { ...r, discovered: true } : r))
     setCauldron(buildCauldron())
     setBrewMessage(`${match.name} has been drawn forth!`)
     triggerBrewResult('success')
