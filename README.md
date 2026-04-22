@@ -2,7 +2,9 @@
 
 A reactive, browser-based interface framework built in React — designed to be fully customizable by the user. The Alchemist's Workshop potion brewer is the example implementation, demonstrating what the system is capable of, but the underlying architecture is built to support any domain a user wants to bring to it.
 
-Users can define their own items, recipes, and outputs through the Customize modal, effectively replacing the potion-brewing theme with any game, system, or concept they choose. A future Settings panel will allow visual customization of the interface itself — colors, fonts, and layout — so the entire experience can be reskinned without touching code.
+Users can define their own items, recipes, and outputs through the **Customize** modal, effectively replacing the potion-brewing theme with any game, system, or concept they choose. Custom data persists across page refreshes via `localStorage` and can be exported as a JSON file and re-imported at any time.
+
+The **Theme Settings** modal gives full visual control over the interface without touching code. It is split into two tabs: **Theme** — which offers five built-in presets (Arcane, Verdant, Crimson, Voidwalker, Skyrim), live color pickers for borders and stats, a font selector, spacing slider, custom background upload, and theme export/import — and **Labels** — which lets users rename the site title, all five panel headers, and the Brew and Dispel buttons so the workshop can be reskinned for any domain.
 
 The potion brewer is the proof of concept. The framework is the product.
 
