@@ -13,15 +13,16 @@ function parseStats(str) {
   return stats
 }
 
-export default function CustomizeModal({ ingredients, recipes, onSave, onClose }) {
+export default function CustomizeModal({ ingredients, recipes, statNames, onSave, onClose }) {
   const [ings, setIngs] = useState(ingredients.map(i => ({ ...i, stats: { ...i.stats } })))
   const [recs, setRecs] = useState(recipes.map(r => ({ ...r, stats: { ...r.stats }, inputs: [...r.inputs] })))
   const [ingCounter, setIngCounter] = useState(ings.length + 1)
   const [recCounter, setRecCounter] = useState(recs.length + 1)
 
-  const [ingName, setIngName] = useState('')
-  const [ingDesc, setIngDesc] = useState('')
-  const [ingStats, setIngStats] = useState('')
+  const [ingName, setIngName]         = useState('')
+  const [ingDesc, setIngDesc]         = useState('')
+  const [ingPotency, setIngPotency]   = useState('')
+  const [ingToxicity, setIngToxicity] = useState('')
 
   const [recName, setRecName] = useState('')
   const [recDesc, setRecDesc] = useState('')
@@ -30,15 +31,20 @@ export default function CustomizeModal({ ingredients, recipes, onSave, onClose }
 
   function addIngredient() {
     if (!ingName.trim()) return
+    const stats = {}
+    const p = parseFloat(ingPotency)
+    const t = parseFloat(ingToxicity)
+    if (!isNaN(p)) stats.potency  = Math.min(Math.max(p, 0), 10)
+    if (!isNaN(t)) stats.toxicity = Math.min(Math.max(t, 0), 10)
     setIngs(prev => [...prev, {
       id: `ci${ingCounter}`,
       name: ingName.trim(),
       type: 'ingredient',
       description: ingDesc.trim(),
-      stats: ingStats.trim() ? parseStats(ingStats) : {}
+      stats
     }])
     setIngCounter(c => c + 1)
-    setIngName(''); setIngDesc(''); setIngStats('')
+    setIngName(''); setIngDesc(''); setIngPotency(''); setIngToxicity('')
   }
 
   function removeIngredient(idx) {
@@ -100,7 +106,10 @@ export default function CustomizeModal({ ingredients, recipes, onSave, onClose }
             <div className="customize-form">
               <input value={ingName}  onChange={e => setIngName(e.target.value)}  placeholder="Name" />
               <input value={ingDesc}  onChange={e => setIngDesc(e.target.value)}  placeholder="Description" />
-              <input value={ingStats} onChange={e => setIngStats(e.target.value)} placeholder="Stats e.g. potency:8, toxicity:3" />
+              <div className="customize-stat-inputs">
+                <input type="number" min="0" max="10" step="0.1" value={ingPotency}  onChange={e => setIngPotency(e.target.value)}  placeholder={statNames?.potency  ?? 'Potency'}  />
+                <input type="number" min="0" max="10" step="0.1" value={ingToxicity} onChange={e => setIngToxicity(e.target.value)} placeholder={statNames?.toxicity ?? 'Toxicity'} />
+              </div>
               <button onClick={addIngredient} disabled={!ingName.trim()}>Add Ingredient</button>
             </div>
             <ul className="customize-list">
@@ -108,7 +117,17 @@ export default function CustomizeModal({ ingredients, recipes, onSave, onClose }
                 ? <li><em>No ingredients yet.</em></li>
                 : ings.map((ing, idx) => (
                     <li key={ing.id}>
-                      <span>{ing.name}{ing.description ? ` — ${ing.description}` : ''}</span>
+                      <span className="customize-item-info">
+                        <span className="customize-item-name">{ing.name}</span>
+                        {ing.description && <span className="customize-item-desc"> — {ing.description}</span>}
+                      </span>
+                      <span className="customize-item-stats">
+                        {Object.entries(ing.stats).map(([k, v], si) => {
+                          const label = statNames?.[k] ?? k.charAt(0).toUpperCase() + k.slice(1)
+                          const cls = k === 'potency' ? 'badge--potent' : k === 'toxicity' ? 'badge--toxic' : si === 0 ? 'badge--potent' : 'badge--toxic'
+                          return <span key={k} className={`customize-stat-badge ${cls}`}>{label}: {v}</span>
+                        })}
+                      </span>
                       <button onClick={() => removeIngredient(idx)}>Remove</button>
                     </li>
                   ))

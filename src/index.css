@@ -190,52 +190,22 @@ section::before {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 72%;
-  height: 72%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 82%;
+  height: 82%;
   pointer-events: none;
+  overflow: visible;
 }
 
-.sigil-ring {
-  position: absolute;
-  border-radius: 50%;
-  inset: 0;
+.sigil-group {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
 }
 
-.sigil-ring--outer {
-  border: 1px dashed rgba(196,154,42,0.18);
-  animation: sigil-cw 28s linear infinite;
-}
+.sigil-group--outer { animation: sigil-cw 28s linear infinite; }
+.sigil-group--inner { animation: sigil-cw 10s linear infinite; }
 
-.sigil-ring--mid {
-  inset: 22%;
-  border: 1px dashed rgba(122,64,144,0.18);
-  animation: sigil-ccw 18s linear infinite;
-}
-
-.sigil-ring--inner {
-  inset: 42%;
-  border: 1px solid rgba(106,143,168,0.22);
-  animation: sigil-cw 10s linear infinite;
-}
-
-.sigil-center {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: rgba(196,154,42,0.85);
-  box-shadow: 0 0 6px rgba(196,154,42,0.6), 0 0 14px rgba(196,154,42,0.2);
-  animation: sigil-pulse 3.5s ease-in-out infinite;
-}
-
-@keyframes sigil-cw    { to { transform: rotate(360deg);  } }
-@keyframes sigil-ccw   { to { transform: rotate(-360deg); } }
-@keyframes sigil-pulse {
-  0%, 100% { opacity: 0.55; transform: scale(1); }
-  50%       { opacity: 1;    transform: scale(1.4); }
-}
+@keyframes sigil-cw  { to { transform: rotate(360deg);  } }
+@keyframes sigil-ccw { to { transform: rotate(-360deg); } }
 
 /* ===== ARCANE SPARKLES ===== */
 #arcane-sparkles {
@@ -959,7 +929,7 @@ button:disabled {
   box-shadow: 0 0 40px rgba(0,0,0,0.95), 0 8px 40px rgba(0,0,0,0.85);
 }
 
-#modal { width: 860px; max-height: 82vh; display: flex; flex-direction: column; overflow: hidden; }
+#modal { width: 1100px; max-height: 82vh; display: flex; flex-direction: column; overflow: hidden; }
 #design-modal { width: 860px; display: flex; flex-direction: column; overflow: hidden; }
 
 #modal h2, #design-modal h2 {
@@ -1086,13 +1056,54 @@ button:disabled {
   border-bottom: 1px solid rgba(201,162,39,0.07);
 }
 
-.customize-list li span {
+.customize-item-info {
   flex: 1;
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   color: rgba(221,200,152,0.85);
+}
+
+.customize-item-name {
+  font-style: italic;
+}
+
+.customize-item-desc {
+  color: rgba(221,200,152,0.55);
+  font-size: 0.8rem;
+}
+
+.customize-item-stats {
+  display: flex;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.customize-stat-inputs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.customize-stat-inputs input {
+  flex: 1;
+  min-width: 0;
+}
+
+.customize-stat-badge {
+  font-size: 0.72rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+.customize-stat-badge.badge--potent {
+  background: rgba(196,154,42,0.12);
+  border: 1px solid rgba(196,154,42,0.4);
+  color: rgba(220,180,60,0.9);
+}
+
+.customize-stat-badge.badge--toxic {
+  background: rgba(122,64,144,0.12);
+  border: 1px solid rgba(122,64,144,0.4);
+  color: rgba(180,100,220,0.9);
 }
 
 .modal-actions {
@@ -1365,22 +1376,6 @@ body.theme-skyrim #potion-grimoire:hover {
     inset 0 -1px 0 rgba(0,0,0,0.6);
 }
 
-body.theme-skyrim .sigil-ring--outer {
-  border-color: rgba(184,134,11,0.14);
-}
-
-body.theme-skyrim .sigil-ring--mid {
-  border-color: rgba(106,64,128,0.14);
-}
-
-body.theme-skyrim .sigil-ring--inner {
-  border-color: rgba(122,143,160,0.18);
-}
-
-body.theme-skyrim .sigil-center {
-  background: rgba(184,134,11,0.7);
-  box-shadow: 0 0 6px rgba(184,134,11,0.4), 0 0 14px rgba(184,134,11,0.12);
-}
 
 body.theme-skyrim section h2 {
   text-shadow: 0 0 10px rgba(184,134,11,0.3);

@@ -247,6 +247,7 @@ export default function App() {
         <CustomizeModal
           ingredients={ingredients}
           recipes={recipes}
+          statNames={statNames}
           onSave={applyCustomData}
           onClose={() => setShowCustomize(false)}
         />

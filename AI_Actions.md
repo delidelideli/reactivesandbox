@@ -14,6 +14,10 @@ This file tracks every task requested during this project. Update it at the end 
 6. Changed corner flourishes on all panels from L-shaped linear-gradient brackets to quarter-circle radial-gradient arcs. Updated all five corner rule sets (base section, grimoire, satchel/output, Skyrim section, Skyrim grimoire).
 7. Colored Ingredient Grimoire and Potion Grimoire panel titles steel-blue (`--accent-blue-light`) to distinguish reading panels from action panels (Satchel/Output which stay gold). Updated h2 `::before`/`::after` decorative lines to match.
 8. Changed recipe book text, dividers, h3 title, and idle text to steel-blue. Changed grimoire idle glyphs (⚗, ✦) inside both grimoire panels to `--accent-blue`. Fixed `section h3` specificity overriding the inherited blue on the Recipe Book title.
+9. Redesigned the cauldron sigil from simple rotating rings to an inline SVG Flamel: outer ring with 24 tick marks (rotates CW 28s), inner orbit ring (rotates CW 10s), and a static Flamel symbol — wings, 3-point crown, cross, serpent wound around the cross, snake head with tongue, and a skull with eye sockets, nose, and teeth.
+10. Widened the Customize modal from 860px to 1100px so ingredient and recipe descriptions are no longer truncated. Removed CSS ellipsis/nowrap constraints on list item text so long names wrap naturally.
+11. Split ingredient stat display in the Customize modal list from one combined box into two colored badge spans — gold for potency, purple for toxicity — using `statNames` for user-defined labels.
+12. Split the ingredient stat input in the Customize modal form from a single free-text field into two side-by-side number inputs (0–10, step 0.1) labeled with the user's stat names. `addIngredient()` now builds the stats object directly from the numeric values rather than parsing a formatted string.
 
 ---
 
