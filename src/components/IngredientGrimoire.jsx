@@ -6,12 +6,12 @@ function statBloom(k, v) {
   return { filter: `drop-shadow(0 0 ${(2 + v * 0.5).toFixed(1)}px rgba(${color},${inner})) drop-shadow(0 0 ${(v * 1.8).toFixed(1)}px rgba(${color},${outer}))` }
 }
 
-export default function IngredientGrimoire({ selectedIngredient, ingredients, recipes, statNames }) {
+export default function IngredientGrimoire({ selectedIngredient, ingredients, recipes, statNames, labels }) {
   const discoveredRecipes = recipes.filter(r => r.discovered)
 
   return (
     <section id="ingredient-grimoire">
-      <h2>Ingredient Grimoire</h2>
+      <h2>{labels?.ingredientGrimoire || 'Ingredient Grimoire'}</h2>
       <div id="grimoire-inner">
 
         <div id="grimoire-content">

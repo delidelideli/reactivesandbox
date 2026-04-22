@@ -4,10 +4,10 @@ function getDominant(stats) {
   return 'balanced'
 }
 
-export default function Output({ brewed, onHover, onPin }) {
+export default function Output({ brewed, labels, onHover, onPin }) {
   return (
     <section id="output">
-      <h2>Output</h2>
+      <h2>{labels?.output || 'Output'}</h2>
       {brewed.length === 0 ? (
         <div className="grimoire-idle">
           <span className="grimoire-idle-glyph">◈</span>

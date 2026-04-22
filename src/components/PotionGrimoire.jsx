@@ -6,10 +6,10 @@ function statBloom(k, v) {
   return { filter: `drop-shadow(0 0 ${(2 + v * 0.5).toFixed(1)}px rgba(${color},${inner})) drop-shadow(0 0 ${(v * 1.8).toFixed(1)}px rgba(${color},${outer}))` }
 }
 
-export default function PotionGrimoire({ selectedPotion, statNames }) {
+export default function PotionGrimoire({ selectedPotion, statNames, labels }) {
   return (
     <section id="potion-grimoire">
-      <h2>Potion Grimoire</h2>
+      <h2>{labels?.potionGrimoire || 'Potion Grimoire'}</h2>
       <div id="potion-grimoire-content">
         {selectedPotion ? (
           <>

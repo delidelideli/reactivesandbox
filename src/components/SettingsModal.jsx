@@ -174,7 +174,18 @@ function rgbStringToHex(rgb) {
   return '#' + parts.slice(0, 3).map(n => n.toString(16).padStart(2, '0')).join('')
 }
 
-export default function SettingsModal({ statNames, onStatNamesChange, onClose }) {
+const DEFAULT_LABELS = {
+  siteTitle:          "Alchemist's Workshop",
+  satchel:            'Satchel',
+  cauldron:           'Cauldron',
+  output:             'Output',
+  ingredientGrimoire: 'Ingredient Grimoire',
+  potionGrimoire:     'Potion Grimoire',
+  brew:               'Brew',
+  dispel:             'Dispel',
+}
+
+export default function SettingsModal({ statNames, onStatNamesChange, labels, onLabelsChange, onClose }) {
   const [accentGold,        setAccentGold]        = useState(() => readVar('--accent-gold')          || DEFAULTS['--accent-gold'])
   const [accentPurple,      setAccentPurple]       = useState(() => readVar('--accent-purple')        || DEFAULTS['--accent-purple'])
   const [textColor,         setTextColor]          = useState(() => readVar('--text-color')           || DEFAULTS['--text-color'])
@@ -189,6 +200,7 @@ export default function SettingsModal({ statNames, onStatNamesChange, onClose })
   const [bgFileName,        setBgFileName]         = useState('')
   const [bgDataUrl,         setBgDataUrl]          = useState(null)
   const [activeTheme,       setActiveTheme]        = useState(null)
+  const [activeTab,         setActiveTab]           = useState('theme')
 
   const bgInputRef     = useRef()
   const importInputRef = useRef()
@@ -404,7 +416,31 @@ export default function SettingsModal({ statNames, onStatNamesChange, onClose })
         </div>
         <hr />
 
-        <div id="settings-columns">
+        <div className="settings-tabs">
+          <button className={`settings-tab ${activeTab === 'theme'  ? 'settings-tab--active' : ''}`} onClick={() => setActiveTab('theme')}>Theme</button>
+          <button className={`settings-tab ${activeTab === 'labels' ? 'settings-tab--active' : ''}`} onClick={() => setActiveTab('labels')}>Labels</button>
+        </div>
+
+        {activeTab === 'labels' && (
+          <div id="settings-labels">
+            {Object.entries(DEFAULT_LABELS).map(([key, placeholder]) => (
+              <div key={key} className="settings-label-row">
+                <span className="settings-label-name">{placeholder}</span>
+                <input
+                  type="text"
+                  className="settings-label-input"
+                  value={labels?.[key] ?? ''}
+                  placeholder={placeholder}
+                  maxLength={40}
+                  onChange={e => onLabelsChange({ ...labels, [key]: e.target.value })}
+                />
+              </div>
+            ))}
+            <p className="settings-label-hint">Leave a field blank to use the default name.</p>
+          </div>
+        )}
+
+        {activeTab === 'theme' && <div id="settings-columns">
 
           {/* Column 1 — Theme Presets */}
           <div className="settings-col">
@@ -513,7 +549,7 @@ export default function SettingsModal({ statNames, onStatNamesChange, onClose })
             </div>
           </div>
 
-        </div>
+        </div>}
 
         <hr />
 

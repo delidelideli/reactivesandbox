@@ -1179,6 +1179,77 @@ button:disabled {
   flex-shrink: 0;
 }
 
+.settings-tabs {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.settings-tab {
+  padding: 0.3rem 1rem;
+  background: transparent;
+  border: 1px solid rgba(201,162,39,0.25);
+  color: rgba(201,162,39,0.5);
+  border-radius: 4px;
+  font-family: var(--font-family);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.settings-tab:hover {
+  color: rgba(201,162,39,0.8);
+  border-color: rgba(201,162,39,0.5);
+}
+
+.settings-tab--active {
+  color: var(--accent-gold-light);
+  border-color: var(--accent-gold);
+  background: rgba(201,162,39,0.08);
+}
+
+#settings-labels {
+  padding: 0.25rem 0;
+}
+
+.settings-label-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid rgba(201,162,39,0.08);
+}
+
+.settings-label-name {
+  flex: 0 0 180px;
+  font-size: 0.82rem;
+  color: rgba(221,200,152,0.6);
+  font-style: italic;
+}
+
+.settings-label-input {
+  flex: 1;
+  background: rgba(255,200,80,0.05);
+  border: 1px solid rgba(201,162,39,0.2);
+  color: var(--text-color);
+  font-family: var(--font-family);
+  font-size: 0.85rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+}
+
+.settings-label-input:focus {
+  outline: none;
+  border-color: rgba(201,162,39,0.5);
+}
+
+.settings-label-hint {
+  font-size: 0.75rem;
+  color: rgba(221,200,152,0.35);
+  margin-top: 0.6rem;
+  font-style: italic;
+}
+
 #theme-presets {
   display: grid;
   grid-template-columns: 1fr 1fr;

@@ -97,6 +97,10 @@ export default function App() {
     try { return JSON.parse(localStorage.getItem('stat-names')) || { potency: 'Potency', toxicity: 'Toxicity' } }
     catch { return { potency: 'Potency', toxicity: 'Toxicity' } }
   })
+  const [labels, setLabels]                     = useState(() => {
+    try { return JSON.parse(localStorage.getItem('ui-labels')) || {} }
+    catch { return {} }
+  })
   const [showCustomize, setShowCustomize]       = useState(false)
   const [showSettings, setShowSettings]         = useState(false)
 
@@ -208,7 +212,7 @@ export default function App() {
           <span style={{left:'95%',  top:'70%', width:'1.5px', height:'1.5px', animationDuration:'3.0s, 10s',  animationDelay:'2.8s', '--dx': '-2px', '--dy': '-4px'}} />
         </div>
         <div id="header-spacer" />
-        <h1>Alchemist's Workshop</h1>
+        <h1>{labels.siteTitle || "Alchemist's Workshop"}</h1>
         <div id="header-btns">
           <button onClick={() => setShowCustomize(true)}>Customize</button>
           <button onClick={() => setShowSettings(true)}>Theme Settings</button>
@@ -220,6 +224,7 @@ export default function App() {
           <Satchel
             ingredients={ingredients}
             counts={counts}
+            labels={labels}
             onHover={setHoveredIngredient}
             onPin={setSelectedIngredient}
             onAddToCauldron={addToCauldron}
@@ -229,6 +234,7 @@ export default function App() {
             ingredients={ingredients}
             recipes={recipes}
             statNames={statNames}
+            labels={labels}
           />
           <Cauldron
             cauldron={cauldron}
@@ -241,18 +247,21 @@ export default function App() {
             proximityHint={proximityHint}
             brewHistory={brewHistory}
             statNames={statNames}
+            labels={labels}
             onBrew={brew}
             onClear={clearCauldron}
             onRemoveFromCauldron={removeFromCauldron}
           />
           <Output
             brewed={brewed}
+            labels={labels}
             onHover={setHoveredPotion}
             onPin={setSelectedPotion}
           />
           <PotionGrimoire
             selectedPotion={hoveredPotion ?? selectedPotion}
             statNames={statNames}
+            labels={labels}
           />
         </div>
       </main>
@@ -273,6 +282,11 @@ export default function App() {
           onStatNamesChange={names => {
             setStatNames(names)
             localStorage.setItem('stat-names', JSON.stringify(names))
+          }}
+          labels={labels}
+          onLabelsChange={next => {
+            setLabels(next)
+            localStorage.setItem('ui-labels', JSON.stringify(next))
           }}
           onClose={() => setShowSettings(false)}
         />

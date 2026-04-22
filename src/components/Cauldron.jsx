@@ -9,7 +9,7 @@ function getEssenceText(filled, total, min) {
   return `${word.charAt(0).toUpperCase() + word.slice(1)} of ${total} essences gathered`
 }
 
-export default function Cauldron({ cauldron, ingredients, brewMessage, brewResult, cauldronGlow, essenceStats, proximityHint, brewHistory, statNames, onBrew, onClear, onRemoveFromCauldron }) {
+export default function Cauldron({ cauldron, ingredients, brewMessage, brewResult, cauldronGlow, essenceStats, proximityHint, brewHistory, statNames, labels, onBrew, onClear, onRemoveFromCauldron }) {
   const filledCount = cauldron.filter(id => id !== null).length
   const brewReady = filledCount >= MIN_BREW_INGREDIENTS
 
@@ -19,7 +19,7 @@ export default function Cauldron({ cauldron, ingredients, brewMessage, brewResul
       className={brewResult ? `brew-${brewResult}` : ''}
       style={{ boxShadow: brewResult ? undefined : cauldronGlow }}
     >
-      <h2>Cauldron</h2>
+      <h2>{labels?.cauldron || 'Cauldron'}</h2>
 
       <div id="cauldron-bowl" style={{ boxShadow: `inset 0 0 30px rgba(0,0,0,0.9), inset 0 4px 8px rgba(255,255,255,0.04), 0 6px 18px rgba(0,0,0,0.55), ${cauldronGlow}` }}>
         <svg id="cauldron-sigil" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -112,9 +112,9 @@ export default function Cauldron({ cauldron, ingredients, brewMessage, brewResul
           onClick={onBrew}
           disabled={!brewReady}
         >
-          Brew
+          {labels?.brew || 'Brew'}
         </button>
-        <button id="clear-btn" onClick={onClear} disabled={filledCount === 0}>Dispel</button>
+        <button id="clear-btn" onClick={onClear} disabled={filledCount === 0}>{labels?.dispel || 'Dispel'}</button>
       </div>
 
       {brewMessage && <p id="brew-message">{brewMessage}</p>}
