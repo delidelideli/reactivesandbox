@@ -17,6 +17,7 @@ This file tracks every task requested during this project. Update it at the end 
 9. Added twinkling star field to the site header — 12 small white dots (1–2px) scattered across the header at fixed positions, each with an independent `star-twinkle` keyframe animation (varying durations 2.7s–5.2s, staggered delays) that pulses opacity to simulate a night sky.
 10. Added slow drift movement to header stars — each star has a `star-drift` keyframe using per-star CSS custom properties (`--dx`, `--dy`) so every star floats in a unique direction (3–5px) over 8–15s with `alternate` easing, running alongside the twinkle independently.
 11. Added Labels tab to Theme Settings modal — tabbed layout (Theme / Labels) replaces single-column header. Labels tab exposes 8 rename fields: Site Title, Satchel, Cauldron, Output, Ingredient Grimoire, Potion Grimoire, Brew, and Dispel. Changes apply live and persist to localStorage. All components updated to read from `labels` prop with fallback to defaults.
+12. Persisted custom ingredient and recipe data across page refreshes — `ingredients` and `recipes` state now initialise from `localStorage` if saved data exists, falling back to `data.json` defaults. Custom data is saved on every Customize modal save, and discovered recipe flags are saved immediately on successful brew.
 
 ---
 

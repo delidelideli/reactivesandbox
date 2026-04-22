@@ -8,7 +8,7 @@ The potion brewer is the proof of concept. The framework is the product.
 
 ## Features
 - **Reactive Panel Architecture:** Satchel, Cauldron, Output, and dual Grimoire panels all share a single source of truth in App.jsx — no data duplication across components.
-- **JSON-Driven Data Layer:** All ingredients and recipes are defined in `src/data.json`. Stats, names, descriptions, and combo flags are driven entirely by the data model. The JSON file can be exported, edited, and re-imported through the Customize modal.
+- **JSON-Driven Data Layer:** All ingredients and recipes are defined in `src/data.json`. Stats, names, descriptions, and combo flags are driven entirely by the data model. The JSON file can be exported, edited, and re-imported through the Customize modal. Custom data and discovered recipe state persist across page refreshes via `localStorage`.
 - **Ingredient Count System:** The Satchel tracks available counts per ingredient and reacts visually when the Cauldron consumes them — demonstrating live Browser → Controller reactivity.
 - **Recipe Discovery:** Recipes are hidden until successfully brewed for the first time. The Recipe Book is a living log of discovered combinations, not a pre-filled reference guide.
 - **Reactive Cauldron Glow:** The Cauldron's glow color shifts from white → gold (potency) or purple (toxicity) based on the combined stats of slotted ingredients.
