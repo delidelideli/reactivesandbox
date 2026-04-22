@@ -88,6 +88,26 @@ body {
 #arcane-bg-orbs span:nth-child(12) { width:85px;  height:85px;  left:50%;  top:25%;  background:rgba(70,15,150,0.45);   filter:blur(38px); animation-duration:21s; animation-delay:5s;    }
 
 /* ===== HEADER ===== */
+@keyframes star-twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50%       { opacity: 0.9;  transform: scale(1.4); }
+}
+
+#header-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#header-stars span {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  animation: star-twinkle linear infinite;
+  box-shadow: 0 0 3px rgba(255,255,255,0.6);
+}
+
 header {
   position: relative;
   z-index: 10;
