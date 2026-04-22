@@ -1429,16 +1429,14 @@ body.theme-skyrim header {
 }
 
 body.theme-skyrim section {
-  background: linear-gradient(155deg,
-    #1e1c18 0%, #181613 20%, #1c1a16 35%,
-    #161412 50%, #1a1815 65%, #1e1c18 80%, #1a1815 100%);
-  border: 1px solid #3a3028;
+  background: rgba(12, 10, 7, 0.82);
+  border: 1px solid rgba(200,150,10,0.22);
   box-shadow:
-    0 8px 28px rgba(0,0,0,0.75),
-    0 3px 8px rgba(0,0,0,0.55),
+    0 8px 28px rgba(0,0,0,0.7),
+    0 3px 8px rgba(0,0,0,0.5),
     0 0 10px 2px var(--panel-glow),
-    inset 0 1px 0 rgba(200,160,60,0.07),
-    inset 0 -1px 0 rgba(0,0,0,0.65);
+    inset 0 1px 0 rgba(200,160,60,0.06),
+    inset 0 -1px 0 rgba(0,0,0,0.55);
 }
 
 body.theme-skyrim section::before {
@@ -1451,16 +1449,14 @@ body.theme-skyrim section::before {
 
 body.theme-skyrim #ingredient-grimoire,
 body.theme-skyrim #potion-grimoire {
-  background: linear-gradient(145deg,
-    #1c1a15 0%, #181510 25%, #1a1813 50%,
-    #161310 75%, #1c1a14 100%);
-  border-color: #2e2820;
+  background: rgba(8, 11, 14, 0.84);
+  border-color: rgba(90,122,144,0.28);
   box-shadow:
-    0 8px 28px rgba(0,0,0,0.75),
-    0 3px 8px rgba(0,0,0,0.55),
+    0 8px 28px rgba(0,0,0,0.7),
+    0 3px 8px rgba(0,0,0,0.5),
     0 0 10px 2px var(--grimoire-glow),
-    inset 0 1px 0 rgba(180,150,80,0.06),
-    inset 0 -1px 0 rgba(0,0,0,0.6);
+    inset 0 1px 0 rgba(90,122,144,0.07),
+    inset 0 -1px 0 rgba(0,0,0,0.55);
 }
 
 body.theme-skyrim #ingredient-grimoire::before,
