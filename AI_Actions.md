@@ -4,6 +4,16 @@ This file tracks every task requested during this project. Update it at the end 
 
 ---
 
+## Session 8 (2026-04-22)
+
+1. Confirmed previous session had stopped after updating AI_Actions.md without committing — pushed all pending changes to GitHub.
+2. Migrated ingredient and recipe data out of `src/data.js` into a dedicated `src/data.json` file. `data.js` now imports from the JSON and re-exports everything so no other files needed to change. Project now has a true JSON data layer.
+3. Implemented Export in Customize modal: serializes current ingredients and recipes to a `workshop-data.json` file and triggers a browser download.
+4. Implemented Import in Customize modal: opens a file picker, reads the selected `.json`, validates structure, and loads the data into the modal's ingredient and recipe lists.
+5. Added a persistent export warning to the top-right of the Customize modal header — gold-tinted notice reminding users that changes are session-only and to Export if they want to save their data.
+
+---
+
 ## Session 7 (2026-04-22)
 
 1. Centered the header title and increased font size from 1.4rem to 1.7rem. Title uses `position: absolute; left: 50%; transform: translateX(-50%)` for true centering regardless of button width. Added `#header-spacer` flex div to balance the layout.

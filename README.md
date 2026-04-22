@@ -8,7 +8,7 @@ The potion brewer is the proof of concept. The framework is the product.
 
 ## Features
 - **Reactive Panel Architecture:** Satchel, Cauldron, Output, and dual Grimoire panels all share a single source of truth in App.jsx — no data duplication across components.
-- **JSON-Driven Data Layer:** All ingredients and recipes are defined in a central data file. Stats, names, descriptions, and combo flags are driven entirely by the data model.
+- **JSON-Driven Data Layer:** All ingredients and recipes are defined in `src/data.json`. Stats, names, descriptions, and combo flags are driven entirely by the data model. The JSON file can be exported, edited, and re-imported through the Customize modal.
 - **Ingredient Count System:** The Satchel tracks available counts per ingredient and reacts visually when the Cauldron consumes them — demonstrating live Browser → Controller reactivity.
 - **Recipe Discovery:** Recipes are hidden until successfully brewed for the first time. The Recipe Book is a living log of discovered combinations, not a pre-filled reference guide.
 - **Reactive Cauldron Glow:** The Cauldron's glow color shifts from white → gold (potency) or purple (toxicity) based on the combined stats of slotted ingredients.
@@ -19,7 +19,7 @@ The potion brewer is the proof of concept. The framework is the product.
 - **Individual Slot Removal:** Clicking a filled Cauldron slot returns that ingredient to the Satchel.
 - **Customize Modal:** Users can define their own ingredients, recipes, and outputs. Laid out as two side-by-side columns (Ingredients / Recipes) so both sections are visible at once without scrolling.
 - **Settings Modal:** 5 theme presets (Magical & Mystical, Skyrim, Crimson Sanctum, Verdant Workshop, Void), live border/stat color pickers, stat renaming, font selector, spacing slider, background upload, and theme export/import — all changes write to CSS custom properties and persist via `localStorage`. Laid out as a three-column panel to avoid scrolling.
-- **Import / Export:** *(Coming soon)* Save and load custom ingredient and recipe sets.
+- **Import / Export:** Export the current ingredient and recipe set as a `workshop-data.json` file. Import a previously exported file to restore a custom setup instantly.
 
 ## User Flow Diagram
 ```mermaid
@@ -140,7 +140,7 @@ style CustomizeModal fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
 - **State Management:** `useState` + props (lifted state in App.jsx — no Context or Redux)
 - **Styling:** CSS3 with keyframe animations and `cubic-bezier` transitions
 - **Typography:** IM Fell English (Google Fonts)
-- **Data:** JSON-driven ingredient and recipe system in `src/data.js`
+- **Data:** JSON data layer in `src/data.json` — ingredients and recipes as pure JSON, imported by `src/data.js`
 - **Deploy:** GitHub Actions → GitHub Pages
 
 ## Project Structure
