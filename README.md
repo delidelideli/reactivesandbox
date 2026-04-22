@@ -121,6 +121,8 @@ style CustomizeModal fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
 
 3. **Description text size changes had no visible effect** — Multiple attempts to increase the description text via `section p, section li` appeared to have no effect in the browser. Root cause was likely a combination of browser caching and the user viewing idle state text (`.grimoire-idle-text`) which has its own more specific rule. Required targeting `#grimoire-content > p` directly.
 
+4. **Purple card borders turned gold on hover** — After switching cards from light parchment to dark backgrounds, toxic cards visibly turned gold on hover instead of staying purple. The animation logic was correct; the culprit was a global `button:hover:not(:disabled)` rule setting `border-color: var(--accent-gold)` — element-plus-pseudo specificity beat the class-only `.card--toxic` rule. The bug existed before the redesign but was invisible against the warm parchment background. Fixed by excluding card classes from the global rule via `:not()`.
+
 ## Five Question Reflection
 
 1. **Can I defend this?** Can I explain every major decision in this project?

@@ -168,27 +168,19 @@ section::before {
   pointer-events: none;
   z-index: 1;
   background:
-    linear-gradient(to right,  rgba(var(--border-cauldron-rgb),0.7) 14px, transparent 14px) 0    0    / 14px 1px no-repeat,
-    linear-gradient(to bottom, rgba(var(--border-cauldron-rgb),0.7) 14px, transparent 14px) 0    0    / 1px 14px no-repeat,
-    linear-gradient(to left,   rgba(var(--border-cauldron-rgb),0.7) 14px, transparent 14px) 100% 0    / 14px 1px no-repeat,
-    linear-gradient(to bottom, rgba(var(--border-cauldron-rgb),0.7) 14px, transparent 14px) 100% 0    / 1px 14px no-repeat,
-    linear-gradient(to right,  rgba(var(--border-cauldron-rgb),0.7) 14px, transparent 14px) 0    100% / 14px 1px no-repeat,
-    linear-gradient(to top,    rgba(var(--border-cauldron-rgb),0.7) 14px, transparent 14px) 0    100% / 1px 14px no-repeat,
-    linear-gradient(to left,   rgba(var(--border-cauldron-rgb),0.7) 14px, transparent 14px) 100% 100% / 14px 1px no-repeat,
-    linear-gradient(to top,    rgba(var(--border-cauldron-rgb),0.7) 14px, transparent 14px) 100% 100% / 1px 14px no-repeat;
+    radial-gradient(circle at 0%   0%,   transparent 13px, rgba(var(--border-cauldron-rgb),0.7) 13px 14px, transparent 14px) 0    0    / 16px 16px no-repeat,
+    radial-gradient(circle at 100% 0%,   transparent 13px, rgba(var(--border-cauldron-rgb),0.7) 13px 14px, transparent 14px) 100% 0    / 16px 16px no-repeat,
+    radial-gradient(circle at 0%   100%, transparent 13px, rgba(var(--border-cauldron-rgb),0.7) 13px 14px, transparent 14px) 0    100% / 16px 16px no-repeat,
+    radial-gradient(circle at 100% 100%, transparent 13px, rgba(var(--border-cauldron-rgb),0.7) 13px 14px, transparent 14px) 100% 100% / 16px 16px no-repeat;
 }
 
 #ingredient-grimoire::before,
 #potion-grimoire::before {
   background:
-    linear-gradient(to right,  rgba(var(--border-panels-rgb),0.65) 14px, transparent 14px) 0    0    / 14px 1px no-repeat,
-    linear-gradient(to bottom, rgba(var(--border-panels-rgb),0.65) 14px, transparent 14px) 0    0    / 1px 14px no-repeat,
-    linear-gradient(to left,   rgba(var(--border-panels-rgb),0.65) 14px, transparent 14px) 100% 0    / 14px 1px no-repeat,
-    linear-gradient(to bottom, rgba(var(--border-panels-rgb),0.65) 14px, transparent 14px) 100% 0    / 1px 14px no-repeat,
-    linear-gradient(to right,  rgba(var(--border-panels-rgb),0.65) 14px, transparent 14px) 0    100% / 14px 1px no-repeat,
-    linear-gradient(to top,    rgba(var(--border-panels-rgb),0.65) 14px, transparent 14px) 0    100% / 1px 14px no-repeat,
-    linear-gradient(to left,   rgba(var(--border-panels-rgb),0.65) 14px, transparent 14px) 100% 100% / 14px 1px no-repeat,
-    linear-gradient(to top,    rgba(var(--border-panels-rgb),0.65) 14px, transparent 14px) 100% 100% / 1px 14px no-repeat;
+    radial-gradient(circle at 0%   0%,   transparent 13px, rgba(var(--border-panels-rgb),0.65) 13px 14px, transparent 14px) 0    0    / 16px 16px no-repeat,
+    radial-gradient(circle at 100% 0%,   transparent 13px, rgba(var(--border-panels-rgb),0.65) 13px 14px, transparent 14px) 100% 0    / 16px 16px no-repeat,
+    radial-gradient(circle at 0%   100%, transparent 13px, rgba(var(--border-panels-rgb),0.65) 13px 14px, transparent 14px) 0    100% / 16px 16px no-repeat,
+    radial-gradient(circle at 100% 100%, transparent 13px, rgba(var(--border-panels-rgb),0.65) 13px 14px, transparent 14px) 100% 100% / 16px 16px no-repeat;
 }
 
 
@@ -322,14 +314,10 @@ section::before {
 #satchel::before,
 #output::before {
   background:
-    linear-gradient(to right,  rgba(var(--border-panels-rgb),0.65) 14px, transparent 14px) 0    0    / 14px 1px no-repeat,
-    linear-gradient(to bottom, rgba(var(--border-panels-rgb),0.65) 14px, transparent 14px) 0    0    / 1px 14px no-repeat,
-    linear-gradient(to left,   rgba(var(--border-panels-rgb),0.65) 14px, transparent 14px) 100% 0    / 14px 1px no-repeat,
-    linear-gradient(to bottom, rgba(var(--border-panels-rgb),0.65) 14px, transparent 14px) 100% 0    / 1px 14px no-repeat,
-    linear-gradient(to right,  rgba(var(--border-panels-rgb),0.65) 14px, transparent 14px) 0    100% / 14px 1px no-repeat,
-    linear-gradient(to top,    rgba(var(--border-panels-rgb),0.65) 14px, transparent 14px) 0    100% / 1px 14px no-repeat,
-    linear-gradient(to left,   rgba(var(--border-panels-rgb),0.65) 14px, transparent 14px) 100% 100% / 14px 1px no-repeat,
-    linear-gradient(to top,    rgba(var(--border-panels-rgb),0.65) 14px, transparent 14px) 100% 100% / 1px 14px no-repeat;
+    radial-gradient(circle at 0%   0%,   transparent 13px, rgba(var(--border-panels-rgb),0.65) 13px 14px, transparent 14px) 0    0    / 16px 16px no-repeat,
+    radial-gradient(circle at 100% 0%,   transparent 13px, rgba(var(--border-panels-rgb),0.65) 13px 14px, transparent 14px) 100% 0    / 16px 16px no-repeat,
+    radial-gradient(circle at 0%   100%, transparent 13px, rgba(var(--border-panels-rgb),0.65) 13px 14px, transparent 14px) 0    100% / 16px 16px no-repeat,
+    radial-gradient(circle at 100% 100%, transparent 13px, rgba(var(--border-panels-rgb),0.65) 13px 14px, transparent 14px) 100% 100% / 16px 16px no-repeat;
 }
 
 /* ===== SECTION HEADINGS ===== */
@@ -361,6 +349,22 @@ section h2::after {
   background: linear-gradient(to left, transparent, rgba(196,154,42,0.4));
 }
 
+#ingredient-grimoire h2,
+#potion-grimoire h2 {
+  color: var(--accent-blue-light);
+  text-shadow: 0 0 10px rgba(106,143,168,0.35);
+}
+
+#ingredient-grimoire h2::before,
+#potion-grimoire h2::before {
+  background: linear-gradient(to right, transparent, rgba(106,143,168,0.4));
+}
+
+#ingredient-grimoire h2::after,
+#potion-grimoire h2::after {
+  background: linear-gradient(to left, transparent, rgba(106,143,168,0.4));
+}
+
 section h3 {
   font-size: 0.9rem;
   font-style: italic;
@@ -390,6 +394,7 @@ section ul { padding-left: 1.1rem; }
   overflow-y: auto;
   align-content: flex-start;
   flex: 1;
+  padding-top: 4px;
 }
 
 
@@ -404,9 +409,9 @@ section ul { padding-left: 1.1rem; }
   padding: 0.5rem 0.55rem 0.45rem;
   width: 86px;
   height: 66px;
-  background: linear-gradient(160deg, #d8c890 0%, #b89c60 55%, #c8b078 100%);
+  background: linear-gradient(160deg, #2a2018 0%, #1e1510 55%, #251c12 100%);
   border: 1px solid rgba(120,90,35,0.6);
-  color: #120a02;
+  color: #e8d5a3;
   cursor: pointer;
   border-radius: 2px;
   transition: transform 0.12s ease, box-shadow 0.2s ease;
@@ -440,10 +445,10 @@ section ul { padding-left: 1.1rem; }
   transition: opacity 0.3s ease;
 }
 
-.dot--empty    { background: rgba(60,40,10,0.25); border: 1px solid rgba(100,75,30,0.7); }
-.dot--filled.dot--potent  { background: #b85c00; box-shadow: 0 0 4px rgba(184,92,0,0.6); }
-.dot--filled.dot--toxic   { background: #5c1a8a; box-shadow: 0 0 4px rgba(92,26,138,0.6); }
-.dot--filled.dot--balanced{ background: #6b5200; box-shadow: 0 0 3px rgba(107,82,0,0.5); }
+.dot--empty    { background: rgba(60,40,10,0.4); border: 1px solid rgba(140,105,45,0.5); }
+.dot--filled.dot--potent  { background: #e09030; box-shadow: 0 0 5px rgba(224,144,48,0.7); }
+.dot--filled.dot--toxic   { background: #9040c8; box-shadow: 0 0 5px rgba(144,64,200,0.7); }
+.dot--filled.dot--balanced{ background: #a07828; box-shadow: 0 0 4px rgba(160,120,40,0.6); }
 
 .ingredient-btn:disabled,
 .potion-card:disabled { opacity: 0.28; cursor: default; }
@@ -455,8 +460,10 @@ section ul { padding-left: 1.1rem; }
 .ingredient-btn.card--balanced:not(:disabled):hover { animation: card-glow-gold   1.6s linear infinite; }
 
 /* Potion cards — soft omnidirectional pulse (mysterious, not grabbed) */
-.potion-card:not(:disabled):hover { transform: translateY(-1px); animation: potion-hover-pulse 2s ease-in-out infinite; }
-.potion-card.card--toxic:not(:disabled):hover { animation: potion-hover-pulse-purple 2s ease-in-out infinite; }
+.potion-card:not(:disabled):hover { transform: translateY(-1px); }
+.potion-card.card--potent:not(:disabled):hover   { animation: potion-hover-pulse        2s ease-in-out infinite; }
+.potion-card.card--balanced:not(:disabled):hover { animation: potion-hover-pulse        2s ease-in-out infinite; }
+.potion-card.card--toxic:not(:disabled):hover    { animation: potion-hover-pulse-purple 2s ease-in-out infinite; }
 
 @keyframes potion-hover-pulse {
   0%, 100% { box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 8px rgba(201,162,39,0.25); }
@@ -753,7 +760,7 @@ button {
   box-shadow: 0 0 4px rgba(196,154,42,0.1);
 }
 
-button:hover:not(:disabled) {
+button:hover:not(:disabled):not(.ingredient-btn):not(.potion-card) {
   border-color: var(--accent-gold);
   box-shadow: 0 0 12px rgba(196,154,42,0.4);
 }
@@ -835,20 +842,26 @@ button:disabled {
 }
 
 #grimoire-recipes {
-  border-left: 1px solid rgba(201,162,39,0.15);
+  border-left: 1px solid rgba(106,143,168,0.2);
   padding-left: 0.65rem;
+  color: var(--accent-blue-light);
 }
 
 #grimoire-recipes h3 {
-  border-bottom: 1px solid rgba(201,162,39,0.15);
+  color: var(--accent-blue-light);
+  border-bottom: 1px solid rgba(106,143,168,0.2);
   padding-bottom: 0.2rem;
   margin-bottom: 0.3rem;
+}
+
+#grimoire-recipes .grimoire-idle-text {
+  color: rgba(136,173,192,0.45);
 }
 
 .recipe-entry {
   font-size: 0.78rem;
   padding: 0.2rem 0;
-  border-bottom: 1px solid rgba(201,162,39,0.08);
+  border-bottom: 1px solid rgba(106,143,168,0.1);
   color: var(--text-color);
 }
 
@@ -890,6 +903,12 @@ button:disabled {
 .grimoire-idle-glyph {
   font-size: 2.2rem;
   color: var(--accent-gold);
+  opacity: 0.35;
+}
+
+#ingredient-grimoire .grimoire-idle-glyph,
+#potion-grimoire .grimoire-idle-glyph {
+  color: var(--accent-blue);
   opacity: 0.35;
   display: block;
   animation: idle-glyph-breathe 4s ease-in-out infinite;
@@ -1297,14 +1316,10 @@ body.theme-skyrim section {
 
 body.theme-skyrim section::before {
   background:
-    linear-gradient(to right,  rgba(184,134,11,0.45) 16px, transparent 16px) 0    0    / 16px 1px no-repeat,
-    linear-gradient(to bottom, rgba(184,134,11,0.45) 16px, transparent 16px) 0    0    / 1px 16px no-repeat,
-    linear-gradient(to left,   rgba(184,134,11,0.45) 16px, transparent 16px) 100% 0    / 16px 1px no-repeat,
-    linear-gradient(to bottom, rgba(184,134,11,0.45) 16px, transparent 16px) 100% 0    / 1px 16px no-repeat,
-    linear-gradient(to right,  rgba(184,134,11,0.45) 16px, transparent 16px) 0    100% / 16px 1px no-repeat,
-    linear-gradient(to top,    rgba(184,134,11,0.45) 16px, transparent 16px) 0    100% / 1px 16px no-repeat,
-    linear-gradient(to left,   rgba(184,134,11,0.45) 16px, transparent 16px) 100% 100% / 16px 1px no-repeat,
-    linear-gradient(to top,    rgba(184,134,11,0.45) 16px, transparent 16px) 100% 100% / 1px 16px no-repeat;
+    radial-gradient(circle at 0%   0%,   transparent 13px, rgba(184,134,11,0.45) 13px 14px, transparent 14px) 0    0    / 16px 16px no-repeat,
+    radial-gradient(circle at 100% 0%,   transparent 13px, rgba(184,134,11,0.45) 13px 14px, transparent 14px) 100% 0    / 16px 16px no-repeat,
+    radial-gradient(circle at 0%   100%, transparent 13px, rgba(184,134,11,0.45) 13px 14px, transparent 14px) 0    100% / 16px 16px no-repeat,
+    radial-gradient(circle at 100% 100%, transparent 13px, rgba(184,134,11,0.45) 13px 14px, transparent 14px) 100% 100% / 16px 16px no-repeat;
 }
 
 body.theme-skyrim #ingredient-grimoire,
@@ -1324,14 +1339,10 @@ body.theme-skyrim #potion-grimoire {
 body.theme-skyrim #ingredient-grimoire::before,
 body.theme-skyrim #potion-grimoire::before {
   background:
-    linear-gradient(to right,  rgba(122,143,160,0.4) 16px, transparent 16px) 0    0    / 16px 1px no-repeat,
-    linear-gradient(to bottom, rgba(122,143,160,0.4) 16px, transparent 16px) 0    0    / 1px 16px no-repeat,
-    linear-gradient(to left,   rgba(122,143,160,0.4) 16px, transparent 16px) 100% 0    / 16px 1px no-repeat,
-    linear-gradient(to bottom, rgba(122,143,160,0.4) 16px, transparent 16px) 100% 0    / 1px 16px no-repeat,
-    linear-gradient(to right,  rgba(122,143,160,0.4) 16px, transparent 16px) 0    100% / 16px 1px no-repeat,
-    linear-gradient(to top,    rgba(122,143,160,0.4) 16px, transparent 16px) 0    100% / 1px 16px no-repeat,
-    linear-gradient(to left,   rgba(122,143,160,0.4) 16px, transparent 16px) 100% 100% / 16px 1px no-repeat,
-    linear-gradient(to top,    rgba(122,143,160,0.4) 16px, transparent 16px) 100% 100% / 1px 16px no-repeat;
+    radial-gradient(circle at 0%   0%,   transparent 13px, rgba(122,143,160,0.4) 13px 14px, transparent 14px) 0    0    / 16px 16px no-repeat,
+    radial-gradient(circle at 100% 0%,   transparent 13px, rgba(122,143,160,0.4) 13px 14px, transparent 14px) 100% 0    / 16px 16px no-repeat,
+    radial-gradient(circle at 0%   100%, transparent 13px, rgba(122,143,160,0.4) 13px 14px, transparent 14px) 0    100% / 16px 16px no-repeat,
+    radial-gradient(circle at 100% 100%, transparent 13px, rgba(122,143,160,0.4) 13px 14px, transparent 14px) 100% 100% / 16px 16px no-repeat;
 }
 
 body.theme-skyrim #satchel:hover,

@@ -7,6 +7,13 @@ This file tracks every task requested during this project. Update it at the end 
 ## Session 7 (2026-04-22)
 
 1. Centered the header title and increased font size from 1.4rem to 1.7rem. Title uses `position: absolute; left: 50%; transform: translateX(-50%)` for true centering regardless of button width. Added `#header-spacer` flex div to balance the layout.
+2. Redesigned ingredient and potion card colors: background changed from light parchment (`#d8c890`→`#b89c60` gradient) to dark warm brown (`#2a2018`→`#1e1510`), text color inverted from near-black to parchment `#e8d5a3`, dot colors brightened to remain visible against the darker surface.
+3. Fixed top-row card clipping on hover: added `padding-top: 4px` to `#satchel-grid` and `#output-grid` so the `translateY(-2px)` hover lift isn't cut off by the grid's `overflow-y: auto` boundary.
+4. Refactored potion card hover animation rules to match the ingredient card pattern — removed `animation` from the base `.potion-card:hover` rule and added explicit per-type rules for potent, balanced, and toxic cards.
+5. Fixed toxic (purple-bordered) cards turning gold on hover — root cause: global `button:hover:not(:disabled)` rule sets `border-color: var(--accent-gold)` with element-level specificity that beats class-only card rules. Fixed by excluding `.ingredient-btn` and `.potion-card` from that rule via `:not()`.
+6. Changed corner flourishes on all panels from L-shaped linear-gradient brackets to quarter-circle radial-gradient arcs. Updated all five corner rule sets (base section, grimoire, satchel/output, Skyrim section, Skyrim grimoire).
+7. Colored Ingredient Grimoire and Potion Grimoire panel titles steel-blue (`--accent-blue-light`) to distinguish reading panels from action panels (Satchel/Output which stay gold). Updated h2 `::before`/`::after` decorative lines to match.
+8. Changed recipe book text, dividers, h3 title, and idle text to steel-blue. Changed grimoire idle glyphs (⚗, ✦) inside both grimoire panels to `--accent-blue`. Fixed `section h3` specificity overriding the inherited blue on the Recipe Book title.
 
 ---
 
