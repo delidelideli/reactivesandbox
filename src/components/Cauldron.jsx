@@ -25,8 +25,8 @@ export default function Cauldron({ cauldron, ingredients, brewMessage, brewResul
         <svg id="cauldron-sigil" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
 
           <defs>
-            <filter id="glyph-glow" x="-40%" y="-40%" width="180%" height="180%">
-              <feGaussianBlur stdDeviation="4" result="blur"/>
+            <filter id="circle-glow" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="5" result="blur"/>
               <feMerge>
                 <feMergeNode in="blur"/>
                 <feMergeNode in="blur"/>
@@ -51,21 +51,23 @@ export default function Cauldron({ cauldron, ingredients, brewMessage, brewResul
             })}
           </g>
 
-          {/* Inner orbit ring — faster CW */}
-          <g className="sigil-group sigil-group--inner">
-            <circle cx="100" cy="100" r="38" fill="none" stroke="rgba(105,50,185,0.35)" strokeWidth="1"/>
+          {/* Inner magic circle — faster CW */}
+          <g className="sigil-group sigil-group--inner" filter="url(#circle-glow)">
+            <circle cx="100" cy="100" r="42" fill="none" stroke="rgba(105,50,185,0.75)" strokeWidth="1.5"/>
+            <circle cx="100" cy="100" r="34" fill="none" stroke="rgba(105,50,185,0.4)"  strokeWidth="0.75"/>
+            {Array.from({ length: 8 }, (_, i) => {
+              const a = (i * 45 * Math.PI) / 180
+              return (
+                <line key={i}
+                  x1={100 + 38 * Math.cos(a)} y1={100 + 38 * Math.sin(a)}
+                  x2={100 + 43 * Math.cos(a)} y2={100 + 43 * Math.sin(a)}
+                  stroke="rgba(105,50,185,0.7)" strokeWidth="1.2"
+                />
+              )
+            })}
+            <circle cx="100" cy="100" r="4" fill="rgba(105,50,185,0.8)" stroke="none"/>
+            <circle cx="100" cy="100" r="8" fill="none" stroke="rgba(105,50,185,0.45)" strokeWidth="1"/>
           </g>
-
-          {/* Alchemical glyph — static */}
-          <text
-            x="100" y="100"
-            textAnchor="middle"
-            dominantBaseline="central"
-            fontSize="72"
-            fill="rgba(105,50,185,0.82)"
-            filter="url(#glyph-glow)"
-            style={{ fontFamily: 'serif', userSelect: 'none' }}
-          >⚗</text>
 
         </svg>
       </div>
