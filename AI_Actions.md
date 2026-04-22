@@ -28,6 +28,7 @@ This file tracks every task requested during this project. Update it at the end 
 20. Fixed Satchel and Output hover glow color — was hardcoded blue (`rgba(106,143,168,...)`) matching the grimoire panels, contradicting the gold/blue action-vs-reading distinction. Changed to `rgba(var(--border-cauldron-rgb),...)` so the hover glow matches the gold title and border of those panels, and automatically adapts per theme.
 21. Fixed Satchel and Output border and corner accents color — `border-color`, inset shadow, and `::before` corner ornaments all used `--border-panels-rgb` (blue). Updated all three to use `--border-cauldron-rgb` (gold) so the full panel framing is consistent with the gold color language used for action panels.
 22. Gave the Cauldron panel a distinct deep indigo-violet identity — added `--border-vessel-rgb: 105,50,185` CSS variable and overrode `#cauldron` border, inset shadow, corner accents (`::before`), and `h2` title color/glow to use it. Color is intentionally darker and more blue-leaning than toxicity's bright lavender (`199,125,255`) so the two purples read as clearly different.
+23. Recolored the cauldron sigil SVG to match the vessel purple — all gold `rgba(196,154,42,...)` values in the Flamel symbol (outer rings, tick marks, inner orbit ring, cross, serpent, snake head, eye sockets, nose, teeth) replaced with `rgba(105,50,185,...)` so the symbol matches the panel's new indigo-violet identity.
 
 ---
 
