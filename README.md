@@ -140,15 +140,15 @@ style OutputDetail fill:#0d1829,stroke:#3b82f6,color:#93c5fd
 
 ## Five Question Reflection
 
-1. **Can I defend this?** Can I explain every major decision in this project?
+1. **Can I defend this?** Can I explain every major decision in this project? - Yes I can defend this, every major decision came from ideas I had and I used Claude to turn them into reality for the website. 
 
-2. **Is this mine?** Does this reflect my creative direction, or did I mostly follow AI's suggestions?
+2. **Is this mine?** Does this reflect my creative direction, or did I mostly follow AI's suggestions? - Yes it is my creation. Starting with my original design document and making changes after everything came from me and I did not let Claude suggest any major changes that would go against my design intention.
 
-3. **Did I verify?** Did I check that the three panels actually share state and that the reactive connections work?
+3. **Did I verify?** Did I check that the three panels actually share state and that the reactive connections work? - Yes, everything has been tested by myself and friends. I have also had claude check the backend multiple times during the process to make sure nothing broke and was piling up issues. 
 
-4. **Would I teach this?** Do I understand the props-down / events-up pattern well enough to explain it to a classmate?
+4. **Would I teach this?** Do I understand the props-down / events-up pattern well enough to explain it to a classmate? - I feel like I could explain everything that got my project to where it is.
 
-5. **Is my documentation honest?** Does the AI Direction log accurately describe what I asked and what I changed?
+5. **Is my documentation honest?** Does the AI Direction log accurately describe what I asked and what I changed? - Yes my documentation is honest and each part explains what Claude was tasked with and what came out from it. Each entry accurately showcases the entire process of the project from first push to the final product.
 
 ## Technical Details
 - **Architecture:** React 18 + Vite
