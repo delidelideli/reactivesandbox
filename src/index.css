@@ -417,8 +417,8 @@ section ul { padding-left: 1.1rem; }
   position: relative;
 }
 
-.card--potent  { border-color: rgba(201,162,39,0.7);  box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 6px rgba(201,162,39,0.2); }
-.card--toxic   { border-color: rgba(139,68,184,0.7);   box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 6px rgba(139,68,184,0.2); }
+.card--potent  { border-color: var(--stat-potency-color);  box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 6px var(--stat-potency-color); }
+.card--toxic   { border-color: var(--stat-toxicity-color); box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 6px var(--stat-toxicity-color); }
 .card--balanced{ border-color: rgba(140,110,55,0.55); }
 
 .card-name {
@@ -444,8 +444,8 @@ section ul { padding-left: 1.1rem; }
 }
 
 .dot--empty    { background: rgba(60,40,10,0.4); border: 1px solid rgba(140,105,45,0.5); }
-.dot--filled.dot--potent  { background: #e09030; box-shadow: 0 0 5px rgba(224,144,48,0.7); }
-.dot--filled.dot--toxic   { background: #9040c8; box-shadow: 0 0 5px rgba(144,64,200,0.7); }
+.dot--filled.dot--potent  { background: var(--stat-potency-color);  box-shadow: 0 0 5px var(--stat-potency-color); }
+.dot--filled.dot--toxic   { background: var(--stat-toxicity-color); box-shadow: 0 0 5px var(--stat-toxicity-color); }
 .dot--filled.dot--balanced{ background: #a07828; box-shadow: 0 0 4px rgba(160,120,40,0.6); }
 
 .ingredient-btn:disabled,
@@ -464,28 +464,28 @@ section ul { padding-left: 1.1rem; }
 .potion-card.card--toxic:not(:disabled):hover    { animation: potion-hover-pulse-purple 2s ease-in-out infinite; }
 
 @keyframes potion-hover-pulse {
-  0%, 100% { box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 8px rgba(201,162,39,0.25); }
-  50%       { box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 20px rgba(201,162,39,0.55); }
+  0%, 100% { box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 8px var(--stat-potency-color); }
+  50%       { box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 20px var(--stat-potency-color); }
 }
 
 @keyframes potion-hover-pulse-purple {
-  0%, 100% { box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 8px rgba(139,68,184,0.25); }
-  50%       { box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 20px rgba(139,68,184,0.55); }
+  0%, 100% { box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 8px var(--stat-toxicity-color); }
+  50%       { box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 20px var(--stat-toxicity-color); }
 }
 
 @keyframes card-glow-gold {
-  0%   { box-shadow: 2px 0 0 1px rgba(201,162,39,0.9), 2px 0 10px rgba(201,162,39,0.6); transform: translateY(-2px); }
-  25%  { box-shadow: 0 2px 0 1px rgba(201,162,39,0.9), 0 2px 10px rgba(201,162,39,0.6); }
-  50%  { box-shadow: -2px 0 0 1px rgba(201,162,39,0.9), -2px 0 10px rgba(201,162,39,0.6); }
-  75%  { box-shadow: 0 -2px 0 1px rgba(201,162,39,0.9), 0 -2px 10px rgba(201,162,39,0.6); }
-  100% { box-shadow: 2px 0 0 1px rgba(201,162,39,0.9), 2px 0 10px rgba(201,162,39,0.6); }
+  0%   { box-shadow: 2px 0 0 1px var(--stat-potency-color), 2px 0 10px var(--stat-potency-color); transform: translateY(-2px); }
+  25%  { box-shadow: 0 2px 0 1px var(--stat-potency-color), 0 2px 10px var(--stat-potency-color); }
+  50%  { box-shadow: -2px 0 0 1px var(--stat-potency-color), -2px 0 10px var(--stat-potency-color); }
+  75%  { box-shadow: 0 -2px 0 1px var(--stat-potency-color), 0 -2px 10px var(--stat-potency-color); }
+  100% { box-shadow: 2px 0 0 1px var(--stat-potency-color), 2px 0 10px var(--stat-potency-color); }
 }
 
 @keyframes card-glow-purple {
-  0%   { box-shadow: 2px 0 0 1px rgba(139,68,184,0.9), 2px 0 10px rgba(139,68,184,0.6); transform: translateY(-2px); }
-  25%  { box-shadow: 0 2px 0 1px rgba(139,68,184,0.9), 0 2px 10px rgba(139,68,184,0.6); }
-  50%  { box-shadow: -2px 0 0 1px rgba(139,68,184,0.9), -2px 0 10px rgba(139,68,184,0.6); }
-  75%  { box-shadow: 0 -2px 0 1px rgba(139,68,184,0.9), 0 -2px 10px rgba(139,68,184,0.6); }
+  0%   { box-shadow: 2px 0 0 1px var(--stat-toxicity-color), 2px 0 10px var(--stat-toxicity-color); transform: translateY(-2px); }
+  25%  { box-shadow: 0 2px 0 1px var(--stat-toxicity-color), 0 2px 10px var(--stat-toxicity-color); }
+  50%  { box-shadow: -2px 0 0 1px var(--stat-toxicity-color), -2px 0 10px var(--stat-toxicity-color); }
+  75%  { box-shadow: 0 -2px 0 1px var(--stat-toxicity-color), 0 -2px 10px var(--stat-toxicity-color); }
   100% { box-shadow: 2px 0 0 1px rgba(139,68,184,0.9), 2px 0 10px rgba(139,68,184,0.6); }
 }
 
@@ -661,16 +661,16 @@ section ul { padding-left: 1.1rem; }
 
 .essence-fill--potency {
   height: 100%;
-  background: linear-gradient(90deg, rgba(201,162,39,0.5), rgba(232,196,74,1));
-  box-shadow: 0 0 6px rgba(201,162,39,0.9);
+  background: linear-gradient(90deg, transparent, var(--stat-potency-color));
+  box-shadow: 0 0 6px var(--stat-potency-color);
   border-radius: 2px;
   transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .essence-fill--toxicity {
   height: 100%;
-  background: linear-gradient(90deg, rgba(100,40,160,0.5), rgba(170,90,220,1));
-  box-shadow: 0 0 6px rgba(139,68,184,0.9);
+  background: linear-gradient(90deg, transparent, var(--stat-toxicity-color));
+  box-shadow: 0 0 6px var(--stat-toxicity-color);
   border-radius: 2px;
   transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -1189,15 +1189,15 @@ button:disabled {
 }
 
 .customize-stat-badge.badge--potent {
-  background: rgba(196,154,42,0.12);
-  border: 1px solid rgba(196,154,42,0.4);
-  color: rgba(220,180,60,0.9);
+  background: color-mix(in srgb, var(--stat-potency-color) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--stat-potency-color) 40%, transparent);
+  color: var(--stat-potency-color);
 }
 
 .customize-stat-badge.badge--toxic {
-  background: rgba(122,64,144,0.12);
-  border: 1px solid rgba(122,64,144,0.4);
-  color: rgba(180,100,220,0.9);
+  background: color-mix(in srgb, var(--stat-toxicity-color) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--stat-toxicity-color) 40%, transparent);
+  color: var(--stat-toxicity-color);
 }
 
 .modal-header {
