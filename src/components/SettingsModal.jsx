@@ -788,13 +788,6 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
               <input ref={bgInputRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handleBgUpload} />
             </div>
 
-            <h3>Theme File</h3>
-            <p>Export your current settings as a file. Import to restore any saved theme.</p>
-            <div className="settings-row" style={{ marginTop: '0.4rem' }}>
-              <button onClick={exportTheme}>Export Theme</button>
-              <button onClick={() => importInputRef.current.click()}>Import Theme</button>
-              <input ref={importInputRef} type="file" accept=".json" style={{ display: 'none' }} onChange={handleImport} />
-            </div>
           </div>
 
         </div>}
@@ -804,9 +797,16 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
         <hr />
 
         <div className="modal-actions">
-          <button onClick={save}>Save</button>
-          <button onClick={reset}>Reset to Default</button>
-          <button onClick={onClose}>Close</button>
+          <div className="modal-actions-left">
+            <button onClick={exportTheme}>Export Theme</button>
+            <button onClick={() => importInputRef.current.click()}>Import Theme</button>
+            <input ref={importInputRef} type="file" accept=".json" style={{ display: 'none' }} onChange={handleImport} />
+          </div>
+          <div className="modal-actions-right">
+            <button onClick={save}>Save</button>
+            <button onClick={reset}>Reset to Default</button>
+            <button onClick={onClose}>Close</button>
+          </div>
         </div>
       </div>
     </div>

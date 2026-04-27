@@ -1298,8 +1298,16 @@ button:disabled {
 
 .modal-actions {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   gap: 0.5rem;
   margin-top: 0.75rem;
+}
+
+.modal-actions-left,
+.modal-actions-right {
+  display: flex;
+  gap: 0.5rem;
 }
 
 .design-section { margin-bottom: 0.75rem; }
