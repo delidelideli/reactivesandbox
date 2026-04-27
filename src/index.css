@@ -597,6 +597,16 @@ section ul { padding-left: 1.1rem; }
   overflow: hidden;
 }
 
+.slot--filled.slot--potent {
+  border-color: var(--stat-potency-color);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--stat-potency-color) 28%, transparent), inset 0 0 8px color-mix(in srgb, var(--stat-potency-color) 10%, transparent);
+}
+
+.slot--filled.slot--toxic {
+  border-color: var(--stat-toxicity-color);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--stat-toxicity-color) 28%, transparent), inset 0 0 8px color-mix(in srgb, var(--stat-toxicity-color) 10%, transparent);
+}
+
 .slot--removable {
   cursor: pointer;
   transition: border-color 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
@@ -799,8 +809,8 @@ button:disabled {
   letter-spacing: 0.14em;
   padding: 0.55rem 2rem;
   width: 82%;
-  border: 1px solid rgba(201,162,39,0.4);
-  outline: 1px solid rgba(201,162,39,0.12);
+  border: 1px solid rgba(var(--border-cauldron-rgb),0.4);
+  outline: 1px solid rgba(var(--border-cauldron-rgb),0.12);
   outline-offset: 3px;
   box-shadow:
     0 4px 14px rgba(0,0,0,0.6),
@@ -812,8 +822,8 @@ button:disabled {
 #brew-btn::after  { content: ' ✦'; font-size: 0.65em; opacity: 0.7; }
 
 #brew-btn.brew-btn--ready {
-  border-color: rgba(201,162,39,0.75);
-  outline-color: rgba(201,162,39,0.2);
+  border-color: rgba(var(--border-cauldron-rgb),0.75);
+  outline-color: rgba(var(--border-cauldron-rgb),0.2);
   animation: brew-ready-pulse 2.5s ease-in-out infinite;
 }
 
@@ -826,15 +836,15 @@ button:disabled {
 }
 
 @keyframes brew-ready-pulse {
-  0%, 100% { box-shadow: 0 4px 14px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,220,100,0.1), 0 0 8px rgba(201,162,39,0.2); }
-  50%       { box-shadow: 0 4px 14px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,220,100,0.1), 0 0 28px rgba(201,162,39,0.6), 0 0 55px rgba(201,162,39,0.15); }
+  0%, 100% { box-shadow: 0 4px 14px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,220,100,0.1), 0 0 8px rgba(var(--border-cauldron-rgb),0.2); }
+  50%       { box-shadow: 0 4px 14px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,220,100,0.1), 0 0 28px rgba(var(--border-cauldron-rgb),0.6), 0 0 55px rgba(var(--border-cauldron-rgb),0.15); }
 }
 
 #clear-btn {
   font-size: 0.72rem;
   padding: 0.18rem 0.85rem;
   opacity: 0.5;
-  border-color: rgba(201,162,39,0.2);
+  border-color: rgba(var(--border-cauldron-rgb),0.2);
   letter-spacing: 0.06em;
 }
 

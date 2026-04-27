@@ -95,10 +95,11 @@ export default function Cauldron({ cauldron, ingredients, brewMessage, brewResul
       <div id="cauldron-slots">
         {cauldron.map((id, i) => {
           const item = id ? ingredients.find(x => x.id === id) : null
+          const dominant = item ? ((item.stats?.potency ?? 0) >= (item.stats?.toxicity ?? 0) ? 'potent' : 'toxic') : null
           return (
             <div
               key={i}
-              className={`slot ${item ? 'slot--filled slot--removable' : ''}`}
+              className={`slot ${item ? `slot--filled slot--removable slot--${dominant}` : ''}`}
               onClick={item ? () => onRemoveFromCauldron(i) : undefined}
               title={item ? `Remove ${item.name}` : undefined}
             >
