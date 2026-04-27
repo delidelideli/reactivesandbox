@@ -378,6 +378,8 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
       ...(activeTheme ? THEMES[activeTheme].vars : {}),
     }
     localStorage.setItem('workshop-settings', JSON.stringify(vars))
+    const bodyClass = activeTheme ? (THEMES[activeTheme].bodyClass || '') : ''
+    localStorage.setItem('workshop-body-class', bodyClass)
     onClose()
   }
 
@@ -400,6 +402,7 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
     const bodyClasses = Object.values(THEMES).map(t => t.bodyClass).filter(Boolean)
     document.body.classList.remove(...bodyClasses)
     localStorage.removeItem('workshop-settings')
+    localStorage.removeItem('workshop-body-class')
   }
 
   return (

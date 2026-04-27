@@ -4,6 +4,17 @@ This file tracks every task requested during this project. Update it at the end 
 
 ---
 
+## Session 9 (2026-04-26)
+
+1. Changed grimoire body text color to `var(--accent-blue-light)` in both `#grimoire-content` and `#potion-grimoire-content` — description text, "Used in:" labels, and potion names now match the blue used in the Recipe Book rather than inheriting the default warm beige. Stat values remain gold/purple via their own class overrides.
+2. Fixed idle text color on ingredient and potion grimoire panels: "Select an ingredient..." and "Brew a potion..." now use `rgba(136,173,192,0.45)` (blue) matching the Recipe Book idle text, instead of the default gold.
+6. Added 3 toxic ingredients to data.json (i13 Wraithcap pot:2/tox:8, i14 Bileroot pot:3/tox:7, i15 Deathbell pot:1/tox:9) — balances ingredient roster from 7 potent / 5 toxic to 7 potent / 8 toxic (15 total). Added 3 new recipes: Murk of the Wraith (i13+i10, 2-ingredient), Bitter Venom (i14+i1, 2-ingredient), Plague Tincture (i15+i14+i12, 3-ingredient). Validated all IDs cross-reference correctly with no duplicate combos.
+3. Wired up `liquidColor` prop in Cauldron.jsx — was computed in App.jsx and passed as a prop but never consumed. Added `#cauldron-liquid` div inside the cauldron bowl that fills with the reactive color (blends gold/purple based on slotted ingredient stats). Added CSS with `inset: 10px`, `border-radius: 50%`, `transition: background 0.55s ease`, `z-index: 0`; bumped sigil to `z-index: 1`.
+4. Fixed Skyrim theme body class not persisting across page refreshes — `SettingsModal.save()` now writes the active body class to `localStorage('workshop-body-class')`, and `App.jsx useEffect` restores it on load. Also clears it on Reset to Default.
+5. Fixed potion output card dots — replaced hardcoded 2-dot display (always potent+toxic) with dynamic dots: potent dot fills only if `potency > 0`, toxic dot fills only if `toxicity > 0`. Accurately reflects each potion's stat profile on the card.
+
+---
+
 ## Session 8 (2026-04-22)
 
 1. Confirmed previous session had stopped after updating AI_Actions.md without committing — pushed all pending changes to GitHub.

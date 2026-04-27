@@ -10,10 +10,10 @@ The potion brewer is the proof of concept. The framework is the product.
 
 ## Features
 - **Reactive Panel Architecture:** Satchel, Cauldron, Output, and dual Grimoire panels all share a single source of truth in App.jsx — no data duplication across components.
-- **JSON-Driven Data Layer:** All ingredients and recipes are defined in `src/data.json`. Stats, names, descriptions, and combo flags are driven entirely by the data model. The JSON file can be exported, edited, and re-imported through the Customize modal. Custom data and discovered recipe state persist across page refreshes via `localStorage`.
+- **JSON-Driven Data Layer:** All ingredients and recipes are defined in `src/data.json` — currently 15 ingredients and 12 recipes. Stats, names, descriptions, and combo flags are driven entirely by the data model. The JSON file can be exported, edited, and re-imported through the Customize modal. Custom data persists across page refreshes via `localStorage`.
 - **Ingredient Count System:** The Satchel tracks available counts per ingredient and reacts visually when the Cauldron consumes them — demonstrating live Browser → Controller reactivity.
 - **Recipe Discovery:** Recipes are hidden until successfully brewed for the first time. The Recipe Book is a living log of discovered combinations, not a pre-filled reference guide.
-- **Reactive Cauldron Glow:** The Cauldron's glow color shifts from white → gold (potency) or purple (toxicity) based on the combined stats of slotted ingredients.
+- **Reactive Cauldron Glow & Liquid Color:** The Cauldron's glow color shifts from white → gold (potency) or purple (toxicity) based on the combined stats of slotted ingredients. The bowl interior fills with a reactive liquid color that blends gold and purple in proportion to the ingredient mix, transitioning smoothly as ingredients are added or removed.
 - **Brewing Feedback:** Success emits a Golden Flash; failure emits Chromatic Aberration + Purple Smoke. Transitions use a `0.8s cubic-bezier(0.22, 1, 0.36, 1)` for a weighty, magical feel.
 - **Live Essence Readout:** While ingredients are slotted, animated Potency and Toxicity bars show the combined stat averages in real time, with a proximity hint that updates as the formula approaches a known recipe.
 - **Stat Bloom:** Potency and Toxicity values in the Grimoires emit layered `drop-shadow` glow proportional to their numeric value — high stats visibly bleed light onto the surrounding panel.
@@ -126,6 +126,8 @@ style CustomizeModal fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
 
 4. **Purple card borders turned gold on hover** — After switching cards from light parchment to dark backgrounds, toxic cards visibly turned gold on hover instead of staying purple. The animation logic was correct; the culprit was a global `button:hover:not(:disabled)` rule setting `border-color: var(--accent-gold)` — element-plus-pseudo specificity beat the class-only `.card--toxic` rule. The bug existed before the redesign but was invisible against the warm parchment background. Fixed by excluding card classes from the global rule via `:not()`.
 
+5. **`liquidColor` computed but never applied** — The cauldron bowl's reactive color was computed in App.jsx, passed as a prop to `<Cauldron>`, and silently dropped — never destructured, never rendered. The bowl never changed color regardless of what was slotted. No error, no warning. Caught only by auditing every prop passed at the call site against every prop consumed in the component. Fixed by adding a `#cauldron-liquid` element inside the bowl and connecting the prop. Illustrates why "passed" and "used" are not the same thing.
+
 ## Five Question Reflection
 
 1. **Can I defend this?** Can I explain every major decision in this project?
@@ -143,7 +145,7 @@ style CustomizeModal fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
 - **State Management:** `useState` + props (lifted state in App.jsx — no Context or Redux)
 - **Styling:** CSS3 with keyframe animations and `cubic-bezier` transitions
 - **Typography:** IM Fell English (Google Fonts)
-- **Data:** JSON data layer in `src/data.json` — ingredients and recipes as pure JSON, imported by `src/data.js`
+- **Data:** JSON data layer in `src/data.json` — 15 ingredients and 12 recipes as pure JSON, imported by `src/data.js`
 - **Deploy:** GitHub Actions → GitHub Pages
 
 ## Project Structure

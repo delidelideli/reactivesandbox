@@ -26,8 +26,8 @@ export default function Output({ brewed, labels, onHover, onPin }) {
               >
                 <span className="card-name">{potion.name}</span>
                 <div className="card-dots">
-                  <span className="dot dot--filled dot--potent" />
-                  <span className="dot dot--filled dot--toxic" />
+                  <span className={`dot ${(potion.stats?.potency ?? 0) > 0 ? 'dot--filled dot--potent' : 'dot--empty'}`} />
+                  <span className={`dot ${(potion.stats?.toxicity ?? 0) > 0 ? 'dot--filled dot--toxic' : 'dot--empty'}`} />
                 </div>
               </button>
             )

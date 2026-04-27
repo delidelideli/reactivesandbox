@@ -78,6 +78,8 @@ export default function App() {
           document.documentElement.style.setProperty(k, v)
         })
       }
+      const bodyClass = localStorage.getItem('workshop-body-class')
+      if (bodyClass) document.body.classList.add(bodyClass)
     } catch {}
   }, [])
 
