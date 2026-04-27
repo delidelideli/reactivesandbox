@@ -28,38 +28,46 @@ The potion brewer is the proof of concept. The framework is the product.
 ```mermaid
 graph TD
 
-Start[User Opens Site] --> Workshop[Workshop — Default State]
+Start[User Opens Site] --> Main[Main View]
 
-Workshop -->|Click ingredient in Satchel| IngGrimoire[Ingredient Grimoire updates]
-Workshop -->|Click ingredient in Satchel| Cauldron[Ingredient added to Cauldron slot]
+Main -->|Hover item| ItemDetail[Item Detail Panel previews]
+Main -->|Click item| ItemDetail
+Main -->|Click item| Controller[Item slotted in Controller]
 
-Cauldron -->|Glow reacts to combined stats| GlowShift[Cauldron glow shifts Gold / Purple]
+Controller -->|Stats update live| StatFeedback[Stat bars and glow react]
+Controller -->|Click filled slot| Main
+Controller -->|Click Reset| Main
+Controller -->|Click Execute| Check{Valid combination?}
 
-Cauldron -->|Click Brew| BrewCheck{Valid recipe?}
-BrewCheck -->|Yes| Success[Golden Flash — Potion appears in Output]
-BrewCheck -->|No| Failure[Purple Smoke — Failure message shown]
+Check -->|Yes| Success[Success flash — Result appears in Output]
+Check -->|No| Failure[Failure animation — message shown]
 
 Success --> OutputPanel[Output Panel updates]
-OutputPanel -->|Click potion| PotionGrimoire[Potion Grimoire updates]
+Success --> DiscoveryLog[Combination added to Discovery Log]
 
-Success --> RecipeBook[Recipe added to Recipe Book if first discovery]
+OutputPanel -->|Hover result| OutputDetail[Output Detail Panel previews]
+OutputPanel -->|Click result| OutputDetail
 
-Workshop -->|Click Customize| CustomizeModal[Customize Modal — edit ingredients and recipes]
-CustomizeModal -->|Save Changes| Workshop
+Main -->|Click Customize| Customize[Customize Modal — define items and combinations]
+Customize -->|Save| Main
+
+Main -->|Click Theme Settings| Theme[Theme Settings — colors, labels, presets]
+Theme -->|Apply| Main
 
 %% Colors
 style Start fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
-style Workshop fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
-style Cauldron fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
-style BrewCheck fill:#0d1f29,stroke:#c9a84c,color:#c9a84c
+style Main fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
+style Controller fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
+style Check fill:#0d1f29,stroke:#c9a84c,color:#c9a84c
 style Success fill:#1a3320,stroke:#c9a84c,color:#c9a84c,stroke-width:2px
 style Failure fill:#1a0d29,stroke:#7c3aed,color:#7c3aed,stroke-width:2px
-style RecipeBook fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
-style IngGrimoire fill:#0d1829,stroke:#3b82f6,color:#93c5fd
-style PotionGrimoire fill:#0d1829,stroke:#3b82f6,color:#93c5fd
-style GlowShift fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
+style DiscoveryLog fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
+style StatFeedback fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
 style OutputPanel fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
-style CustomizeModal fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
+style Customize fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
+style Theme fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
+style ItemDetail fill:#0d1829,stroke:#3b82f6,color:#93c5fd
+style OutputDetail fill:#0d1829,stroke:#3b82f6,color:#93c5fd
 ```
 
 ## AI Direction & Collaborative Guidance

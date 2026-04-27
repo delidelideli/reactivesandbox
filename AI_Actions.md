@@ -9,6 +9,7 @@ This file tracks every task requested during this project. Update it at the end 
 1. Simplified Features section in README — removed CSS implementation specifics, px values, and easing function details from all bullet points; kept each feature to a clear one-liner.
 2. Capped AI Direction & Collaborative Guidance section to 10 entries — dropped entry #12 (Modal Layout) as the least illustrative, renumbered #11 as #10.
 3. Rewrote Features section wording to use framework-neutral language — replaced brewing-specific terms (ingredients, recipes, Cauldron, Satchel, Grimoire, brewed) with general terms (items, combinations, Controller, Browser panel, Detail panels, executed) so the features describe the framework rather than the potion theme.
+4. Rewrote User Flow Diagram — replaced all brewing-specific node labels and edges with generic framework terms (Main View, Controller, Browser Panel, Item/Output Detail panels, Execute, Reset, Discovery Log, Customize, Theme Settings). Added missing flows: hover-to-preview vs click-to-slot distinction, filled slot removal, Reset path, Theme Settings modal loop.
 
 ---
 
