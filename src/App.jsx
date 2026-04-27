@@ -30,6 +30,12 @@ function getProximityHint(cauldron, recipes) {
   return 'The essences resist each other\'s presence.'
 }
 
+function readStatHex(varName, fallback) {
+  const hex = (getComputedStyle(document.documentElement).getPropertyValue(varName).trim() || fallback).replace('#', '')
+  const full = hex.length === 3 ? hex.split('').map(c => c + c).join('') : hex
+  return `${parseInt(full.slice(0,2),16)},${parseInt(full.slice(2,4),16)},${parseInt(full.slice(4,6),16)}`
+}
+
 function computeCauldronGlow(cauldron, ingredients) {
   const filled = cauldron.filter(id => id !== null)
   if (filled.length === 0) return 'none'
@@ -42,13 +48,15 @@ function computeCauldronGlow(cauldron, ingredients) {
     return s + (ingredients.find(x => x.id === id)?.stats?.toxicity ?? 0)
   }, 0) / filled.length / 10
 
+  const potencyRgb  = readStatHex('--stat-potency-color',  '#c49a2a')
+  const toxicityRgb = readStatHex('--stat-toxicity-color', '#a060c8')
   const goldOpacity   = (avgPotency * 0.35).toFixed(2)
   const purpleOpacity = (avgToxicity * 0.35).toFixed(2)
   const whiteOpacity  = Math.max(0.06, ((1 - Math.max(avgPotency, avgToxicity)) * 0.18)).toFixed(2)
 
   const glows = [`0 0 20px 6px rgba(255,255,255,${whiteOpacity})`]
-  if (avgPotency > 0.05)  glows.push(`0 0 30px 10px rgba(201,162,39,${goldOpacity})`)
-  if (avgToxicity > 0.05) glows.push(`0 0 30px 10px rgba(139,68,184,${purpleOpacity})`)
+  if (avgPotency > 0.05)  glows.push(`0 0 30px 10px rgba(${potencyRgb},${goldOpacity})`)
+  if (avgToxicity > 0.05) glows.push(`0 0 30px 10px rgba(${toxicityRgb},${purpleOpacity})`)
 
   return glows.join(', ')
 }

@@ -2,15 +2,23 @@ import { MIN_BREW_INGREDIENTS } from '../data'
 
 const NUMBER_WORDS = ['zero', 'one', 'two', 'three', 'four', 'five']
 
+function readStatRgb(varName, fallback) {
+  const hex = (getComputedStyle(document.documentElement).getPropertyValue(varName).trim() || fallback).replace('#', '')
+  const full = hex.length === 3 ? hex.split('').map(c => c + c).join('') : hex
+  return { r: parseInt(full.slice(0,2),16), g: parseInt(full.slice(2,4),16), b: parseInt(full.slice(4,6),16) }
+}
+
 function computeSigilStyle(essenceStats) {
-  if (!essenceStats) return { color: 'rgb(105,50,185)', filter: 'brightness(1)' }
-  const diff = essenceStats.potency - essenceStats.toxicity
-  const t = Math.min(1, Math.max(0, diff) / 5)
-  const r = Math.round(105 + 91 * t)
-  const g = Math.round(50 + 104 * t)
-  const b = Math.round(185 - 143 * t)
-  const brightness = (1 + (Math.abs(diff) / 10) * 0.9).toFixed(2)
-  return { color: `rgb(${r},${g},${b})`, filter: `brightness(${brightness})` }
+  const p = readStatRgb('--stat-potency-color',  '#c49a2a')
+  const t = readStatRgb('--stat-toxicity-color', '#a060c8')
+  if (!essenceStats) return { color: `rgb(${t.r},${t.g},${t.b})`, filter: 'brightness(1)' }
+  const diff   = essenceStats.potency - essenceStats.toxicity
+  const mix    = Math.min(1, Math.max(0, diff) / 5)
+  const r      = Math.round(t.r + (p.r - t.r) * mix)
+  const g      = Math.round(t.g + (p.g - t.g) * mix)
+  const b      = Math.round(t.b + (p.b - t.b) * mix)
+  const bright = (1 + (Math.abs(diff) / 10) * 0.9).toFixed(2)
+  return { color: `rgb(${r},${g},${b})`, filter: `brightness(${bright})` }
 }
 
 function getEssenceText(filled, total, min) {
