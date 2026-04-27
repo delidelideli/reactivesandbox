@@ -4,6 +4,12 @@ This file tracks every task requested during this project. Update it at the end 
 
 ---
 
+## Session 12 (2026-04-26)
+
+1. Fixed stat color pickers not affecting visual elements — `--stat-potency-color` and `--stat-toxicity-color` were only wired to grimoire text via `.stat-potency` / `.stat-toxicity`. All other potency/toxicity indicators used hardcoded `rgba()` values. Updated: essence bar fills and glows in the cauldron readout, card border colors and box-shadow glows, ingredient/potion dot fills and glows, `card-glow-gold`/`card-glow-purple`/`potion-hover-pulse`/`potion-hover-pulse-purple` keyframe animations, and Customize modal stat badge backgrounds/borders (using `color-mix()` to preserve the tinted-background look reactively).
+
+---
+
 ## Session 11 (2026-04-26)
 
 1. Removed `#cauldron-liquid` overlay entirely (redundant with sigil color change). Replaced `computeSigilColor` with `computeSigilStyle` which now returns both `color` (gold/purple based on potency vs toxicity balance) and `filter: brightness(X)` — brightness scales from 1.0 (balanced) to 1.9 (10-point stat difference) via `1 + (Math.abs(diff) / 10) * 0.9`. Both properties transition at `0.55s ease` via `#cauldron-sigil`. Cleaned up `computeLiquidColor` function, `liquidColor` state, and `liquidColor` prop from App.jsx and Cauldron.jsx.
