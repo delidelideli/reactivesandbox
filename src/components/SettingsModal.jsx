@@ -578,6 +578,8 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
           <button className={`settings-tab ${activeTab === 'labels' ? 'settings-tab--active' : ''}`} onClick={() => setActiveTab('labels')}>Labels</button>
         </div>
 
+        <div className="settings-tab-content">
+
         {activeTab === 'labels' && (
           <div id="settings-labels">
             {Object.entries(DEFAULT_LABELS).map(([key, placeholder]) => (
@@ -617,15 +619,14 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
             </div>
 
             <h3>Effect</h3>
-            <div className="settings-row settings-row--wrap">
-              <label>Type
-                <select value={headerEffect} onChange={e => handleHeaderEffect(e.target.value)}>
-                  <option value="stars">Stars</option>
-                  <option value="embers">Embers</option>
-                  <option value="scanlines">Scanlines</option>
-                  <option value="none">None</option>
-                </select>
-              </label>
+            <div className="effect-picker">
+              {['Stars', 'Embers', 'Scanlines', 'None'].map(label => (
+                <button
+                  key={label}
+                  className={`effect-btn ${headerEffect === label.toLowerCase() ? 'effect-btn--active' : ''}`}
+                  onClick={() => handleHeaderEffect(label.toLowerCase())}
+                >{label}</button>
+              ))}
             </div>
             <div className="settings-row settings-row--wrap" style={{ opacity: headerEffect === 'none' ? 0.35 : 1 }}>
               <label>Effect Color
@@ -797,6 +798,8 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
           </div>
 
         </div>}
+
+        </div>{/* end settings-tab-content */}
 
         <hr />
 

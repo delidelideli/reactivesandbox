@@ -1093,7 +1093,14 @@ button:disabled {
 }
 
 #modal { width: 1100px; max-height: 82vh; display: flex; flex-direction: column; overflow: hidden; }
-#design-modal { width: 860px; display: flex; flex-direction: column; overflow: hidden; }
+#design-modal { width: 860px; height: 620px; display: flex; flex-direction: column; overflow: hidden; }
+
+.settings-tab-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 
 #modal h2, #design-modal h2 {
   font-style: italic;
@@ -1341,6 +1348,36 @@ button:disabled {
 }
 
 .settings-tab--active {
+  color: var(--accent-gold-light);
+  border-color: var(--accent-gold);
+  background: rgba(201,162,39,0.08);
+}
+
+.effect-picker {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  margin-top: 0.2rem;
+}
+
+.effect-btn {
+  padding: 0.2rem 0.65rem;
+  background: transparent;
+  border: 1px solid rgba(201,162,39,0.25);
+  color: rgba(201,162,39,0.5);
+  border-radius: 3px;
+  font-family: var(--font-family);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.effect-btn:hover {
+  color: rgba(201,162,39,0.8);
+  border-color: rgba(201,162,39,0.5);
+}
+
+.effect-btn--active {
   color: var(--accent-gold-light);
   border-color: var(--accent-gold);
   background: rgba(201,162,39,0.08);
