@@ -10,19 +10,19 @@ The potion brewer is the proof of concept. The framework is the product.
 
 ## Features
 - **Reactive Panel Architecture:** All five panels share a single source of truth — no data duplication.
-- **JSON-Driven Data Layer:** 15 ingredients and 12 recipes defined in `src/data.json`. Custom data can be exported, edited, and re-imported through the Customize modal and persists across refreshes.
-- **Ingredient Count System:** The Satchel tracks per-ingredient counts and reacts visually as the Cauldron consumes them.
-- **Recipe Discovery:** Recipes are hidden until successfully brewed. The Recipe Book is a living log of discovered combinations.
-- **Reactive Cauldron Glow:** The bowl glow and sigil shift color based on the combined stats of slotted ingredients, using the user's chosen potency and toxicity colors.
-- **Brewing Feedback:** Success emits a Golden Flash; failure emits Chromatic Aberration and Purple Smoke.
-- **Live Essence Readout:** Animated Potency and Toxicity bars show combined stat averages in real time, with an atmospheric proximity hint as the formula nears a known recipe.
-- **Stat Bloom:** Stat values in the Grimoires emit a glow proportional to their numeric value — high stats visibly bleed light onto the surrounding panel.
-- **Dual Grimoire System:** Hovering an ingredient previews it in the Ingredient Grimoire; hovering a brewed potion previews it in the Potion Grimoire. Clicking pins the selection.
-- **Individual Slot Removal:** Clicking a filled Cauldron slot returns that ingredient to the Satchel.
-- **Three-Tier Panel Color Language:** Panels are grouped by role — Cauldron in deep indigo-violet, Satchel and Output in gold, Grimoires in steel blue.
-- **Customize Modal:** Define your own ingredients, recipes, and outputs without touching code.
+- **JSON-Driven Data Layer:** Items and combinations are defined in a central `src/data.json` file. Custom data can be exported, edited, and re-imported through the Customize modal and persists across refreshes.
+- **Item Count System:** The Browser panel tracks per-item counts and reacts visually as the Controller consumes them.
+- **Combination Discovery:** Combinations are hidden until successfully executed. The discovery log is a living record of found formulas, not a pre-filled reference.
+- **Reactive Controller Visuals:** The Controller's glow and sigil shift color based on the combined stats of slotted items, using the user's chosen stat colors.
+- **Action Feedback:** Success emits a Golden Flash; failure emits Chromatic Aberration and Purple Smoke.
+- **Live Stat Readout:** Animated stat bars show combined averages in real time, with a proximity hint as the selection nears a known combination.
+- **Stat Bloom:** Stat values in the Detail panels emit a glow proportional to their numeric value — high stats visibly bleed light onto the surrounding panel.
+- **Dual Detail Panel System:** Hovering an item previews it in the Item Detail panel; hovering an output previews it in the Output Detail panel. Clicking pins the selection.
+- **Individual Slot Removal:** Clicking a filled Controller slot returns that item to the Browser panel.
+- **Three-Tier Panel Color Language:** Panels are grouped by role — Controller in deep indigo-violet, Browser and Output in gold, Detail panels in steel blue.
+- **Customize Modal:** Define your own items, combinations, and outputs without touching code.
 - **Theme Settings Modal:** Two tabs — **Theme** (5 presets, color pickers for every panel surface and stat, font selector, spacing slider, background upload, theme export/import) and **Labels** (rename the site title, all panel headers, and action buttons). All changes apply live and persist across sessions.
-- **Import / Export:** Export and re-import the full ingredient and recipe set as a JSON file.
+- **Import / Export:** Export and re-import the full item and combination set as a JSON file.
 
 ## User Flow Diagram
 ```mermaid
