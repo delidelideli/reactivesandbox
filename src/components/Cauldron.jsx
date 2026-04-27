@@ -2,6 +2,17 @@ import { MIN_BREW_INGREDIENTS } from '../data'
 
 const NUMBER_WORDS = ['zero', 'one', 'two', 'three', 'four', 'five']
 
+function computeSigilStyle(essenceStats) {
+  if (!essenceStats) return { color: 'rgb(105,50,185)', filter: 'brightness(1)' }
+  const diff = essenceStats.potency - essenceStats.toxicity
+  const t = Math.min(1, Math.max(0, diff) / 5)
+  const r = Math.round(105 + 91 * t)
+  const g = Math.round(50 + 104 * t)
+  const b = Math.round(185 - 143 * t)
+  const brightness = (1 + (Math.abs(diff) / 10) * 0.9).toFixed(2)
+  return { color: `rgb(${r},${g},${b})`, filter: `brightness(${brightness})` }
+}
+
 function getEssenceText(filled, total, min) {
   if (filled === 0) return 'Awaiting essences'
   const word = NUMBER_WORDS[filled] ?? filled
@@ -9,7 +20,7 @@ function getEssenceText(filled, total, min) {
   return `${word.charAt(0).toUpperCase() + word.slice(1)} of ${total} essences gathered`
 }
 
-export default function Cauldron({ cauldron, ingredients, brewMessage, brewResult, cauldronGlow, liquidColor, essenceStats, proximityHint, brewHistory, statNames, labels, onBrew, onClear, onRemoveFromCauldron }) {
+export default function Cauldron({ cauldron, ingredients, brewMessage, brewResult, cauldronGlow, essenceStats, proximityHint, brewHistory, statNames, labels, onBrew, onClear, onRemoveFromCauldron }) {
   const filledCount = cauldron.filter(id => id !== null).length
   const brewReady = filledCount >= MIN_BREW_INGREDIENTS
 
@@ -22,8 +33,8 @@ export default function Cauldron({ cauldron, ingredients, brewMessage, brewResul
       <h2>{labels?.cauldron || 'Cauldron'}</h2>
 
       <div id="cauldron-bowl" style={{ boxShadow: `inset 0 0 30px rgba(0,0,0,0.9), inset 0 4px 8px rgba(255,255,255,0.04), 0 6px 18px rgba(0,0,0,0.55)${cauldronGlow !== 'none' ? `, ${cauldronGlow}` : ''}` }}>
-        <div id="cauldron-liquid" style={{ background: liquidColor }} />
-        <svg id="cauldron-sigil" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <svg id="cauldron-sigil" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"
+          style={computeSigilStyle(essenceStats)}>
 
           <defs>
             <filter id="circle-glow" x="-60%" y="-60%" width="220%" height="220%">
@@ -38,15 +49,15 @@ export default function Cauldron({ cauldron, ingredients, brewMessage, brewResul
 
           {/* Outer rings + tick marks — slow CW */}
           <g className="sigil-group sigil-group--outer" filter="url(#circle-glow)">
-            <circle cx="100" cy="100" r="92" fill="none" stroke="rgba(105,50,185,0.75)" strokeWidth="1.5"/>
-            <circle cx="100" cy="100" r="83" fill="none" stroke="rgba(105,50,185,0.4)"  strokeWidth="0.75"/>
+            <circle cx="100" cy="100" r="92" fill="none" stroke="currentColor" strokeOpacity="0.75" strokeWidth="1.5"/>
+            <circle cx="100" cy="100" r="83" fill="none" stroke="currentColor" strokeOpacity="0.4"  strokeWidth="0.75"/>
             {Array.from({ length: 24 }, (_, i) => {
               const a = (i * 15 * Math.PI) / 180
               return (
                 <line key={i}
                   x1={100 + 87 * Math.cos(a)} y1={100 + 87 * Math.sin(a)}
                   x2={100 + 93 * Math.cos(a)} y2={100 + 93 * Math.sin(a)}
-                  stroke="rgba(105,50,185,0.65)" strokeWidth="1.2"
+                  stroke="currentColor" strokeOpacity="0.65" strokeWidth="1.2"
                 />
               )
             })}
@@ -54,20 +65,20 @@ export default function Cauldron({ cauldron, ingredients, brewMessage, brewResul
 
           {/* Inner magic circle — faster CW */}
           <g className="sigil-group sigil-group--inner" filter="url(#circle-glow)">
-            <circle cx="100" cy="100" r="42" fill="none" stroke="rgba(105,50,185,0.75)" strokeWidth="1.5"/>
-            <circle cx="100" cy="100" r="34" fill="none" stroke="rgba(105,50,185,0.4)"  strokeWidth="0.75"/>
+            <circle cx="100" cy="100" r="42" fill="none" stroke="currentColor" strokeOpacity="0.75" strokeWidth="1.5"/>
+            <circle cx="100" cy="100" r="34" fill="none" stroke="currentColor" strokeOpacity="0.4"  strokeWidth="0.75"/>
             {Array.from({ length: 8 }, (_, i) => {
               const a = (i * 45 * Math.PI) / 180
               return (
                 <line key={i}
                   x1={100 + 38 * Math.cos(a)} y1={100 + 38 * Math.sin(a)}
                   x2={100 + 43 * Math.cos(a)} y2={100 + 43 * Math.sin(a)}
-                  stroke="rgba(105,50,185,0.7)" strokeWidth="1.2"
+                  stroke="currentColor" strokeOpacity="0.7" strokeWidth="1.2"
                 />
               )
             })}
-            <circle cx="100" cy="100" r="4" fill="rgba(105,50,185,0.8)" stroke="none"/>
-            <circle cx="100" cy="100" r="8" fill="none" stroke="rgba(105,50,185,0.45)" strokeWidth="1"/>
+            <circle cx="100" cy="100" r="4" fill="currentColor" fillOpacity="0.8" stroke="none"/>
+            <circle cx="100" cy="100" r="8" fill="none" stroke="currentColor" strokeOpacity="0.45" strokeWidth="1"/>
           </g>
 
         </svg>

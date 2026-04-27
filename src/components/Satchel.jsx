@@ -4,7 +4,9 @@ function getDominant(stats) {
   return 'balanced'
 }
 
-export default function Satchel({ ingredients, counts, labels, onHover, onPin, onAddToCauldron }) {
+export default function Satchel({ ingredients, counts, labels, onHover, onPin, onAddToCauldron, onRestock }) {
+  const allFull = ingredients.every(i => (counts[i.id] ?? 0) >= 3)
+
   return (
     <section id="satchel">
       <h2>{labels?.satchel || 'Satchel'}</h2>
@@ -33,6 +35,7 @@ export default function Satchel({ ingredients, counts, labels, onHover, onPin, o
           )
         })}
       </div>
+      <button id="restock-btn" onClick={onRestock} disabled={allFull}>Restock</button>
     </section>
   )
 }

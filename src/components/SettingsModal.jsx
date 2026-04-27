@@ -303,19 +303,13 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
   }
 
   function exportTheme() {
+    const vars = {}
+    Object.keys(DEFAULTS).forEach(k => { vars[k] = readVar(k) || DEFAULTS[k] })
+    if (activeTheme) Object.assign(vars, THEMES[activeTheme].vars)
     const data = {
       version: 1,
-      vars: {
-        '--accent-gold':         accentGold,
-        '--accent-purple':       accentPurple,
-        '--text-color':          textColor,
-        '--font-family':         fontFamily,
-        '--panel-spacing':       `${spacing}rem`,
-        '--border-panels-rgb':   hexToRgb(borderPanels),
-        '--border-cauldron-rgb': hexToRgb(borderCauldron),
-        '--stat-potency-color':  statPotencyColor,
-        '--stat-toxicity-color': statToxicityColor,
-      },
+      vars,
+      bodyClass: activeTheme ? (THEMES[activeTheme].bodyClass || '') : '',
       statNames: { potency: potencyName, toxicity: toxicityName },
       background: bgDataUrl || null,
     }
@@ -352,6 +346,11 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
           setToxicityName(data.statNames.toxicity ?? 'Toxicity')
           onStatNamesChange(data.statNames)
         }
+        if (data.bodyClass !== undefined) {
+          const allBodyClasses = Object.values(THEMES).map(t => t.bodyClass).filter(Boolean)
+          document.body.classList.remove(...allBodyClasses)
+          if (data.bodyClass) document.body.classList.add(data.bodyClass)
+        }
         if (data.background) {
           setBgDataUrl(data.background)
           setBgFileName('imported')
@@ -365,18 +364,9 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
   }
 
   function save() {
-    const vars = {
-      '--accent-gold':         accentGold,
-      '--accent-purple':       accentPurple,
-      '--text-color':          textColor,
-      '--font-family':         fontFamily,
-      '--panel-spacing':       `${spacing}rem`,
-      '--border-panels-rgb':   hexToRgb(borderPanels),
-      '--border-cauldron-rgb': hexToRgb(borderCauldron),
-      '--stat-potency-color':  statPotencyColor,
-      '--stat-toxicity-color': statToxicityColor,
-      ...(activeTheme ? THEMES[activeTheme].vars : {}),
-    }
+    const vars = {}
+    Object.keys(DEFAULTS).forEach(k => { vars[k] = readVar(k) || DEFAULTS[k] })
+    if (activeTheme) Object.assign(vars, THEMES[activeTheme].vars)
     localStorage.setItem('workshop-settings', JSON.stringify(vars))
     const bodyClass = activeTheme ? (THEMES[activeTheme].bodyClass || '') : ''
     localStorage.setItem('workshop-body-class', bodyClass)

@@ -8,22 +8,6 @@ import Output from './components/Output'
 import CustomizeModal from './components/CustomizeModal'
 import SettingsModal from './components/SettingsModal'
 
-function computeLiquidColor(cauldron, ingredients) {
-  const filled = cauldron.filter(id => id !== null)
-  if (filled.length === 0) return 'rgba(20,15,8,0.5)'
-
-  const avgPotency = filled.reduce((s, id) =>
-    s + (ingredients.find(x => x.id === id)?.stats?.potency ?? 0), 0) / filled.length / 10
-  const avgToxicity = filled.reduce((s, id) =>
-    s + (ingredients.find(x => x.id === id)?.stats?.toxicity ?? 0), 0) / filled.length / 10
-
-  const r = Math.round(25 + 130 * avgPotency * (1 - avgToxicity * 0.4) + 70  * avgToxicity * (1 - avgPotency * 0.4))
-  const g = Math.round(18 + 82  * avgPotency * (1 - avgToxicity * 0.4) + 4   * avgToxicity * (1 - avgPotency * 0.4))
-  const b = Math.round(10 + 5   * avgPotency * (1 - avgToxicity * 0.4) + 130 * avgToxicity * (1 - avgPotency * 0.4))
-  const a = Math.min(0.6 + filled.length * 0.08, 0.88)
-
-  return `rgba(${r},${g},${b},${a})`
-}
 
 function computeEssenceStats(cauldron, ingredients) {
   const filled = cauldron.filter(id => id !== null)
@@ -120,7 +104,6 @@ export default function App() {
   const [showSettings, setShowSettings]         = useState(false)
 
   const cauldronGlow  = computeCauldronGlow(cauldron, ingredients)
-  const liquidColor   = computeLiquidColor(cauldron, ingredients)
   const essenceStats  = computeEssenceStats(cauldron, ingredients)
   const proximityHint = getProximityHint(cauldron, recipes)
 
@@ -175,6 +158,10 @@ export default function App() {
     next[index] = null
     setCauldron(next)
     setCounts(c => ({ ...c, [id]: (c[id] ?? 0) + 1 }))
+  }
+
+  function restockCounts() {
+    setCounts(buildCounts(ingredients))
   }
 
   function clearCauldron() {
@@ -245,6 +232,7 @@ export default function App() {
             onHover={setHoveredIngredient}
             onPin={setSelectedIngredient}
             onAddToCauldron={addToCauldron}
+            onRestock={restockCounts}
           />
           <IngredientGrimoire
             selectedIngredient={hoveredIngredient ?? selectedIngredient}
@@ -259,7 +247,6 @@ export default function App() {
             brewMessage={brewMessage}
             brewResult={brewResult}
             cauldronGlow={cauldronGlow}
-            liquidColor={liquidColor}
             essenceStats={essenceStats}
             proximityHint={proximityHint}
             brewHistory={brewHistory}

@@ -15,23 +15,36 @@ export default function Output({ brewed, labels, onHover, onPin }) {
         </div>
       ) : (
         <div id="output-grid" onMouseLeave={() => onHover(null)}>
-          {brewed.map((potion, i) => {
-            const dominant = getDominant(potion.stats)
-            return (
-              <button
-                key={`${potion.id}-${i}`}
-                className={`potion-card card--${dominant}`}
-                onMouseEnter={() => onHover(potion)}
-                onClick={() => onPin(potion)}
-              >
-                <span className="card-name">{potion.name}</span>
-                <div className="card-dots">
-                  <span className={`dot ${(potion.stats?.potency ?? 0) > 0 ? 'dot--filled dot--potent' : 'dot--empty'}`} />
-                  <span className={`dot ${(potion.stats?.toxicity ?? 0) > 0 ? 'dot--filled dot--toxic' : 'dot--empty'}`} />
-                </div>
-              </button>
-            )
-          })}
+          {(() => {
+            const grouped = []
+            const seen = new Set()
+            brewed.forEach(potion => {
+              if (seen.has(potion.id)) {
+                grouped.find(g => g.potion.id === potion.id).count++
+              } else {
+                seen.add(potion.id)
+                grouped.push({ potion, count: 1 })
+              }
+            })
+            return grouped.map(({ potion, count }) => {
+              const dominant = getDominant(potion.stats)
+              return (
+                <button
+                  key={potion.id}
+                  className={`potion-card card--${dominant}`}
+                  onMouseEnter={() => onHover(potion)}
+                  onClick={() => onPin(potion)}
+                >
+                  {count > 1 && <span className="card-count">×{count}</span>}
+                  <span className="card-name">{potion.name}</span>
+                  <div className="card-dots">
+                    <span className={`dot ${(potion.stats?.potency ?? 0) > 0 ? 'dot--filled dot--potent' : 'dot--empty'}`} />
+                    <span className={`dot ${(potion.stats?.toxicity ?? 0) > 0 ? 'dot--filled dot--toxic' : 'dot--empty'}`} />
+                  </div>
+                </button>
+              )
+            })
+          })()}
         </div>
       )}
     </section>

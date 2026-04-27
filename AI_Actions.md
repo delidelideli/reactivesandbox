@@ -4,6 +4,25 @@ This file tracks every task requested during this project. Update it at the end 
 
 ---
 
+## Session 11 (2026-04-26)
+
+1. Removed `#cauldron-liquid` overlay entirely (redundant with sigil color change). Replaced `computeSigilColor` with `computeSigilStyle` which now returns both `color` (gold/purple based on potency vs toxicity balance) and `filter: brightness(X)` — brightness scales from 1.0 (balanced) to 1.9 (10-point stat difference) via `1 + (Math.abs(diff) / 10) * 0.9`. Both properties transition at `0.55s ease` via `#cauldron-sigil`. Cleaned up `computeLiquidColor` function, `liquidColor` state, and `liquidColor` prop from App.jsx and Cauldron.jsx.
+2. Fixed `save()` in SettingsModal.jsx — was manually building a 9-var object from React state, missing all derived CSS vars (`--accent-gold-light`, `--grimoire-glow`, `--bg-glow-color`, etc.). Now reads all DEFAULTS keys from the live DOM via `readVar()`, then overlays the active theme if one is set. Same pattern as `exportTheme()`.
+3. Fixed `handleImport()` in SettingsModal.jsx — imported theme files that included a Skyrim (or any body-class) theme would apply CSS vars correctly but never apply or clear the body class. Added a `data.bodyClass` check that removes all known body classes then applies the imported one if present.
+
+---
+
+## Session 10 (2026-04-26)
+
+1. Added Restock button to Satchel panel — resets all ingredient counts to 3. Disabled when all counts are full; subtle styling (0.45 opacity at rest, opaque on hover) so it doesn't compete with the ingredient grid. Wired via `onRestock` prop from App.jsx `restockCounts()`.
+2. Added recipe discovery counter to Recipe Book header — shows `X / Y` (e.g. `3 / 12`) inline with the heading. Styled smaller and dimmed so it reads as metadata, not a title.
+3. Fixed Workshop Log opacity fade — previous CSS used `:not(:first-child)` which matched ALL entries (since the label `<p>` is actually the first child, not an entry), making the newest entry render at 0.65 instead of 1.0. Replaced with explicit `nth-child(3/4/5)` rules giving a proper 1.0 → 0.72 → 0.48 → 0.28 staircase.
+4. Deduplicated Output panel — repeated brews of the same potion now show a single card with a `×N` count badge (absolute-positioned top-right). Deduplication happens at render time in Output.jsx; App.jsx state is unchanged.
+5. Fixed cauldron slot text overflow — added `word-break: break-word; overflow: hidden` to `.slot--filled` so long ingredient names (Ashwood Bark, Crimson Spore) wrap cleanly inside the 64px circle.
+6. Added `???` hints for undiscovered recipes in the Ingredient Grimoire "Used in" section — shows recipe names for discovered combos and a `???` placeholder for each undiscovered combo that uses the selected ingredient. Encourages experimentation without spoiling.
+
+---
+
 ## Session 9 (2026-04-26)
 
 1. Changed grimoire body text color to `var(--accent-blue-light)` in both `#grimoire-content` and `#potion-grimoire-content` — description text, "Used in:" labels, and potion names now match the blue used in the Recipe Book rather than inheriting the default warm beige. Stat values remain gold/purple via their own class overrides.

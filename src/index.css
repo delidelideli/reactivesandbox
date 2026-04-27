@@ -211,14 +211,6 @@ section::before {
 
 
 /* ===== CAULDRON SIGIL ===== */
-#cauldron-liquid {
-  position: absolute;
-  inset: 10px;
-  border-radius: 50%;
-  transition: background 0.55s ease;
-  z-index: 0;
-}
-
 #cauldron-sigil {
   position: absolute;
   top: 50%;
@@ -229,6 +221,7 @@ section::before {
   pointer-events: none;
   overflow: visible;
   z-index: 1;
+  transition: color 0.55s ease, filter 0.55s ease;
 }
 
 .sigil-group {
@@ -600,6 +593,8 @@ section ul { padding-left: 1.1rem; }
   background: radial-gradient(circle, rgba(201,162,39,0.1) 0%, rgba(201,162,39,0.03) 65%, transparent 100%);
   color: var(--text-color);
   box-shadow: 0 0 10px rgba(201,162,39,0.18), inset 0 0 8px rgba(201,162,39,0.06);
+  word-break: break-word;
+  overflow: hidden;
 }
 
 .slot--removable {
@@ -729,13 +724,9 @@ section ul { padding-left: 1.1rem; }
 .brew-history-entry--failure .brew-history-icon { color: var(--accent-purple-light); }
 .brew-history-entry--failure .brew-history-text { color: rgba(200,189,168,0.75); }
 
-.brew-history-entry:not(:first-child) {
-  opacity: 0.65;
-}
-
-.brew-history-entry:not(:first-child):not(:nth-child(2)) {
-  opacity: 0.4;
-}
+.brew-history-entry:nth-child(3) { opacity: 0.72; }
+.brew-history-entry:nth-child(4) { opacity: 0.48; }
+.brew-history-entry:nth-child(5) { opacity: 0.28; }
 
 /* ===== CAULDRON BREW FEEDBACK ===== */
 #cauldron.brew-success {
@@ -963,6 +954,52 @@ button:disabled {
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(201,162,39,0.25); border-radius: 2px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(201,162,39,0.45); }
+
+/* ===== RESTOCK BUTTON ===== */
+#restock-btn {
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  padding: 0.18rem 0.7rem;
+  opacity: 0.45;
+  border-color: rgba(196,154,42,0.2);
+  align-self: center;
+  flex-shrink: 0;
+  margin-top: 0.4rem;
+  transition: opacity 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+#restock-btn:not(:disabled):hover {
+  opacity: 0.9;
+}
+#restock-btn:disabled {
+  opacity: 0.18;
+}
+
+/* ===== CARD COUNT BADGE ===== */
+.card-count {
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  font-size: 0.58rem;
+  color: rgba(221,200,152,0.55);
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* ===== RECIPE BOOK COUNT ===== */
+.recipe-book-count {
+  font-style: normal;
+  font-size: 0.68rem;
+  opacity: 0.5;
+  letter-spacing: 0;
+}
+
+/* ===== HIDDEN RECIPE HINT ===== */
+.recipe-hidden {
+  color: rgba(136,173,192,0.3);
+  font-style: italic;
+  letter-spacing: 0.12em;
+  list-style: none;
+}
 
 /* ===== MODALS ===== */
 #modal-overlay, #design-overlay {

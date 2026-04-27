@@ -38,13 +38,21 @@ export default function IngredientGrimoire({ selectedIngredient, ingredients, re
                 ))}
               </ul>
               {(() => {
-                const combos = discoveredRecipes.filter(r => r.inputs.includes(selectedIngredient.id))
-                return combos.length > 0 ? (
+                const allCombos = recipes.filter(r => r.inputs.includes(selectedIngredient.id))
+                if (allCombos.length === 0) return null
+                const discovered = allCombos.filter(r => r.discovered)
+                const hiddenCount = allCombos.length - discovered.length
+                return (
                   <>
                     <p style={{ marginTop: '0.5rem' }}><strong>Used in:</strong></p>
-                    <ul>{combos.map(r => <li key={r.id}>{r.name}</li>)}</ul>
+                    <ul>
+                      {discovered.map(r => <li key={r.id}>{r.name}</li>)}
+                      {hiddenCount > 0 && Array.from({ length: hiddenCount }).map((_, i) => (
+                        <li key={`hidden-${i}`} className="recipe-hidden">???</li>
+                      ))}
+                    </ul>
                   </>
-                ) : null
+                )
               })()}
             </>
           ) : (
@@ -56,7 +64,7 @@ export default function IngredientGrimoire({ selectedIngredient, ingredients, re
         </div>
 
         <div id="grimoire-recipes">
-          <h3>Recipe Book</h3>
+          <h3>Recipe Book <span className="recipe-book-count">{discoveredRecipes.length} / {recipes.length}</span></h3>
           {discoveredRecipes.length === 0 ? (
             <div className="grimoire-idle grimoire-idle--small">
               <span className="grimoire-idle-glyph grimoire-idle-glyph--small">✦</span>
