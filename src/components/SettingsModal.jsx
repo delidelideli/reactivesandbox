@@ -10,7 +10,7 @@ const DEFAULTS = {
   '--text-color':          '#c8bda8',
   '--text-gold':           '#c49a2a',
   '--text-purple':         '#a060c8',
-  '--font-family':         "'IM Fell English', serif",
+  '--font-family':         "'Cormorant Garamond', serif",
   '--panel-spacing':       '0.75rem',
   '--bg-primary':          '#0e0c0a',
   '--bg-glow-color':       'rgba(4,3,2,0.5)',
@@ -21,6 +21,14 @@ const DEFAULTS = {
   '--border-vessel-rgb':   '105,50,185',
   '--stat-potency-color':  '#c49a2a',
   '--stat-toxicity-color': '#a060c8',
+  '--panel-bg-rgb':        '14,12,10',
+  '--panel-bg-alpha':      '0.82',
+  '--header-height':       '80px',
+  '--header-bg-rgb':       '8,6,4',
+  '--header-bg-alpha':     '0.97',
+  '--header-glow-rgb':     '196,154,42',
+  '--header-title-size':   '2rem',
+  '--header-star-rgb':     '255,255,255',
 }
 
 const THEMES = {
@@ -37,7 +45,7 @@ const THEMES = {
       '--text-color':          '#c8bda8',
       '--text-gold':           '#c49a2a',
       '--text-purple':         '#a060c8',
-      '--font-family':         "'IM Fell English', serif",
+      '--font-family':         "'Cormorant Garamond', serif",
       '--panel-spacing':       '0.75rem',
       '--bg-primary':          '#0e0c0a',
       '--bg-glow-color':       'rgba(4,3,2,0.5)',
@@ -48,7 +56,15 @@ const THEMES = {
       '--border-vessel-rgb':   '105,50,185',
       '--stat-potency-color':  '#c49a2a',
       '--stat-toxicity-color': '#a060c8',
-    },
+      '--panel-bg-rgb':        '14,12,10',
+      '--panel-bg-alpha':      '0.82',
+      '--header-height':       '80px',
+      '--header-bg-rgb':       '8,6,4',
+      '--header-bg-alpha':     '0.97',
+      '--header-glow-rgb':     '196,154,42',
+      '--header-title-size':   '2rem',
+      '--header-star-rgb':     '255,255,255',
+        },
   },
   skyrim: {
     label: 'Skyrim',
@@ -64,7 +80,7 @@ const THEMES = {
       '--text-color':          '#e0d8c8',
       '--text-gold':           '#d4950a',
       '--text-purple':         '#9050a0',
-      '--font-family':         "'IM Fell English', serif",
+      '--font-family':         "'Cormorant Garamond', serif",
       '--panel-spacing':       '0.75rem',
       '--bg-primary':          '#0e0b07',
       '--bg-glow-color':       'rgba(50,35,5,0.25)',
@@ -75,7 +91,15 @@ const THEMES = {
       '--border-vessel-rgb':   '112,48,104',
       '--stat-potency-color':  '#d4950a',
       '--stat-toxicity-color': '#9050a0',
-    },
+      '--panel-bg-rgb':        '22,16,8',
+      '--panel-bg-alpha':      '0.86',
+      '--header-height':       '80px',
+      '--header-bg-rgb':       '18,13,7',
+      '--header-bg-alpha':     '0.96',
+      '--header-glow-rgb':     '212,149,10',
+      '--header-title-size':   '2rem',
+      '--header-star-rgb':     '255,220,120',
+        },
   },
   crimson: {
     label: 'Crimson Sanctum',
@@ -90,7 +114,7 @@ const THEMES = {
       '--text-color':          '#e8c4b8',
       '--text-gold':           '#ee5544',
       '--text-purple':         '#ff5533',
-      '--font-family':         "'IM Fell English', serif",
+      '--font-family':         "'Cormorant Garamond', serif",
       '--panel-spacing':       '0.75rem',
       '--bg-primary':          '#1a0306',
       '--bg-glow-color':       'rgba(140,20,20,0.35)',
@@ -101,7 +125,15 @@ const THEMES = {
       '--border-vessel-rgb':   '85,17,17',
       '--stat-potency-color':  '#ee5544',
       '--stat-toxicity-color': '#ff5533',
-    },
+      '--panel-bg-rgb':        '20,8,8',
+      '--panel-bg-alpha':      '0.85',
+      '--header-height':       '80px',
+      '--header-bg-rgb':       '20,3,6',
+      '--header-bg-alpha':     '0.97',
+      '--header-glow-rgb':     '204,51,34',
+      '--header-title-size':   '2rem',
+      '--header-star-rgb':     '255,120,100',
+        },
   },
   verdant: {
     label: 'Verdant Workshop',
@@ -116,7 +148,7 @@ const THEMES = {
       '--text-color':          '#cce0c0',
       '--text-gold':           '#d8c040',
       '--text-purple':         '#60aa70',
-      '--font-family':         "'IM Fell English', serif",
+      '--font-family':         "'Cormorant Garamond', serif",
       '--panel-spacing':       '0.75rem',
       '--bg-primary':          '#021008',
       '--bg-glow-color':       'rgba(20,80,30,0.45)',
@@ -127,7 +159,15 @@ const THEMES = {
       '--border-vessel-rgb':   '26,90,42',
       '--stat-potency-color':  '#d8c040',
       '--stat-toxicity-color': '#60aa70',
-    },
+      '--panel-bg-rgb':        '8,14,8',
+      '--panel-bg-alpha':      '0.83',
+      '--header-height':       '80px',
+      '--header-bg-rgb':       '2,10,2',
+      '--header-bg-alpha':     '0.97',
+      '--header-glow-rgb':     '184,160,32',
+      '--header-title-size':   '2rem',
+      '--header-star-rgb':     '160,220,140',
+        },
   },
   void: {
     label: 'Void',
@@ -142,7 +182,7 @@ const THEMES = {
       '--text-color':          '#c0c0cc',
       '--text-gold':           '#d0d0e0',
       '--text-purple':         '#9090b0',
-      '--font-family':         "'IM Fell English', serif",
+      '--font-family':         "'Cormorant Garamond', serif",
       '--panel-spacing':       '0.75rem',
       '--bg-primary':          '#060608',
       '--bg-glow-color':       'rgba(50,50,80,0.3)',
@@ -153,7 +193,15 @@ const THEMES = {
       '--border-vessel-rgb':   '64,64,80',
       '--stat-potency-color':  '#d0d0e0',
       '--stat-toxicity-color': '#9090b0',
-    },
+      '--panel-bg-rgb':        '8,8,12',
+      '--panel-bg-alpha':      '0.88',
+      '--header-height':       '80px',
+      '--header-bg-rgb':       '6,6,8',
+      '--header-bg-alpha':     '0.98',
+      '--header-glow-rgb':     '160,160,176',
+      '--header-title-size':   '2rem',
+      '--header-star-rgb':     '180,180,220',
+        },
   },
 }
 
@@ -180,6 +228,13 @@ function rgbStringToHex(rgb) {
   return '#' + parts.slice(0, 3).map(n => n.toString(16).padStart(2, '0')).join('')
 }
 
+function lightenHex(hex, amount) {
+  const r = parseInt(hex.slice(1, 3), 16)
+  const g = parseInt(hex.slice(3, 5), 16)
+  const b = parseInt(hex.slice(5, 7), 16)
+  return '#' + [r, g, b].map(c => Math.min(255, Math.round(c + (255 - c) * amount)).toString(16).padStart(2, '0')).join('')
+}
+
 const DEFAULT_LABELS = {
   siteTitle:          "Alchemist's Workshop",
   satchel:            'Satchel',
@@ -204,6 +259,15 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
   const [toxicityName,      setToxicityName]       = useState(statNames?.toxicity ?? 'Toxicity')
   const [fontFamily,        setFontFamily]         = useState(() => readVar('--font-family')          || DEFAULTS['--font-family'])
   const [spacing,           setSpacing]            = useState(() => parseFloat(readVar('--panel-spacing')) || 0.75)
+  const [panelBgColor,      setPanelBgColor]       = useState(() => rgbStringToHex(readVar('--panel-bg-rgb')   || DEFAULTS['--panel-bg-rgb']))
+  const [panelBgAlpha,      setPanelBgAlpha]       = useState(() => parseFloat(readVar('--panel-bg-alpha'))    || 0.82)
+  const [headerBgColor,     setHeaderBgColor]      = useState(() => rgbStringToHex(readVar('--header-bg-rgb')  || DEFAULTS['--header-bg-rgb']))
+  const [headerBgAlpha,     setHeaderBgAlpha]      = useState(() => parseFloat(readVar('--header-bg-alpha'))   || 0.97)
+  const [headerGlowColor,   setHeaderGlowColor]    = useState(() => rgbStringToHex(readVar('--header-glow-rgb')|| DEFAULTS['--header-glow-rgb']))
+  const [headerHeight,      setHeaderHeight]       = useState(() => parseFloat(readVar('--header-height'))     || 80)
+  const [headerTitleSize,   setHeaderTitleSize]    = useState(() => parseFloat(readVar('--header-title-size')) || 2)
+  const [headerStarColor,   setHeaderStarColor]    = useState(() => rgbStringToHex(readVar('--header-star-rgb')|| DEFAULTS['--header-star-rgb']))
+  const [headerEffect,      setHeaderEffect]       = useState(() => localStorage.getItem('workshop-header-effect') || 'stars')
   const [bgFileName,        setBgFileName]         = useState('')
   const [bgDataUrl,         setBgDataUrl]          = useState(null)
   const [activeTheme,       setActiveTheme]        = useState(null)
@@ -230,6 +294,14 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
     setStatToxicityColor(v['--stat-toxicity-color'])
     setFontFamily(v['--font-family'])
     setSpacing(parseFloat(v['--panel-spacing']))
+    if (v['--panel-bg-rgb'])        setPanelBgColor(rgbStringToHex(v['--panel-bg-rgb']))
+    if (v['--panel-bg-alpha'])      setPanelBgAlpha(parseFloat(v['--panel-bg-alpha']))
+    if (v['--header-bg-rgb'])       setHeaderBgColor(rgbStringToHex(v['--header-bg-rgb']))
+    if (v['--header-bg-alpha'])     setHeaderBgAlpha(parseFloat(v['--header-bg-alpha']))
+    if (v['--header-glow-rgb'])     setHeaderGlowColor(rgbStringToHex(v['--header-glow-rgb']))
+    if (v['--header-height'])       setHeaderHeight(parseFloat(v['--header-height']))
+    if (v['--header-title-size'])   setHeaderTitleSize(parseFloat(v['--header-title-size']))
+    if (v['--header-star-rgb'])     setHeaderStarColor(rgbStringToHex(v['--header-star-rgb']))
     const bodyClasses = Object.values(THEMES).map(t => t.bodyClass).filter(Boolean)
     document.body.classList.remove(...bodyClasses)
     if (THEMES[key].bodyClass) document.body.classList.add(THEMES[key].bodyClass)
@@ -237,7 +309,11 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
 
   function handleBorderPanels(val) {
     setBorderPanels(val); setActiveTheme(null)
-    setVar('--border-panels-rgb', hexToRgb(val))
+    const rgb = hexToRgb(val)
+    setVar('--border-panels-rgb', rgb)
+    setVar('--accent-blue', val)
+    setVar('--accent-blue-light', lightenHex(val, 0.15))
+    setVar('--grimoire-glow', `rgba(${rgb},0.1)`)
   }
 
   function handleBorderVessel(val) {
@@ -272,13 +348,62 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
 
   function handleGold(val) {
     setAccentGold(val); setActiveTheme(null)
-    setVar('--accent-gold', val); setVar('--text-gold', val)
+    setVar('--accent-gold', val)
+    setVar('--accent-gold-light', lightenHex(val, 0.18))
+    setVar('--text-gold', val)
     setVar('--panel-glow', `rgba(${hexToRgb(val)},0.12)`)
   }
 
   function handlePurple(val) {
     setAccentPurple(val); setActiveTheme(null)
-    setVar('--accent-purple', val); setVar('--text-purple', val)
+    setVar('--accent-purple', val)
+    setVar('--accent-purple-light', lightenHex(val, 0.25))
+    setVar('--text-purple', val)
+  }
+
+  function handlePanelBgColor(val) {
+    setPanelBgColor(val); setActiveTheme(null)
+    setVar('--panel-bg-rgb', hexToRgb(val))
+  }
+
+  function handlePanelBgAlpha(val) {
+    setPanelBgAlpha(val); setActiveTheme(null)
+    setVar('--panel-bg-alpha', val)
+  }
+
+  function handleHeaderBgColor(val) {
+    setHeaderBgColor(val); setActiveTheme(null)
+    setVar('--header-bg-rgb', hexToRgb(val))
+  }
+
+  function handleHeaderBgAlpha(val) {
+    setHeaderBgAlpha(val); setActiveTheme(null)
+    setVar('--header-bg-alpha', val)
+  }
+
+  function handleHeaderGlow(val) {
+    setHeaderGlowColor(val); setActiveTheme(null)
+    setVar('--header-glow-rgb', hexToRgb(val))
+  }
+
+  function handleHeaderHeight(val) {
+    setHeaderHeight(val); setActiveTheme(null)
+    setVar('--header-height', `${val}px`)
+  }
+
+  function handleHeaderTitleSize(val) {
+    setHeaderTitleSize(val); setActiveTheme(null)
+    setVar('--header-title-size', `${val}rem`)
+  }
+
+  function handleHeaderStarColor(val) {
+    setHeaderStarColor(val); setActiveTheme(null)
+    setVar('--header-star-rgb', hexToRgb(val))
+  }
+
+  function handleHeaderEffect(val) {
+    setHeaderEffect(val); setActiveTheme(null)
+    document.querySelector('header')?.setAttribute('data-effect', val)
   }
 
   function handleText(val) {
@@ -323,6 +448,7 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
       version: 1,
       vars,
       bodyClass: activeTheme ? (THEMES[activeTheme].bodyClass || '') : '',
+      headerEffect,
       statNames: { potency: potencyName, toxicity: toxicityName },
       background: bgDataUrl || null,
     }
@@ -354,6 +480,15 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
           if (data.vars['--border-vessel-rgb'])   setBorderVessel(rgbStringToHex(data.vars['--border-vessel-rgb']))
           if (data.vars['--stat-potency-color'])  setStatPotencyColor(data.vars['--stat-potency-color'])
           if (data.vars['--stat-toxicity-color']) setStatToxicityColor(data.vars['--stat-toxicity-color'])
+          if (data.vars['--panel-bg-rgb'])         setPanelBgColor(rgbStringToHex(data.vars['--panel-bg-rgb']))
+          if (data.vars['--panel-bg-alpha'])       setPanelBgAlpha(parseFloat(data.vars['--panel-bg-alpha']))
+          if (data.vars['--header-bg-rgb'])        setHeaderBgColor(rgbStringToHex(data.vars['--header-bg-rgb']))
+          if (data.vars['--header-bg-alpha'])      setHeaderBgAlpha(parseFloat(data.vars['--header-bg-alpha']))
+          if (data.vars['--header-glow-rgb'])      setHeaderGlowColor(rgbStringToHex(data.vars['--header-glow-rgb']))
+          if (data.vars['--header-height'])        setHeaderHeight(parseFloat(data.vars['--header-height']))
+          if (data.vars['--header-title-size'])    setHeaderTitleSize(parseFloat(data.vars['--header-title-size']))
+          if (data.vars['--header-star-rgb'])      setHeaderStarColor(rgbStringToHex(data.vars['--header-star-rgb']))
+          if (data.headerEffect) { setHeaderEffect(data.headerEffect); document.querySelector('header')?.setAttribute('data-effect', data.headerEffect) }
         }
         if (data.statNames) {
           setPotencyName(data.statNames.potency ?? 'Potency')
@@ -384,6 +519,8 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
     localStorage.setItem('workshop-settings', JSON.stringify(vars))
     const bodyClass = activeTheme ? (THEMES[activeTheme].bodyClass || '') : ''
     localStorage.setItem('workshop-body-class', bodyClass)
+    localStorage.setItem('workshop-header-effect', headerEffect)
+    document.querySelector('header')?.setAttribute('data-effect', headerEffect)
     onClose()
   }
 
@@ -399,6 +536,16 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
     setStatToxicityColor(DEFAULTS['--stat-toxicity-color'])
     setFontFamily(DEFAULTS['--font-family'])
     setSpacing(0.75)
+    setPanelBgColor(rgbStringToHex(DEFAULTS['--panel-bg-rgb']))
+    setPanelBgAlpha(0.82)
+    setHeaderBgColor(rgbStringToHex(DEFAULTS['--header-bg-rgb']))
+    setHeaderBgAlpha(0.97)
+    setHeaderGlowColor(rgbStringToHex(DEFAULTS['--header-glow-rgb']))
+    setHeaderHeight(80)
+    setHeaderTitleSize(2)
+    setHeaderStarColor(rgbStringToHex(DEFAULTS['--header-star-rgb']))
+    setHeaderEffect('stars')
+    document.querySelector('header')?.setAttribute('data-effect', 'stars')
     setPotencyName('Potency')
     setToxicityName('Toxicity')
     onStatNamesChange({ potency: 'Potency', toxicity: 'Toxicity' })
@@ -408,6 +555,7 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
     document.body.classList.remove(...bodyClasses)
     localStorage.removeItem('workshop-settings')
     localStorage.removeItem('workshop-body-class')
+    localStorage.removeItem('workshop-header-effect')
   }
 
   return (
@@ -426,6 +574,7 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
 
         <div className="settings-tabs">
           <button className={`settings-tab ${activeTab === 'theme'  ? 'settings-tab--active' : ''}`} onClick={() => setActiveTab('theme')}>Theme</button>
+          <button className={`settings-tab ${activeTab === 'header' ? 'settings-tab--active' : ''}`} onClick={() => setActiveTab('header')}>Header</button>
           <button className={`settings-tab ${activeTab === 'labels' ? 'settings-tab--active' : ''}`} onClick={() => setActiveTab('labels')}>Labels</button>
         </div>
 
@@ -447,6 +596,76 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
             <p className="settings-label-hint">Leave a field blank to use the default name.</p>
           </div>
         )}
+
+        {activeTab === 'header' && <div id="settings-columns">
+
+          <div className="settings-col">
+            <h3>Title</h3>
+            <div className="settings-row settings-row--wrap">
+              <label>Accent Color
+                <input type="color" value={headerGlowColor} onChange={e => handleHeaderGlow(e.target.value)} />
+              </label>
+            </div>
+            <div className="settings-row settings-row--slider">
+              <span>Small</span>
+              <input
+                type="range" min="1" max="2.4" step="0.05"
+                value={headerTitleSize}
+                onChange={e => handleHeaderTitleSize(parseFloat(e.target.value))}
+              />
+              <span>Large</span>
+            </div>
+
+            <h3>Effect</h3>
+            <div className="settings-row settings-row--wrap">
+              <label>Type
+                <select value={headerEffect} onChange={e => handleHeaderEffect(e.target.value)}>
+                  <option value="stars">Stars</option>
+                  <option value="embers">Embers</option>
+                  <option value="scanlines">Scanlines</option>
+                  <option value="none">None</option>
+                </select>
+              </label>
+            </div>
+            <div className="settings-row settings-row--wrap" style={{ opacity: headerEffect === 'none' ? 0.35 : 1 }}>
+              <label>Effect Color
+                <input type="color" value={headerStarColor} onChange={e => handleHeaderStarColor(e.target.value)} disabled={headerEffect === 'none'} />
+              </label>
+            </div>
+          </div>
+
+          <div className="settings-col-divider" />
+
+          <div className="settings-col">
+            <h3>Header Bar</h3>
+            <div className="settings-row settings-row--wrap">
+              <label>Background Color
+                <input type="color" value={headerBgColor} onChange={e => handleHeaderBgColor(e.target.value)} />
+              </label>
+            </div>
+            <div className="settings-row settings-row--slider">
+              <span>Clear</span>
+              <input
+                type="range" min="0.1" max="1" step="0.01"
+                value={headerBgAlpha}
+                onChange={e => handleHeaderBgAlpha(parseFloat(e.target.value))}
+              />
+              <span>Solid</span>
+            </div>
+
+            <h3>Height</h3>
+            <div className="settings-row settings-row--slider">
+              <span>Short</span>
+              <input
+                type="range" min="50" max="120" step="1"
+                value={headerHeight}
+                onChange={e => handleHeaderHeight(parseFloat(e.target.value))}
+              />
+              <span>Tall</span>
+            </div>
+          </div>
+
+        </div>}
 
         {activeTab === 'theme' && <div id="settings-columns">
 
@@ -526,6 +745,7 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
           <div className="settings-col">
             <h3>Font</h3>
             <select value={fontFamily} onChange={e => handleFont(e.target.value)}>
+              <option value="'Cormorant Garamond', serif">Cormorant Garamond — Refined</option>
               <option value="'IM Fell English', serif">IM Fell English — Arcane</option>
               <option value="Georgia, serif">Georgia — Classic</option>
               <option value="'Palatino Linotype', Palatino, serif">Palatino — Elegant</option>
@@ -541,6 +761,22 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
                 onChange={e => handleSpacing(parseFloat(e.target.value))}
               />
               <span>Spacious</span>
+            </div>
+
+            <h3>Panel Background</h3>
+            <div className="settings-row settings-row--wrap">
+              <label>Color
+                <input type="color" value={panelBgColor} onChange={e => handlePanelBgColor(e.target.value)} />
+              </label>
+            </div>
+            <div className="settings-row settings-row--slider">
+              <span>Clear</span>
+              <input
+                type="range" min="0.1" max="1" step="0.01"
+                value={panelBgAlpha}
+                onChange={e => handlePanelBgAlpha(parseFloat(e.target.value))}
+              />
+              <span>Solid</span>
             </div>
 
             <h3>Background Image</h3>

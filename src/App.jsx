@@ -72,6 +72,8 @@ export default function App() {
       }
       const bodyClass = localStorage.getItem('workshop-body-class')
       if (bodyClass) document.body.classList.add(bodyClass)
+      const effect = localStorage.getItem('workshop-header-effect')
+      if (effect) document.querySelector('header')?.setAttribute('data-effect', effect)
     } catch {}
   }, [])
 
@@ -208,7 +210,7 @@ export default function App() {
         {Array.from({ length: 8 }).map((_, i) => <span key={i} />)}
       </div>
 
-      <header>
+      <header data-effect="stars">
         <div id="header-stars" aria-hidden="true">
           <span style={{left:'4%',   top:'25%', width:'2px',   height:'2px',   animationDuration:'3.1s, 11s',  animationDelay:'0s',   '--dx': '3px',  '--dy': '-4px'}} />
           <span style={{left:'9%',   top:'68%', width:'1.5px', height:'1.5px', animationDuration:'4.4s, 13s',  animationDelay:'1.2s', '--dx': '-4px', '--dy': '3px'}}  />
