@@ -4,6 +4,12 @@ This file tracks every task requested during this project. Update it at the end 
 
 ---
 
+## Session 13 (2026-04-26)
+
+1. Added Cauldron Panel color picker to Theme Settings — exposed `--border-vessel-rgb` (previously defined in CSS but never settable) via a new "Cauldron Panel" picker in the Panel Borders section. Renamed the existing "Cauldron" picker to "Cauldron Accent" for clarity. Added the variable to DEFAULTS, all five theme presets with matching vessel colors (indigo, dragon-purple, blood-red, forest-green, slate), `borderVessel` state, `handleBorderVessel` handler, `pickTheme`, `handleImport`, and `reset`. Fixed `#cauldron h2` title `color` from hardcoded `#a07adf` to `rgb(var(--border-vessel-rgb))` so it updates live.
+
+---
+
 ## Session 12 (2026-04-26)
 
 3. Brew button and cauldron slots now react to color settings — brew button border, outline, and brew-ready-pulse glow use `--border-cauldron-rgb` (follows theme preset, no more hardcoded gold). Dispel button border follows the same var. Filled ingredient slots now get a `slot--potent` or `slot--toxic` class based on the ingredient's dominant stat; the border and inset glow shift to `--stat-potency-color` or `--stat-toxicity-color` so each slot visually identifies the ingredient inside it.
