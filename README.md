@@ -111,9 +111,9 @@ style CustomizeModal fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
    - **Decided:** Designer confirmed direction. Key constraint established: opaque panels, minimal but present decorative flourishes, keep IM Fell English, cauldron as focal point.
 
 10. **Color Reactivity — CSS Variables All the Way Down**
-   - **Asked:** Stat color pickers in Theme Settings weren't affecting most visuals — essence bars, dots, card borders, and hover animations all used hardcoded `rgba()` values.
-   - **Produced:** Traced every hardcoded potency/toxicity color across CSS and JS, replaced with `var(--stat-potency-color)` / `var(--stat-toxicity-color)`. Extended to the cauldron sigil (now interpolates between the user's chosen stat colors) and the bowl glow (`computeSigilStyle` and `computeCauldronGlow` both read CSS vars at render time). Added per-ingredient slot coloring so each filled slot border glows in the nature of the ingredient inside it.
-   - **Decided:** Designer confirmed and extended — also added "Cauldron Panel" picker to expose `--border-vessel-rgb` (panel border, corner arcs, title color), which had existed in CSS but was never surfaced in settings.
+    - **Asked:** Stat color pickers in Theme Settings weren't affecting most visuals — essence bars, dots, card borders, and hover animations all used hardcoded `rgba()` values.
+    - **Produced:** Traced every hardcoded potency/toxicity color across CSS and JS, replaced with `var(--stat-potency-color)` / `var(--stat-toxicity-color)`. Extended to the cauldron sigil (now interpolates between the user's chosen stat colors) and the bowl glow (`computeSigilStyle` and `computeCauldronGlow` both read CSS vars at render time). Added per-ingredient slot coloring so each filled slot border glows in the nature of the ingredient inside it.
+    - **Decided:** Designer confirmed and extended — also added "Cauldron Panel" picker to expose `--border-vessel-rgb` (panel border, corner arcs, title color), which had existed in CSS but was never surfaced in settings.
 
 ## Records of Resistance
 *This section tracks AI output that was rejected or required designer intervention to correct.*
