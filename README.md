@@ -9,20 +9,20 @@ The **Theme Settings** modal gives full visual control over the interface withou
 The potion brewer is the proof of concept. The framework is the product.
 
 ## Features
-- **Reactive Panel Architecture:** Satchel, Cauldron, Output, and dual Grimoire panels all share a single source of truth in App.jsx — no data duplication across components.
-- **JSON-Driven Data Layer:** All ingredients and recipes are defined in `src/data.json` — currently 15 ingredients and 12 recipes. Stats, names, descriptions, and combo flags are driven entirely by the data model. The JSON file can be exported, edited, and re-imported through the Customize modal. Custom data persists across page refreshes via `localStorage`.
-- **Ingredient Count System:** The Satchel tracks available counts per ingredient and reacts visually when the Cauldron consumes them — demonstrating live Browser → Controller reactivity.
-- **Recipe Discovery:** Recipes are hidden until successfully brewed for the first time. The Recipe Book is a living log of discovered combinations, not a pre-filled reference guide.
-- **Reactive Cauldron Glow:** The Cauldron's bowl glow and the magical circle sigil both shift color based on the combined stats of slotted ingredients, interpolating between the user's chosen potency and toxicity colors. Transitions at `0.55s ease`. The sigil also brightens at stat extremes.
-- **Brewing Feedback:** Success emits a Golden Flash; failure emits Chromatic Aberration + Purple Smoke. Transitions use a `0.8s cubic-bezier(0.22, 1, 0.36, 1)` for a weighty, magical feel.
-- **Live Essence Readout:** While ingredients are slotted, animated Potency and Toxicity bars show the combined stat averages in real time, with a proximity hint that updates as the formula approaches a known recipe.
-- **Stat Bloom:** Potency and Toxicity values in the Grimoires emit layered `drop-shadow` glow proportional to their numeric value — high stats visibly bleed light onto the surrounding panel.
-- **Dual Grimoire System:** Hovering an ingredient previews it in the Ingredient Grimoire; hovering a brewed potion previews it in the Potion Grimoire. Clicking a potion pins it.
+- **Reactive Panel Architecture:** All five panels share a single source of truth — no data duplication.
+- **JSON-Driven Data Layer:** 15 ingredients and 12 recipes defined in `src/data.json`. Custom data can be exported, edited, and re-imported through the Customize modal and persists across refreshes.
+- **Ingredient Count System:** The Satchel tracks per-ingredient counts and reacts visually as the Cauldron consumes them.
+- **Recipe Discovery:** Recipes are hidden until successfully brewed. The Recipe Book is a living log of discovered combinations.
+- **Reactive Cauldron Glow:** The bowl glow and sigil shift color based on the combined stats of slotted ingredients, using the user's chosen potency and toxicity colors.
+- **Brewing Feedback:** Success emits a Golden Flash; failure emits Chromatic Aberration and Purple Smoke.
+- **Live Essence Readout:** Animated Potency and Toxicity bars show combined stat averages in real time, with an atmospheric proximity hint as the formula nears a known recipe.
+- **Stat Bloom:** Stat values in the Grimoires emit a glow proportional to their numeric value — high stats visibly bleed light onto the surrounding panel.
+- **Dual Grimoire System:** Hovering an ingredient previews it in the Ingredient Grimoire; hovering a brewed potion previews it in the Potion Grimoire. Clicking pins the selection.
 - **Individual Slot Removal:** Clicking a filled Cauldron slot returns that ingredient to the Satchel.
-- **Three-Tier Panel Color Language:** Panels are visually grouped by role — the Cauldron uses deep indigo-violet (the brewing vessel), the Satchel and Output use gold (action/inventory panels), and the Grimoires use steel blue (reading/reference panels). Each tier has its own border color, corner accents, title glow, and hover state.
-- **Customize Modal:** Users can define their own ingredients, recipes, and outputs. Laid out as two side-by-side columns (Ingredients / Recipes) so both sections are visible at once without scrolling.
-- **Theme Settings Modal:** Tabbed interface with two panels — **Theme** (5 presets; color pickers for Info Panels, Cauldron Panel border/title, Cauldron Accent, Accent/Glow, Failure, and Text; stat color pickers that drive all potency/toxicity visuals site-wide; stat renaming; font selector; spacing slider; background upload; theme export/import) and **Labels** (rename site title, all 5 panel headers, and the Brew/Dispel buttons). All changes apply live and persist via `localStorage`.
-- **Import / Export:** Export the current ingredient and recipe set as a `workshop-data.json` file. Import a previously exported file to restore a custom setup instantly.
+- **Three-Tier Panel Color Language:** Panels are grouped by role — Cauldron in deep indigo-violet, Satchel and Output in gold, Grimoires in steel blue.
+- **Customize Modal:** Define your own ingredients, recipes, and outputs without touching code.
+- **Theme Settings Modal:** Two tabs — **Theme** (5 presets, color pickers for every panel surface and stat, font selector, spacing slider, background upload, theme export/import) and **Labels** (rename the site title, all panel headers, and action buttons). All changes apply live and persist across sessions.
+- **Import / Export:** Export and re-import the full ingredient and recipe set as a JSON file.
 
 ## User Flow Diagram
 ```mermaid
@@ -110,15 +110,10 @@ style CustomizeModal fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
    - **Produced:** Replaced the wood-gradient panel system with flat dark opaque panels, hid floating orbs and sparkles, added the Skyrim wallpaper as background, unified the panel language around a single dark surface with amber/steel accents.
    - **Decided:** Designer confirmed direction. Key constraint established: opaque panels, minimal but present decorative flourishes, keep IM Fell English, cauldron as focal point.
 
-11. **Color Reactivity — CSS Variables All the Way Down**
+10. **Color Reactivity — CSS Variables All the Way Down**
    - **Asked:** Stat color pickers in Theme Settings weren't affecting most visuals — essence bars, dots, card borders, and hover animations all used hardcoded `rgba()` values.
    - **Produced:** Traced every hardcoded potency/toxicity color across CSS and JS, replaced with `var(--stat-potency-color)` / `var(--stat-toxicity-color)`. Extended to the cauldron sigil (now interpolates between the user's chosen stat colors) and the bowl glow (`computeSigilStyle` and `computeCauldronGlow` both read CSS vars at render time). Added per-ingredient slot coloring so each filled slot border glows in the nature of the ingredient inside it.
    - **Decided:** Designer confirmed and extended — also added "Cauldron Panel" picker to expose `--border-vessel-rgb` (panel border, corner arcs, title color), which had existed in CSS but was never surfaced in settings.
-
-12. **Modal Layout — Side-by-Side Over Scroll**
-    - **Asked:** Customize modal made users scroll to reach the Recipe section; Settings modal required scrolling through all options.
-    - **Produced:** Redesigned both modals as multi-column layouts at 860px — Customize splits into Ingredients/Recipes columns with a shared footer; Settings into Theme Presets / Colors / Appearance & File columns.
-    - **Decided:** Designer confirmed — both modals now expose all controls at once without scrolling.
 
 ## Records of Resistance
 *This section tracks AI output that was rejected or required designer intervention to correct.*

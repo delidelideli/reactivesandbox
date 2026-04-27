@@ -4,6 +4,13 @@ This file tracks every task requested during this project. Update it at the end 
 
 ---
 
+## Session 14 (2026-04-27)
+
+1. Simplified Features section in README — removed CSS implementation specifics, px values, and easing function details from all bullet points; kept each feature to a clear one-liner.
+2. Capped AI Direction & Collaborative Guidance section to 10 entries — dropped entry #12 (Modal Layout) as the least illustrative, renumbered #11 as #10.
+
+---
+
 ## Session 13 (2026-04-26)
 
 1. Added Cauldron Panel color picker to Theme Settings — exposed `--border-vessel-rgb` (previously defined in CSS but never settable) via a new "Cauldron Panel" picker in the Panel Borders section. Renamed the existing "Cauldron" picker to "Cauldron Accent" for clarity. Added the variable to DEFAULTS, all five theme presets with matching vessel colors (indigo, dragon-purple, blood-red, forest-green, slate), `borderVessel` state, `handleBorderVessel` handler, `pickTheme`, `handleImport`, and `reset`. Fixed `#cauldron h2` title `color` from hardcoded `#a07adf` to `rgb(var(--border-vessel-rgb))` so it updates live.
