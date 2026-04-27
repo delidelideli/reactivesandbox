@@ -1,17 +1,5 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { MAX_CAULDRON_SLOTS, MIN_BREW_INGREDIENTS } from '../data'
-
-function parseStats(str) {
-  const stats = {}
-  str.split(',').forEach(pair => {
-    const [k, v] = pair.split(':').map(s => s.trim())
-    if (k && v !== undefined) {
-      const num = Number(v)
-      stats[k] = isNaN(num) ? v : Math.min(num, 10)
-    }
-  })
-  return stats
-}
 
 export default function CustomizeModal({ ingredients, recipes, statNames, onSave, onClose }) {
   const [ings, setIngs] = useState(ingredients.map(i => ({ ...i, stats: { ...i.stats } })))
@@ -24,11 +12,18 @@ export default function CustomizeModal({ ingredients, recipes, statNames, onSave
   const [ingPotency, setIngPotency]   = useState('')
   const [ingToxicity, setIngToxicity] = useState('')
 
-  const [recName, setRecName] = useState('')
-  const [recDesc, setRecDesc] = useState('')
-  const [recStats, setRecStats] = useState('')
-  const [recSlots, setRecSlots] = useState(['', ''])
+  const [recName,     setRecName]     = useState('')
+  const [recDesc,     setRecDesc]     = useState('')
+  const [recPotency,  setRecPotency]  = useState('')
+  const [recToxicity, setRecToxicity] = useState('')
+  const [recSlots,    setRecSlots]    = useState(['', ''])
   const fileInputRef = useRef(null)
+
+  useEffect(() => {
+    const handler = e => { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [onClose])
 
   function handleExport() {
     const blob = new Blob([JSON.stringify({ ingredients: ings, recipes: recs }, null, 2)], { type: 'application/json' })
@@ -78,6 +73,11 @@ export default function CustomizeModal({ ingredients, recipes, statNames, onSave
 
   function removeIngredient(idx) {
     const removed = ings[idx]
+    const affected = recs.filter(r => r.inputs.includes(removed.id))
+    if (affected.length > 0) {
+      const names = affected.map(r => r.name).join(', ')
+      if (!window.confirm(`Removing "${removed.name}" will also delete ${affected.length} recipe${affected.length > 1 ? 's' : ''}: ${names}. Continue?`)) return
+    }
     setIngs(prev => prev.filter((_, i) => i !== idx))
     setRecs(prev => prev.filter(r => !r.inputs.includes(removed.id)))
   }
@@ -101,17 +101,22 @@ export default function CustomizeModal({ ingredients, recipes, statNames, onSave
     if (!recName.trim() || filled.length < MIN_BREW_INGREDIENTS) return
     const unique = new Set(filled)
     if (unique.size !== filled.length) return
+    const stats = {}
+    const p = parseFloat(recPotency)
+    const t = parseFloat(recToxicity)
+    if (!isNaN(p)) stats.potency  = Math.min(Math.max(p, 0), 10)
+    if (!isNaN(t)) stats.toxicity = Math.min(Math.max(t, 0), 10)
     setRecs(prev => [...prev, {
       id: `cr${recCounter}`,
       name: recName.trim(),
       type: 'potion',
       description: recDesc.trim(),
-      stats: recStats.trim() ? parseStats(recStats) : {},
+      stats,
       inputs: filled,
       discovered: false
     }])
     setRecCounter(c => c + 1)
-    setRecName(''); setRecDesc(''); setRecStats(''); setRecSlots(['', ''])
+    setRecName(''); setRecDesc(''); setRecPotency(''); setRecToxicity(''); setRecSlots(['', ''])
   }
 
   function removeRecipe(idx) {
@@ -176,9 +181,12 @@ export default function CustomizeModal({ ingredients, recipes, statNames, onSave
           <div className="customize-col">
             <h3>Recipes</h3>
             <div className="customize-form">
-              <input value={recName}  onChange={e => setRecName(e.target.value)}  placeholder="Output name" />
-              <input value={recDesc}  onChange={e => setRecDesc(e.target.value)}  placeholder="Description" />
-              <input value={recStats} onChange={e => setRecStats(e.target.value)} placeholder="Stats e.g. potency:9, toxicity:2" />
+              <input value={recName} onChange={e => setRecName(e.target.value)} placeholder="Output name" />
+              <input value={recDesc} onChange={e => setRecDesc(e.target.value)} placeholder="Description" />
+              <div className="customize-stat-inputs">
+                <input type="number" min="0" max="10" step="0.1" value={recPotency}  onChange={e => setRecPotency(e.target.value)}  placeholder={statNames?.potency  ?? 'Potency'}  />
+                <input type="number" min="0" max="10" step="0.1" value={recToxicity} onChange={e => setRecToxicity(e.target.value)} placeholder={statNames?.toxicity ?? 'Toxicity'} />
+              </div>
               <div className="customize-slots">
                 {recSlots.map((val, i) => (
                   <select key={i} value={val} onChange={e => updateSlot(i, e.target.value)}>
@@ -215,7 +223,7 @@ export default function CustomizeModal({ ingredients, recipes, statNames, onSave
         <hr />
 
         <div className="modal-actions">
-          <button onClick={() => ings.length > 0 && onSave(ings, recs)}>Save Changes</button>
+          <button onClick={() => onSave(ings, recs)} disabled={ings.length === 0}>Save Changes</button>
           <button onClick={handleExport}>Export</button>
           <button onClick={() => fileInputRef.current.click()}>Import</button>
           <input ref={fileInputRef} type="file" accept=".json" style={{ display: 'none' }} onChange={handleImport} />

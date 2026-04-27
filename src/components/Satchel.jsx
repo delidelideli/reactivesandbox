@@ -19,8 +19,8 @@ export default function Satchel({ ingredients, counts, labels, onHover, onPin, o
               key={item.id}
               className={`ingredient-btn card--${dominant}`}
               disabled={count === 0}
-              onMouseEnter={() => onHover(item)}
-              onClick={() => { onPin(item); onAddToCauldron(item.id) }}
+              onMouseEnter={() => { onHover(item); onPin(item) }}
+              onClick={() => onAddToCauldron(item.id)}
             >
               <span className="card-name">{item.name}</span>
               <div className="card-dots">

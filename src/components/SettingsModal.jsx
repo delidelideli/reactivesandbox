@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 const DEFAULTS = {
   '--accent-gold':         '#c49a2a',
@@ -276,6 +276,12 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
   const bgInputRef     = useRef()
   const importInputRef = useRef()
 
+  useEffect(() => {
+    const handler = e => { if (e.key === 'Escape') save() }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  })
+
   function setVar(name, value) {
     document.documentElement.style.setProperty(name, value)
   }
@@ -525,6 +531,7 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
   }
 
   function reset() {
+    if (!window.confirm('Reset all theme settings to default? This cannot be undone.')) return
     applyVars(DEFAULTS)
     setAccentGold(DEFAULTS['--accent-gold'])
     setAccentPurple(DEFAULTS['--accent-purple'])
@@ -559,15 +566,15 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
   }
 
   return (
-    <div id="design-overlay" onClick={e => e.target === e.currentTarget && onClose()}>
+    <div id="design-overlay" onClick={e => e.target === e.currentTarget && save()}>
       <div id="design-modal">
         <div className="modal-header">
           <div>
             <h2>Theme Settings</h2>
-            <p>Changes apply instantly. Save to keep them after refresh.</p>
+            <p>Changes preview instantly — closing this panel saves them to your browser.</p>
           </div>
           <div className="modal-warning">
-            ⚠ Theme changes are not saved permanently.<br />Use <strong>Export Theme</strong> to save your settings as a file.
+            ⚠ Refreshing the page will lose unsaved changes.<br />Use <strong>Export Theme</strong> to keep a portable backup.
           </div>
         </div>
         <hr />
@@ -805,7 +812,7 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
           <div className="modal-actions-right">
             <button onClick={save}>Save</button>
             <button onClick={reset}>Reset to Default</button>
-            <button onClick={onClose}>Close</button>
+            <button onClick={save}>Done</button>
           </div>
         </div>
       </div>

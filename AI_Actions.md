@@ -4,6 +4,18 @@ This file tracks every task requested during this project. Update it at the end 
 
 ---
 
+## Session 15 (2026-04-27)
+
+1. Theme Settings auto-saves on close — closing the modal via backdrop click, Done button, or Escape key now calls save() so settings are always persisted without requiring a manual Save click. Updated warning text to "Refreshing the page will lose unsaved changes" and subtitle to clarify closing saves to browser.
+2. Reset to Default now requires confirmation — added window.confirm() before wiping all settings, preventing accidental loss of customization.
+3. Browser panel click/hover separated — hover now also pins the Item Detail panel (so it shows the last-hovered item after mouse leaves), and click only adds to the cauldron. Previously clicking both pinned and added, making inspection costly.
+4. Escape key closes both modals — added keydown listener to SettingsModal (saves on close) and CustomizeModal (closes without saving).
+5. Removing an ingredient in Customize now warns about affected recipes — shows a confirm dialog listing which recipes will be deleted before proceeding.
+6. Recipe stats in Customize changed from freeform text to number inputs — replaced the "potency:9, toxicity:2" text field with two labeled number inputs matching the ingredient form, making stat entry consistent and error-proof.
+7. Save Changes button in Customize properly disabled when ingredient list is empty — previously the button appeared enabled but did nothing silently; now it is visually and functionally disabled.
+
+---
+
 ## Session 14 (2026-04-27)
 
 1. Simplified Features section in README — removed CSS implementation specifics, px values, and easing function details from all bullet points; kept each feature to a clear one-liner.
