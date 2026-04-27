@@ -18,6 +18,7 @@ const DEFAULTS = {
   '--grimoire-glow':       'rgba(106,143,168,0.08)',
   '--border-panels-rgb':   '106,143,168',
   '--border-cauldron-rgb': '196,154,42',
+  '--border-vessel-rgb':   '105,50,185',
   '--stat-potency-color':  '#c49a2a',
   '--stat-toxicity-color': '#a060c8',
 }
@@ -44,6 +45,7 @@ const THEMES = {
       '--grimoire-glow':       'rgba(106,143,168,0.08)',
       '--border-panels-rgb':   '106,143,168',
       '--border-cauldron-rgb': '196,154,42',
+      '--border-vessel-rgb':   '105,50,185',
       '--stat-potency-color':  '#c49a2a',
       '--stat-toxicity-color': '#a060c8',
     },
@@ -70,6 +72,7 @@ const THEMES = {
       '--grimoire-glow':       'rgba(74,104,120,0.12)',
       '--border-panels-rgb':   '74,104,120',
       '--border-cauldron-rgb': '212,149,10',
+      '--border-vessel-rgb':   '112,48,104',
       '--stat-potency-color':  '#d4950a',
       '--stat-toxicity-color': '#9050a0',
     },
@@ -95,6 +98,7 @@ const THEMES = {
       '--grimoire-glow':       'rgba(120,20,20,0.14)',
       '--border-panels-rgb':   '136,34,17',
       '--border-cauldron-rgb': '204,51,34',
+      '--border-vessel-rgb':   '85,17,17',
       '--stat-potency-color':  '#ee5544',
       '--stat-toxicity-color': '#ff5533',
     },
@@ -120,6 +124,7 @@ const THEMES = {
       '--grimoire-glow':       'rgba(40,100,50,0.14)',
       '--border-panels-rgb':   '42,122,58',
       '--border-cauldron-rgb': '184,160,32',
+      '--border-vessel-rgb':   '26,90,42',
       '--stat-potency-color':  '#d8c040',
       '--stat-toxicity-color': '#60aa70',
     },
@@ -145,6 +150,7 @@ const THEMES = {
       '--grimoire-glow':       'rgba(80,80,120,0.1)',
       '--border-panels-rgb':   '96,96,112',
       '--border-cauldron-rgb': '160,160,176',
+      '--border-vessel-rgb':   '64,64,80',
       '--stat-potency-color':  '#d0d0e0',
       '--stat-toxicity-color': '#9090b0',
     },
@@ -191,6 +197,7 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
   const [textColor,         setTextColor]          = useState(() => readVar('--text-color')           || DEFAULTS['--text-color'])
   const [borderPanels,      setBorderPanels]       = useState(() => rgbStringToHex(readVar('--border-panels-rgb')   || DEFAULTS['--border-panels-rgb']))
   const [borderCauldron,    setBorderCauldron]     = useState(() => rgbStringToHex(readVar('--border-cauldron-rgb') || DEFAULTS['--border-cauldron-rgb']))
+  const [borderVessel,      setBorderVessel]       = useState(() => rgbStringToHex(readVar('--border-vessel-rgb')   || DEFAULTS['--border-vessel-rgb']))
   const [statPotencyColor,  setStatPotencyColor]   = useState(() => readVar('--stat-potency-color')  || DEFAULTS['--stat-potency-color'])
   const [statToxicityColor, setStatToxicityColor]  = useState(() => readVar('--stat-toxicity-color') || DEFAULTS['--stat-toxicity-color'])
   const [potencyName,       setPotencyName]        = useState(statNames?.potency  ?? 'Potency')
@@ -218,6 +225,7 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
     setTextColor(v['--text-color'])
     setBorderPanels(rgbStringToHex(v['--border-panels-rgb']))
     setBorderCauldron(rgbStringToHex(v['--border-cauldron-rgb']))
+    setBorderVessel(rgbStringToHex(v['--border-vessel-rgb']))
     setStatPotencyColor(v['--stat-potency-color'])
     setStatToxicityColor(v['--stat-toxicity-color'])
     setFontFamily(v['--font-family'])
@@ -230,6 +238,11 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
   function handleBorderPanels(val) {
     setBorderPanels(val); setActiveTheme(null)
     setVar('--border-panels-rgb', hexToRgb(val))
+  }
+
+  function handleBorderVessel(val) {
+    setBorderVessel(val); setActiveTheme(null)
+    setVar('--border-vessel-rgb', hexToRgb(val))
   }
 
   function handleBorderCauldron(val) {
@@ -338,6 +351,7 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
           if (data.vars['--panel-spacing'])       setSpacing(parseFloat(data.vars['--panel-spacing']))
           if (data.vars['--border-panels-rgb'])   setBorderPanels(rgbStringToHex(data.vars['--border-panels-rgb']))
           if (data.vars['--border-cauldron-rgb']) setBorderCauldron(rgbStringToHex(data.vars['--border-cauldron-rgb']))
+          if (data.vars['--border-vessel-rgb'])   setBorderVessel(rgbStringToHex(data.vars['--border-vessel-rgb']))
           if (data.vars['--stat-potency-color'])  setStatPotencyColor(data.vars['--stat-potency-color'])
           if (data.vars['--stat-toxicity-color']) setStatToxicityColor(data.vars['--stat-toxicity-color'])
         }
@@ -380,6 +394,7 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
     setTextColor(DEFAULTS['--text-color'])
     setBorderPanels(rgbStringToHex(DEFAULTS['--border-panels-rgb']))
     setBorderCauldron(rgbStringToHex(DEFAULTS['--border-cauldron-rgb']))
+    setBorderVessel(rgbStringToHex(DEFAULTS['--border-vessel-rgb']))
     setStatPotencyColor(DEFAULTS['--stat-potency-color'])
     setStatToxicityColor(DEFAULTS['--stat-toxicity-color'])
     setFontFamily(DEFAULTS['--font-family'])
@@ -465,7 +480,10 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
               <label>Info Panels
                 <input type="color" value={borderPanels}   onChange={e => handleBorderPanels(e.target.value)} />
               </label>
-              <label>Cauldron
+              <label>Cauldron Panel
+                <input type="color" value={borderVessel}   onChange={e => handleBorderVessel(e.target.value)} />
+              </label>
+              <label>Cauldron Accent
                 <input type="color" value={borderCauldron} onChange={e => handleBorderCauldron(e.target.value)} />
               </label>
               <label>Accent / Glow

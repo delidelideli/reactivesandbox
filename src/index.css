@@ -512,7 +512,7 @@ section ul { padding-left: 1.1rem; }
 
 #cauldron h2 {
   width: 100%;
-  color: #a07adf;
+  color: rgb(var(--border-vessel-rgb));
   text-shadow: 0 0 10px rgba(var(--border-vessel-rgb),0.5);
 }
 
