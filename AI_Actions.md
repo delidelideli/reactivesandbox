@@ -6,7 +6,8 @@ This file tracks every task requested during this project. Update it at the end 
 
 ## Session 12 (2026-04-26)
 
-1. Fixed stat color pickers not affecting visual elements — `--stat-potency-color` and `--stat-toxicity-color` were only wired to grimoire text via `.stat-potency` / `.stat-toxicity`. All other potency/toxicity indicators used hardcoded `rgba()` values. Updated: essence bar fills and glows in the cauldron readout, card border colors and box-shadow glows, ingredient/potion dot fills and glows, `card-glow-gold`/`card-glow-purple`/`potion-hover-pulse`/`potion-hover-pulse-purple` keyframe animations, and Customize modal stat badge backgrounds/borders (using `color-mix()` to preserve the tinted-background look reactively).
+1. Fixed stat color pickers not affecting visual elements throughout the UI, and extended color reactivity into the cauldron section: `computeSigilStyle()` now reads `--stat-potency-color` and `--stat-toxicity-color` from live CSS vars and interpolates the magical circle color between the user's chosen colors (instead of hardcoded gold/purple RGB values). `computeCauldronGlow()` does the same for the bowl's outer glow. Cauldron ingredient slots now use `--border-cauldron-rgb` instead of hardcoded gold so they follow the cauldron panel color per theme.
+2. Fixed stat color pickers not affecting visual elements — `--stat-potency-color` and `--stat-toxicity-color` were only wired to grimoire text via `.stat-potency` / `.stat-toxicity`. All other potency/toxicity indicators used hardcoded `rgba()` values. Updated: essence bar fills and glows in the cauldron readout, card border colors and box-shadow glows, ingredient/potion dot fills and glows, `card-glow-gold`/`card-glow-purple`/`potion-hover-pulse`/`potion-hover-pulse-purple` keyframe animations, and Customize modal stat badge backgrounds/borders (using `color-mix()` to preserve the tinted-background look reactively).
 
 ---
 
