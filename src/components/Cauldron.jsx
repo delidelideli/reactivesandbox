@@ -1,6 +1,6 @@
 import { MIN_BREW_INGREDIENTS } from '../data'
 
-const NUMBER_WORDS = ['zero', 'one', 'two', 'three', 'four', 'five']
+const NUMBER_WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight']
 
 function readStatRgb(varName, fallback) {
   const hex = (getComputedStyle(document.documentElement).getPropertyValue(varName).trim() || fallback).replace('#', '')
@@ -92,7 +92,7 @@ export default function Cauldron({ cauldron, ingredients, brewMessage, brewResul
         </svg>
       </div>
 
-      <div id="cauldron-slots">
+      <div id="cauldron-slots" style={cauldron.length > 4 ? { gridTemplateColumns: 'repeat(4, 1fr)', width: 'min(280px, 95%)' } : undefined}>
         {cauldron.map((id, i) => {
           const item = id ? ingredients.find(x => x.id === id) : null
           const dominant = item ? ((item.stats?.potency ?? 0) >= (item.stats?.toxicity ?? 0) ? 'potent' : 'toxic') : null

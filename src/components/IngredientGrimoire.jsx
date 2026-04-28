@@ -4,9 +4,17 @@ function getDominant(stats) {
   return 'balanced'
 }
 
+function readStatRgb(varName, fallback) {
+  const hex = (getComputedStyle(document.documentElement).getPropertyValue(varName).trim() || fallback).replace('#', '')
+  const full = hex.length === 3 ? hex.split('').map(c => c + c).join('') : hex
+  return `${parseInt(full.slice(0,2),16)},${parseInt(full.slice(2,4),16)},${parseInt(full.slice(4,6),16)}`
+}
+
 function statBloom(k, v) {
-  const color = k === 'potency' ? '232,180,34' : k === 'toxicity' ? '199,125,255' : null
-  if (!color) return {}
+  const varName  = k === 'potency' ? '--stat-potency-color' : k === 'toxicity' ? '--stat-toxicity-color' : null
+  const fallback = k === 'potency' ? '#c49a2a' : '#a060c8'
+  if (!varName) return {}
+  const color = readStatRgb(varName, fallback)
   const inner = (0.3 + (v / 10) * 0.55).toFixed(2)
   const outer = ((v / 10) * 0.28).toFixed(2)
   return { filter: `drop-shadow(0 0 ${(2 + v * 0.5).toFixed(1)}px rgba(${color},${inner})) drop-shadow(0 0 ${(v * 1.8).toFixed(1)}px rgba(${color},${outer}))` }

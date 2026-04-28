@@ -169,6 +169,7 @@ header {
 
 header h1 {
   font-size: var(--header-title-size);
+  font-weight: 600;
   font-style: italic;
   color: rgb(var(--header-glow-rgb));
   text-shadow: 0 0 8px rgba(var(--header-glow-rgb),0.95), 0 0 24px rgba(var(--header-glow-rgb),0.5), 0 0 52px rgba(var(--header-glow-rgb),0.2);
@@ -379,7 +380,8 @@ section::before {
 
 /* ===== SECTION HEADINGS ===== */
 section h2 {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
+  font-weight: 600;
   font-style: italic;
   letter-spacing: 0.1em;
   color: var(--accent-gold-light);
@@ -1024,6 +1026,33 @@ button:disabled {
 ::-webkit-scrollbar-thumb { background: rgba(201,162,39,0.25); border-radius: 2px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(201,162,39,0.45); }
 
+/* ===== SATCHEL FOOTER ===== */
+#satchel-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 0.4rem;
+  flex-shrink: 0;
+}
+
+/* ===== SORT CYCLE BUTTON ===== */
+.sort-cycle-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-style: normal;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: var(--accent-gold-light);
+  opacity: 0.4;
+  padding: 0.1rem 0.2rem;
+  transition: opacity 0.2s;
+}
+.sort-cycle-btn:hover { opacity: 0.85; }
+.sort-cycle-btn--active { opacity: 0.7; }
+
 /* ===== RESTOCK BUTTON ===== */
 #restock-btn {
   font-size: 0.66rem;
@@ -1031,9 +1060,7 @@ button:disabled {
   padding: 0.18rem 0.7rem;
   opacity: 0.45;
   border-color: rgba(196,154,42,0.2);
-  align-self: center;
   flex-shrink: 0;
-  margin-top: 0.4rem;
   transition: opacity 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 #restock-btn:not(:disabled):hover {
@@ -1206,6 +1233,43 @@ button:disabled {
   margin: 0;
 }
 
+.customize-global-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0 0.6rem;
+}
+
+.customize-global-label {
+  font-size: 0.82rem;
+  color: rgba(221,200,152,0.65);
+  letter-spacing: 0.05em;
+}
+
+.customize-slot-toggle {
+  display: flex;
+  gap: 0;
+}
+
+.slot-toggle-btn {
+  background: rgba(196,154,42,0.06);
+  border: 1px solid rgba(196,154,42,0.25);
+  color: rgba(221,200,152,0.55);
+  font-family: inherit;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.7rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.slot-toggle-btn:first-child { border-radius: 3px 0 0 3px; }
+.slot-toggle-btn:last-child  { border-radius: 0 3px 3px 0; border-left: none; }
+.slot-toggle-btn:hover { background: rgba(196,154,42,0.14); color: rgba(221,200,152,0.85); }
+.slot-toggle-btn--active {
+  background: rgba(196,154,42,0.22);
+  border-color: rgba(196,154,42,0.55);
+  color: var(--accent-gold-light);
+}
+
 .customize-list {
   font-size: 0.83rem;
   list-style: none;
@@ -1239,6 +1303,33 @@ button:disabled {
 .customize-item-desc {
   color: rgba(221,200,152,0.55);
   font-size: 0.8rem;
+}
+
+.customize-item-btns {
+  display: flex;
+  gap: 0.3rem;
+  flex-shrink: 0;
+}
+
+.customize-item--editing {
+  background: rgba(196,154,42,0.06);
+  border-bottom-color: rgba(196,154,42,0.2);
+  border-radius: 3px;
+}
+
+.customize-form-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.customize-cancel-btn {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(221,200,152,0.2);
+  color: rgba(221,200,152,0.55);
+}
+.customize-cancel-btn:hover {
+  border-color: rgba(221,200,152,0.4);
+  color: rgba(221,200,152,0.85);
 }
 
 .customize-item-stats {
@@ -1302,6 +1393,10 @@ button:disabled {
   align-items: center;
   gap: 0.5rem;
   margin-top: 0.75rem;
+}
+
+#modal .modal-actions {
+  justify-content: center;
 }
 
 .modal-actions-left,

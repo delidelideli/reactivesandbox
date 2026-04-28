@@ -1,17 +1,43 @@
+import { useState } from 'react'
+
+const SORT_CYCLE = [null, 'name', 'potency', 'toxicity']
+
 function getDominant(stats) {
   if (stats.potency > stats.toxicity) return 'potent'
   if (stats.toxicity > stats.potency) return 'toxic'
   return 'balanced'
 }
 
-export default function Satchel({ ingredients, counts, labels, onHover, onPin, onAddToCauldron, onRestock }) {
+export default function Satchel({ ingredients, counts, labels, statNames, onHover, onPin, onAddToCauldron, onRestock }) {
+  const [sortBy, setSortBy] = useState(null)
   const allFull = ingredients.every(i => (counts[i.id] ?? 0) >= 3)
+
+  function cycleSort() {
+    setSortBy(prev => {
+      const i = SORT_CYCLE.indexOf(prev)
+      return SORT_CYCLE[(i + 1) % SORT_CYCLE.length]
+    })
+  }
+
+  const sortLabel = sortBy === null
+    ? 'Sort'
+    : sortBy === 'name'
+    ? 'A–Z'
+    : sortBy === 'potency'
+    ? (statNames?.potency ?? 'Potency')
+    : (statNames?.toxicity ?? 'Toxicity')
+
+  const sorted = sortBy === null ? ingredients : [...ingredients].sort((a, b) => {
+    if (sortBy === 'name') return a.name.localeCompare(b.name)
+    if (sortBy === 'potency') return (b.stats.potency ?? 0) - (a.stats.potency ?? 0)
+    return (b.stats.toxicity ?? 0) - (a.stats.toxicity ?? 0)
+  })
 
   return (
     <section id="satchel">
       <h2>{labels?.satchel || 'Satchel'}</h2>
       <div id="satchel-grid" onMouseLeave={() => onHover(null)}>
-        {ingredients.map(item => {
+        {sorted.map(item => {
           const count = counts[item.id] ?? 0
           const dominant = getDominant(item.stats)
           return (
@@ -35,7 +61,14 @@ export default function Satchel({ ingredients, counts, labels, onHover, onPin, o
           )
         })}
       </div>
-      <button id="restock-btn" onClick={onRestock} disabled={allFull}>Restock</button>
+      <div id="satchel-footer">
+        <button id="restock-btn" onClick={onRestock} disabled={allFull}>Restock</button>
+        <button
+          className={`sort-cycle-btn${sortBy ? ' sort-cycle-btn--active' : ''}`}
+          onClick={cycleSort}
+          title="Cycle sort order"
+        >{sortLabel}</button>
+      </div>
     </section>
   )
 }

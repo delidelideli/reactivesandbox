@@ -450,12 +450,15 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
     const vars = {}
     Object.keys(DEFAULTS).forEach(k => { vars[k] = readVar(k) || DEFAULTS[k] })
     if (activeTheme) Object.assign(vars, THEMES[activeTheme].vars)
+    const knownBodyClasses = Object.values(THEMES).map(t => t.bodyClass).filter(Boolean)
+    const currentBodyClass = knownBodyClasses.find(cls => document.body.classList.contains(cls)) || ''
     const data = {
       version: 1,
       vars,
-      bodyClass: activeTheme ? (THEMES[activeTheme].bodyClass || '') : '',
+      bodyClass: currentBodyClass,
       headerEffect,
       statNames: { potency: potencyName, toxicity: toxicityName },
+      labels: labels || {},
       background: bgDataUrl || null,
     }
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
@@ -506,10 +509,15 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
           document.body.classList.remove(...allBodyClasses)
           if (data.bodyClass) document.body.classList.add(data.bodyClass)
         }
+        if (data.labels && Object.keys(data.labels).length > 0) {
+          onLabelsChange(data.labels)
+        }
         if (data.background) {
           setBgDataUrl(data.background)
           setBgFileName('imported')
           document.body.style.backgroundImage = `url(${data.background})`
+        } else if ('background' in data) {
+          clearBg()
         }
         setActiveTheme(null)
       } catch {}
@@ -556,6 +564,7 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
     setPotencyName('Potency')
     setToxicityName('Toxicity')
     onStatNamesChange({ potency: 'Potency', toxicity: 'Toxicity' })
+    onLabelsChange({})
     clearBg()
     setActiveTheme(null)
     const bodyClasses = Object.values(THEMES).map(t => t.bodyClass).filter(Boolean)

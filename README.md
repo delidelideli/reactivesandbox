@@ -4,7 +4,7 @@ A reactive, browser-based interface framework built in React — designed to be 
 
 Users can define their own items, recipes, and outputs through the **Customize** modal, effectively replacing the potion-brewing theme with any game, system, or concept they choose. Custom data persists across page refreshes via `localStorage` and can be exported as a JSON file and re-imported at any time.
 
-The **Theme Settings** modal gives full visual control over the interface without touching code. It is split into two tabs: **Theme** — which offers five built-in presets (Arcane, Verdant, Crimson, Voidwalker, Skyrim), live color pickers for borders and stats, a font selector, spacing slider, custom background upload, and theme export/import — and **Labels** — which lets users rename the site title, all five panel headers, and the Brew and Dispel buttons so the workshop can be reskinned for any domain.
+The **Theme Settings** modal gives full visual control over the interface without touching code. It is split into three tabs: **Theme** — which offers five built-in presets (Magical & Mystical, Skyrim, Crimson Sanctum, Verdant Workshop, Void), live color pickers for borders and stats, a font selector, spacing slider, custom background upload, and theme export/import — **Header** — which controls the header bar background, height, title size, accent glow color, and the animated header effect (Stars, Embers, Scanlines, or None) — and **Labels** — which lets users rename the site title, all five panel headers, and the Brew and Dispel buttons so the workshop can be reskinned for any domain.
 
 The potion brewer is the proof of concept. The framework is the product.
 
@@ -17,11 +17,12 @@ The potion brewer is the proof of concept. The framework is the product.
 - **Action Feedback:** Success emits a Golden Flash; failure emits Chromatic Aberration and Purple Smoke.
 - **Live Stat Readout:** Animated stat bars show combined averages in real time, with a proximity hint as the selection nears a known combination.
 - **Stat Bloom:** Stat values in the Detail panels emit a glow proportional to their numeric value — high stats visibly bleed light onto the surrounding panel.
-- **Dual Detail Panel System:** Hovering an item previews it in the Item Detail panel; hovering an output previews it in the Output Detail panel. Clicking pins the selection.
+- **Dual Detail Panel System:** Hovering an item previews it in the Item Detail panel; hovering an output previews it in the Output Detail panel. Clicking pins the selection. The Output Detail panel shows the full recipe inputs alongside stats.
+- **Browser Sort Toggle:** A compact cycle button in the Browser panel footer (beside the Restock button) sorts items by name (A–Z), first stat (high first), or second stat (high first) without changing the panel layout.
 - **Individual Slot Removal:** Clicking a filled Controller slot returns that item to the Browser panel.
 - **Three-Tier Panel Color Language:** Panels are grouped by role — Controller in deep indigo-violet, Browser and Output in gold, Detail panels in steel blue.
-- **Customize Modal:** Define your own items, combinations, and outputs without touching code.
-- **Theme Settings Modal:** Two tabs — **Theme** (5 presets, color pickers for every panel surface and stat, font selector, spacing slider, background upload, theme export/import) and **Labels** (rename the site title, all panel headers, and action buttons). All changes apply live and persist across sessions.
+- **Customize Modal:** Define your own items, combinations, and outputs without touching code. Includes a slot count toggle (4 or 8) to expand the Controller for more complex combinations.
+- **Theme Settings Modal:** Three tabs — **Theme** (5 presets, color pickers for every panel surface and stat, font selector, spacing slider, background upload, theme export/import), **Header** (background, height, title size, glow color, animated effect picker), and **Labels** (rename the site title, all panel headers, and action buttons). All changes apply live and persist across sessions.
 - **Import / Export:** Export and re-import the full item and combination set as a JSON file.
 
 ## User Flow Diagram
@@ -154,7 +155,7 @@ style OutputDetail fill:#0d1829,stroke:#3b82f6,color:#93c5fd
 - **Architecture:** React 18 + Vite
 - **State Management:** `useState` + props (lifted state in App.jsx — no Context or Redux)
 - **Styling:** CSS3 with keyframe animations and `cubic-bezier` transitions
-- **Typography:** IM Fell English (Google Fonts)
+- **Typography:** Cormorant Garamond (default) and IM Fell English (selectable) — Google Fonts
 - **Data:** JSON data layer in `src/data.json` — 15 ingredients and 12 recipes as pure JSON, imported by `src/data.js`
 - **Deploy:** GitHub Actions → GitHub Pages
 

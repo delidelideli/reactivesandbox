@@ -93,7 +93,14 @@ export default function App() {
     try { return buildCounts(JSON.parse(localStorage.getItem('custom-ingredients')) || INGREDIENTS) }
     catch { return buildCounts(INGREDIENTS) }
   })
-  const [cauldron, setCauldron]                 = useState(buildCauldron)
+  const [maxSlots, setMaxSlots]                 = useState(() => {
+    try { return parseInt(localStorage.getItem('workshop-max-slots')) || 4 }
+    catch { return 4 }
+  })
+  const [cauldron, setCauldron]                 = useState(() => {
+    try { return buildCauldron(parseInt(localStorage.getItem('workshop-max-slots')) || 4) }
+    catch { return buildCauldron(4) }
+  })
   const [brewed, setBrewed]                     = useState([])
   const [selectedIngredient, setSelectedIngredient] = useState(null)
   const [hoveredIngredient, setHoveredIngredient]   = useState(null)
@@ -155,7 +162,7 @@ export default function App() {
     }
     setBrewed(prev => [...prev, match])
     setRecipes(prev => prev.map(r => r.id === match.id ? { ...r, discovered: true } : r))
-    setCauldron(buildCauldron())
+    setCauldron(buildCauldron(maxSlots))
     setBrewMessage(`${match.name} has been drawn forth!`)
     triggerBrewResult('success')
     setBrewHistory(h => [{ outcome: 'success', text: match.name }, ...h].slice(0, 4))
@@ -182,15 +189,16 @@ export default function App() {
       Object.entries(returned).forEach(([id, n]) => { next[id] = (next[id] ?? 0) + n })
       return next
     })
-    setCauldron(buildCauldron())
+    setCauldron(buildCauldron(maxSlots))
     setBrewMessage('')
   }
 
-  function applyCustomData(newIngredients, newRecipes) {
+  function applyCustomData(newIngredients, newRecipes, newMaxSlots) {
     setIngredients(newIngredients)
     setRecipes(newRecipes)
+    setMaxSlots(newMaxSlots)
     setCounts(buildCounts(newIngredients))
-    setCauldron(buildCauldron())
+    setCauldron(buildCauldron(newMaxSlots))
     setBrewed([])
     setSelectedIngredient(null)
     setSelectedPotion(null)
@@ -198,6 +206,7 @@ export default function App() {
     setShowCustomize(false)
     localStorage.setItem('custom-ingredients', JSON.stringify(newIngredients))
     localStorage.setItem('custom-recipes', JSON.stringify(newRecipes))
+    localStorage.setItem('workshop-max-slots', String(newMaxSlots))
   }
 
   return (
@@ -239,6 +248,7 @@ export default function App() {
             ingredients={ingredients}
             counts={counts}
             labels={labels}
+            statNames={statNames}
             onHover={setHoveredIngredient}
             onPin={setSelectedIngredient}
             onAddToCauldron={addToCauldron}
@@ -276,6 +286,7 @@ export default function App() {
             selectedPotion={hoveredPotion ?? selectedPotion}
             statNames={statNames}
             labels={labels}
+            ingredients={ingredients}
           />
         </div>
       </main>
@@ -285,6 +296,7 @@ export default function App() {
           ingredients={ingredients}
           recipes={recipes}
           statNames={statNames}
+          maxSlots={maxSlots}
           onSave={applyCustomData}
           onClose={() => setShowCustomize(false)}
         />

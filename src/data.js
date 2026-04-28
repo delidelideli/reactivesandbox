@@ -10,6 +10,6 @@ export function buildCounts(ingredients) {
   return Object.fromEntries(ingredients.map(i => [i.id, 3]));
 }
 
-export function buildCauldron() {
-  return Array(MAX_CAULDRON_SLOTS).fill(null);
+export function buildCauldron(slots = MAX_CAULDRON_SLOTS) {
+  return Array(slots).fill(null);
 }
