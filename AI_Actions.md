@@ -4,6 +4,16 @@ This file tracks every task requested during this project. Update it at the end 
 
 ---
 
+## Session 18 (2026-04-29)
+
+1. Replaced themed `graph TD` user flow diagram in README with a clean `classDiagram` showing data entities (Item, Combination, Result, AppState), their fields with types, and relationships — no theme-specific styling or alchemy language.
+
+**Deferred suggestions from data structure analysis:**
+- **Ambiguity to fix:** `Result` duplicates every field from `Combination` via `{ ...recipe, stats }` spread at brew time — no formal type relationship, just an object copy. If the recipe shape changes, `Result` silently drifts. Consider making this relationship explicit.
+- **Small change before populating 10–20 records:** Add a `stats` sub-object to `Combination` in `data.json` (e.g. `{ potency: 0, toxicity: 0 }` as placeholder) so `Item`, `Combination`, and `Result` all share the same `stats` shape, rather than `Combination` being the only entity with no stats field at all.
+
+---
+
 ## Session 17 (2026-04-29)
 
 1. Updated Theme Settings warning text — replaced the "refreshing the page" warning with a more directive message: "Remember to Export Theme — it saves colors, labels, and flavor text. Reset to Default wipes all of them."

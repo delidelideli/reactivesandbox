@@ -26,50 +26,46 @@ The potion brewer is the proof of concept. The framework is the product.
 - **Import / Export:** Export and re-import the full item and combination set as a JSON file.
 - **Tutorial Modal:** A `?` button in the header opens a concise six-section guide covering all five panels and both modals, written in the workshop's in-world register.
 
-## User Flow Diagram
+## Data Structure Diagram
 ```mermaid
-graph TD
+classDiagram
+    class Item {
+        +string id
+        +string name
+        +string type
+        +number potency
+        +number toxicity
+        +string description
+    }
 
-Start[User Opens Site] --> Main[Main View]
+    class Combination {
+        +string id
+        +string name
+        +string[] inputs
+        +string description
+        +boolean discovered
+    }
 
-Main -->|Hover item| ItemDetail[Item Detail Panel previews]
-Main -->|Click item| ItemDetail
-Main -->|Click item| Controller[Item slotted in Controller]
+    class Result {
+        +string id
+        +string name
+        +string[] inputs
+        +string description
+        +boolean discovered
+        +number potency
+        +number toxicity
+    }
 
-Controller -->|Stats update live| StatFeedback[Stat bars and glow react]
-Controller -->|Click filled slot| Main
-Controller -->|Click Reset| Main
-Controller -->|Click Execute| Check{Valid combination?}
+    class AppState {
+        +object counts
+        +array cauldron
+        +Result[] brewed
+    }
 
-Check -->|Yes| Success[Success flash — Result appears in Output]
-Check -->|No| Failure[Failure animation — message shown]
-
-Success --> OutputPanel[Output Panel updates]
-Success --> DiscoveryLog[Combination added to Discovery Log]
-
-OutputPanel -->|Hover result| OutputDetail[Output Detail Panel previews]
-OutputPanel -->|Click result| OutputDetail
-
-Main -->|Click Customize| Customize[Customize Modal — define items and combinations]
-Customize -->|Save| Main
-
-Main -->|Click Theme Settings| Theme[Theme Settings — colors, labels, presets]
-Theme -->|Apply| Main
-
-%% Colors
-style Start fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
-style Main fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
-style Controller fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
-style Check fill:#0d1f29,stroke:#c9a84c,color:#c9a84c
-style Success fill:#1a3320,stroke:#c9a84c,color:#c9a84c,stroke-width:2px
-style Failure fill:#1a0d29,stroke:#7c3aed,color:#7c3aed,stroke-width:2px
-style DiscoveryLog fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
-style StatFeedback fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
-style OutputPanel fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
-style Customize fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
-style Theme fill:#1a3320,stroke:#c9a84c,color:#e8d5a3
-style ItemDetail fill:#0d1829,stroke:#3b82f6,color:#93c5fd
-style OutputDetail fill:#0d1829,stroke:#3b82f6,color:#93c5fd
+    Combination --> Item : inputs reference Item ids
+    Result --|> Combination : extends with computed stats
+    AppState o-- Item : tracks counts
+    AppState o-- Result : collects brewed
 ```
 
 ## AI Direction & Collaborative Guidance
