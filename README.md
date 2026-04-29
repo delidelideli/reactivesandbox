@@ -138,9 +138,9 @@ classDiagram
 
 ## Five Question Reflection
 
-1. **Can I defend this?** Can I explain every major decision in this project? - Yes I can defend this, every major decision came from ideas I had and I used Claude to turn them into reality for the website. 
+1. **Can I defend this?** Can I explain every major decision in this project? - Yes I can defend this, every major decision came from ideas I had and I used Claude to turn them into reality for the website. Any redesigns after the inital document came from continued thinking and work on the project, leading to a theme and features that better fit the end goal.
 
-2. **Is this mine?** Does this reflect my creative direction, or did I mostly follow AI's suggestions? - Yes it is my creation. Starting with my original design document and making changes after everything came from me and I did not let Claude suggest any major changes that would go against my design intention.
+2. **Is this mine?** Does this reflect my creative direction, or did I mostly follow AI's suggestions? - Yes it is my creation. Starting with my original design document and making changes after everything came from me and I did not let Claude suggest any major changes that would go against my design intention. I made sure to guide Claude through the process to make sure what came out the other end was what I wanted and not what Claude thought was a good idea, and any suggestions from Claude were taken and shifted to what I wanted rather than just accepting it as is. 
 
 3. **Did I verify?** Did I check that the three panels actually share state and that the reactive connections work? - Yes, everything has been tested by myself and friends. I have also had claude check the backend multiple times during the process to make sure nothing broke and was piling up issues. 
 
