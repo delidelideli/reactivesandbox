@@ -14,7 +14,7 @@ function statBloom(k, v) {
   return { filter: `drop-shadow(0 0 ${(2 + v * 0.5).toFixed(1)}px rgba(${color},${inner})) drop-shadow(0 0 ${(v * 1.8).toFixed(1)}px rgba(${color},${outer}))` }
 }
 
-export default function PotionGrimoire({ selectedPotion, statNames, labels, ingredients }) {
+export default function PotionGrimoire({ selectedPotion, statNames, labels, flavorText, ingredients }) {
   return (
     <section id="potion-grimoire">
       <h2>{labels?.potionGrimoire || 'Potion Grimoire'}</h2>
@@ -50,7 +50,7 @@ export default function PotionGrimoire({ selectedPotion, statNames, labels, ingr
         ) : (
           <div className="grimoire-idle">
             <span className="grimoire-idle-glyph">✦</span>
-            <p className="grimoire-idle-text">Brew a potion and select it from the Output to examine its properties.</p>
+            <p className="grimoire-idle-text">{flavorText?.idlePotionGrimoire}</p>
           </div>
         )}
       </div>

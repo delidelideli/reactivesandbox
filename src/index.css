@@ -480,7 +480,13 @@ section ul { padding-left: 1.1rem; }
 
 .card--potent  { border-color: var(--stat-potency-color);  box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 6px var(--stat-potency-color); }
 .card--toxic   { border-color: var(--stat-toxicity-color); box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 6px var(--stat-toxicity-color); }
-.card--balanced{ border-color: rgba(140,110,55,0.55); }
+.card--balanced {
+  border-color: transparent;
+  background:
+    linear-gradient(160deg, #2a2018 0%, #1e1510 55%, #251c12 100%) padding-box,
+    linear-gradient(135deg, var(--stat-potency-color), var(--stat-toxicity-color)) border-box;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 5px rgba(160,120,40,0.15);
+}
 
 .card-name {
   font-size: 0.78rem;
@@ -516,12 +522,12 @@ section ul { padding-left: 1.1rem; }
 .ingredient-btn:not(:disabled):hover { transform: translateY(-2px); }
 .ingredient-btn.card--potent:not(:disabled):hover   { animation: card-glow-gold   1.6s linear infinite; }
 .ingredient-btn.card--toxic:not(:disabled):hover    { animation: card-glow-purple 1.6s linear infinite; }
-.ingredient-btn.card--balanced:not(:disabled):hover { animation: card-glow-gold   1.6s linear infinite; }
+.ingredient-btn.card--balanced:not(:disabled):hover { animation: card-glow-balanced 1.6s linear infinite; }
 
 /* Potion cards — soft omnidirectional pulse (mysterious, not grabbed) */
 .potion-card:not(:disabled):hover { transform: translateY(-1px); }
 .potion-card.card--potent:not(:disabled):hover   { animation: potion-hover-pulse        2s ease-in-out infinite; }
-.potion-card.card--balanced:not(:disabled):hover { animation: potion-hover-pulse        2s ease-in-out infinite; }
+.potion-card.card--balanced:not(:disabled):hover { animation: potion-hover-pulse-balanced 2s ease-in-out infinite; }
 .potion-card.card--toxic:not(:disabled):hover    { animation: potion-hover-pulse-purple 2s ease-in-out infinite; }
 
 @keyframes potion-hover-pulse {
@@ -532,6 +538,19 @@ section ul { padding-left: 1.1rem; }
 @keyframes potion-hover-pulse-purple {
   0%, 100% { box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 8px var(--stat-toxicity-color); }
   50%       { box-shadow: 0 3px 8px rgba(0,0,0,0.6), 0 0 20px var(--stat-toxicity-color); }
+}
+
+@keyframes potion-hover-pulse-balanced {
+  0%, 100% { box-shadow: 0 3px 8px rgba(0,0,0,0.6), -3px 0 10px var(--stat-potency-color), 3px 0 10px var(--stat-toxicity-color); }
+  50%       { box-shadow: 0 3px 8px rgba(0,0,0,0.6), -3px 0 20px var(--stat-potency-color), 3px 0 20px var(--stat-toxicity-color); }
+}
+
+@keyframes card-glow-balanced {
+  0%   { box-shadow:  2px  0   0 1px var(--stat-potency-color),   2px  0   12px var(--stat-potency-color);  transform: translateY(-2px); }
+  25%  { box-shadow:  0    2px 0 1px var(--stat-toxicity-color),  0    2px 12px var(--stat-toxicity-color); }
+  50%  { box-shadow: -2px  0   0 1px var(--stat-potency-color),  -2px  0   12px var(--stat-potency-color); }
+  75%  { box-shadow:  0   -2px 0 1px var(--stat-toxicity-color),  0   -2px 12px var(--stat-toxicity-color); }
+  100% { box-shadow:  2px  0   0 1px var(--stat-potency-color),   2px  0   12px var(--stat-potency-color); }
 }
 
 @keyframes card-glow-gold {
@@ -1120,7 +1139,7 @@ button:disabled {
 }
 
 #modal { width: 1100px; max-height: 82vh; display: flex; flex-direction: column; overflow: hidden; }
-#design-modal { width: 860px; height: 620px; display: flex; flex-direction: column; overflow: hidden; }
+#design-modal { width: 960px; height: 620px; display: flex; flex-direction: column; overflow: hidden; }
 
 .settings-tab-content {
   flex: 1;
@@ -1526,6 +1545,53 @@ button:disabled {
   color: rgba(221,200,152,0.35);
   margin-top: 0.6rem;
   font-style: italic;
+}
+
+#settings-flavor {
+  display: flex;
+  gap: 0;
+  align-items: flex-start;
+}
+
+.flavor-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  padding: 0.28rem 0;
+  border-bottom: 1px solid rgba(201,162,39,0.08);
+}
+
+.flavor-field-label {
+  font-size: 0.78rem;
+  color: rgba(221,200,152,0.6);
+  font-style: italic;
+}
+
+.flavor-field-label code {
+  font-family: 'Courier New', monospace;
+  font-size: 0.74rem;
+  font-style: normal;
+  color: var(--accent-gold-light);
+  background: rgba(201,162,39,0.1);
+  padding: 0 0.25em;
+  border-radius: 2px;
+}
+
+.flavor-input {
+  background: rgba(255,200,80,0.05);
+  border: 1px solid rgba(201,162,39,0.2);
+  color: var(--text-color);
+  font-family: var(--font-family);
+  font-size: 0.85rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.flavor-input:focus {
+  outline: none;
+  border-color: rgba(201,162,39,0.5);
 }
 
 #theme-presets {

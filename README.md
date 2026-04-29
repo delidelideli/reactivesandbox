@@ -22,7 +22,7 @@ The potion brewer is the proof of concept. The framework is the product.
 - **Individual Slot Removal:** Clicking a filled Controller slot returns that item to the Browser panel.
 - **Three-Tier Panel Color Language:** Panels are grouped by role — Controller in deep indigo-violet, Browser and Output in gold, Detail panels in steel blue.
 - **Customize Modal:** Define your own items, combinations, and outputs without touching code. Includes a slot count toggle (4 or 8) to expand the Controller for more complex combinations.
-- **Theme Settings Modal:** Three tabs — **Theme** (5 presets, color pickers for every panel surface and stat, font selector, spacing slider, background upload, theme export/import), **Header** (background, height, title size, glow color, animated effect picker), and **Labels** (rename the site title, all panel headers, and action buttons). All changes apply live and persist across sessions.
+- **Theme Settings Modal:** Four tabs — **Theme** (5 presets, color pickers for every panel surface and stat, font selector, spacing slider, background upload, theme export/import), **Header** (background, height, title size, glow color, animated effect picker), **Labels** (rename the site title, all panel headers, and action buttons), and **Flavor Text** (edit every piece of atmospheric copy on the site: brew outcome messages, proximity hints, cauldron counter text, and all four panel idle messages). Template placeholders (`{name}`, `{count}`, `{total}`) supported. All flavor text is included in theme export/import and wiped by Reset to Default.
 - **Import / Export:** Export and re-import the full item and combination set as a JSON file.
 
 ## User Flow Diagram

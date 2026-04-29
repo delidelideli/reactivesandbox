@@ -21,14 +21,15 @@ function computeSigilStyle(essenceStats) {
   return { color: `rgb(${r},${g},${b})`, filter: `brightness(${bright})` }
 }
 
-function getEssenceText(filled, total, min) {
-  if (filled === 0) return 'Awaiting essences'
-  const word = NUMBER_WORDS[filled] ?? filled
-  if (filled >= min) return `${word.charAt(0).toUpperCase() + word.slice(1)} essences — ready`
-  return `${word.charAt(0).toUpperCase() + word.slice(1)} of ${total} essences gathered`
+function getEssenceText(filled, total, min, flavor) {
+  if (filled === 0) return flavor.counterEmpty
+  const word = NUMBER_WORDS[filled] ?? String(filled)
+  const cap = word.charAt(0).toUpperCase() + word.slice(1)
+  if (filled >= min) return flavor.counterReady.replace('{count}', cap)
+  return flavor.counterGathering.replace('{count}', cap).replace('{total}', total)
 }
 
-export default function Cauldron({ cauldron, ingredients, brewMessage, brewResult, cauldronGlow, essenceStats, proximityHint, brewHistory, statNames, labels, onBrew, onClear, onRemoveFromCauldron }) {
+export default function Cauldron({ cauldron, ingredients, brewMessage, brewResult, cauldronGlow, essenceStats, proximityHint, brewHistory, statNames, labels, flavorText, onBrew, onClear, onRemoveFromCauldron }) {
   const filledCount = cauldron.filter(id => id !== null).length
   const brewReady = filledCount >= MIN_BREW_INGREDIENTS
 
@@ -109,7 +110,7 @@ export default function Cauldron({ cauldron, ingredients, brewMessage, brewResul
         })}
       </div>
 
-      <p id="cauldron-count">{getEssenceText(filledCount, cauldron.length, MIN_BREW_INGREDIENTS)}</p>
+      <p id="cauldron-count">{getEssenceText(filledCount, cauldron.length, MIN_BREW_INGREDIENTS, flavorText)}</p>
 
       <div id="cauldron-actions">
         <button

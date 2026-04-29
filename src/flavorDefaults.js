@@ -1,0 +1,16 @@
+export const DEFAULT_FLAVOR = {
+  brewNotEnough:      'More essences are required.',
+  brewFailure:        'The essences resist each other — no formula takes hold.',
+  brewSuccess:        '{name} has been drawn forth!',
+  brewFailureLog:     'The essences resisted.',
+  hintExact:          'A formula takes hold.',
+  hintPartial:        'Something stirs in the confluence...',
+  hintNone:           "The essences resist each other's presence.",
+  counterEmpty:       'Awaiting essences',
+  counterGathering:   '{count} of {total} essences gathered',
+  counterReady:       '{count} essences — ready',
+  idleIngredient:     'Select an ingredient from the Satchel to reveal its arcane properties.',
+  idleRecipeBook:     'No recipes discovered yet. Experiment in the Cauldron.',
+  idleOutput:         'Brewed potions will appear here.',
+  idlePotionGrimoire: 'Brew a potion and select it from the Output to examine its properties.',
+}

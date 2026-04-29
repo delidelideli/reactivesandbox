@@ -3,7 +3,7 @@ import { MIN_BREW_INGREDIENTS } from '../data'
 
 export default function CustomizeModal({ ingredients, recipes, statNames, maxSlots, onSave, onClose }) {
   const [ings, setIngs] = useState(ingredients.map(i => ({ ...i, stats: { ...i.stats } })))
-  const [recs, setRecs] = useState(recipes.map(r => ({ ...r, stats: { ...r.stats }, inputs: [...r.inputs] })))
+  const [recs, setRecs] = useState(recipes.map(r => ({ ...r, inputs: [...r.inputs] })))
   const [ingCounter, setIngCounter] = useState(ings.length + 1)
   const [recCounter, setRecCounter] = useState(recs.length + 1)
   const [slotCount, setSlotCount]   = useState(maxSlots ?? 4)
@@ -16,11 +16,9 @@ export default function CustomizeModal({ ingredients, recipes, statNames, maxSlo
   const [ingPotency, setIngPotency] = useState('')
   const [ingToxicity,setIngToxicity]= useState('')
 
-  const [recName,    setRecName]    = useState('')
-  const [recDesc,    setRecDesc]    = useState('')
-  const [recPotency, setRecPotency] = useState('')
-  const [recToxicity,setRecToxicity]= useState('')
-  const [recSlots,   setRecSlots]   = useState(['', ''])
+  const [recName,  setRecName]  = useState('')
+  const [recDesc,  setRecDesc]  = useState('')
+  const [recSlots, setRecSlots] = useState(['', ''])
 
   const fileInputRef = useRef(null)
 
@@ -59,7 +57,7 @@ export default function CustomizeModal({ ingredients, recipes, statNames, maxSlo
         const parsed = JSON.parse(evt.target.result)
         if (!Array.isArray(parsed.ingredients) || !Array.isArray(parsed.recipes)) return
         setIngs(parsed.ingredients.map(i => ({ ...i, stats: { ...i.stats } })))
-        setRecs(parsed.recipes.map(r => ({ ...r, stats: { ...r.stats }, inputs: [...r.inputs] })))
+        setRecs(parsed.recipes.map(r => ({ ...r, inputs: [...r.inputs] })))
         setIngCounter(parsed.ingredients.length + 1)
         setRecCounter(parsed.recipes.length + 1)
         if (parsed.slotCount === 4 || parsed.slotCount === 8) setSlotCount(parsed.slotCount)
@@ -127,14 +125,6 @@ export default function CustomizeModal({ ingredients, recipes, statNames, maxSlo
 
   // ── Recipe CRUD ──────────────────────────────────────────────────
 
-  function buildRecStats() {
-    const stats = {}
-    const p = parseFloat(recPotency), t = parseFloat(recToxicity)
-    if (!isNaN(p)) stats.potency  = Math.min(Math.max(p, 0), 10)
-    if (!isNaN(t)) stats.toxicity = Math.min(Math.max(t, 0), 10)
-    return stats
-  }
-
   function updateSlot(i, val) {
     setRecSlots(prev => prev.map((s, idx) => idx === i ? val : s))
   }
@@ -153,7 +143,7 @@ export default function CustomizeModal({ ingredients, recipes, statNames, maxSlo
     const filled = recSlots.filter(s => s !== '')
     if (!recName.trim() || filled.length < MIN_BREW_INGREDIENTS) return
     if (new Set(filled).size !== filled.length) return
-    setRecs(prev => [...prev, { id: `cr${recCounter}`, name: recName.trim(), type: 'potion', description: recDesc.trim(), stats: buildRecStats(), inputs: filled, discovered: false }])
+    setRecs(prev => [...prev, { id: `cr${recCounter}`, name: recName.trim(), type: 'potion', description: recDesc.trim(), inputs: filled, discovered: false }])
     setRecCounter(c => c + 1)
     clearRecForm()
   }
@@ -162,8 +152,6 @@ export default function CustomizeModal({ ingredients, recipes, statNames, maxSlo
     setEditRecId(rec.id)
     setRecName(rec.name)
     setRecDesc(rec.description || '')
-    setRecPotency(rec.stats?.potency ?? '')
-    setRecToxicity(rec.stats?.toxicity ?? '')
     const slots = rec.inputs.slice(0, slotCount)
     while (slots.length < MIN_BREW_INGREDIENTS) slots.push('')
     setRecSlots(slots)
@@ -174,7 +162,7 @@ export default function CustomizeModal({ ingredients, recipes, statNames, maxSlo
     if (!recName.trim() || filled.length < MIN_BREW_INGREDIENTS) return
     if (new Set(filled).size !== filled.length) return
     setRecs(prev => prev.map(r => r.id === editRecId
-      ? { ...r, name: recName.trim(), description: recDesc.trim(), stats: buildRecStats(), inputs: filled }
+      ? { ...r, name: recName.trim(), description: recDesc.trim(), inputs: filled }
       : r
     ))
     cancelEditRec()
@@ -186,7 +174,7 @@ export default function CustomizeModal({ ingredients, recipes, statNames, maxSlo
   }
 
   function clearRecForm() {
-    setRecName(''); setRecDesc(''); setRecPotency(''); setRecToxicity(''); setRecSlots(['', ''])
+    setRecName(''); setRecDesc(''); setRecSlots(['', ''])
   }
 
   function removeRecipe(idx) {
@@ -272,10 +260,6 @@ export default function CustomizeModal({ ingredients, recipes, statNames, maxSlo
             <div className="customize-form">
               <input value={recName} onChange={e => setRecName(e.target.value)} placeholder="Output name" />
               <input value={recDesc} onChange={e => setRecDesc(e.target.value)} placeholder="Description" />
-              <div className="customize-stat-inputs">
-                <input type="number" min="0" max="10" step="0.1" value={recPotency}   onChange={e => setRecPotency(e.target.value)}   placeholder={statNames?.potency  ?? 'Potency'}  />
-                <input type="number" min="0" max="10" step="0.1" value={recToxicity}  onChange={e => setRecToxicity(e.target.value)}  placeholder={statNames?.toxicity ?? 'Toxicity'} />
-              </div>
               <div className="customize-slots">
                 {recSlots.map((val, i) => (
                   <select key={i} value={val} onChange={e => updateSlot(i, e.target.value)}>
@@ -288,7 +272,7 @@ export default function CustomizeModal({ ingredients, recipes, statNames, maxSlo
                   {recSlots.length > MIN_BREW_INGREDIENTS && <button onClick={removeSlot}>− Slot</button>}
                 </div>
               </div>
-              <p className="customize-hint">Min {MIN_BREW_INGREDIENTS} ingredients, max {slotCount}. No duplicates.</p>
+              <p className="customize-hint">Min {MIN_BREW_INGREDIENTS} ingredients, max {slotCount} (up to 8 via toggle above). No duplicate ingredients.</p>
               <div className="customize-form-actions">
                 <button onClick={editRecId ? saveEditRec : addRecipe} disabled={!canSubmitRec}>
                   {editRecId ? 'Update Recipe' : 'Add Recipe'}

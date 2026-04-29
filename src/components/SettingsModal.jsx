@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { DEFAULT_FLAVOR } from '../flavorDefaults'
 
 const DEFAULTS = {
   '--accent-gold':         '#c49a2a',
@@ -246,7 +247,7 @@ const DEFAULT_LABELS = {
   dispel:             'Dispel',
 }
 
-export default function SettingsModal({ statNames, onStatNamesChange, labels, onLabelsChange, onClose }) {
+export default function SettingsModal({ statNames, onStatNamesChange, labels, onLabelsChange, flavorText, onFlavorTextChange, onClose }) {
   const [accentGold,        setAccentGold]        = useState(() => readVar('--accent-gold')          || DEFAULTS['--accent-gold'])
   const [accentPurple,      setAccentPurple]       = useState(() => readVar('--accent-purple')        || DEFAULTS['--accent-purple'])
   const [textColor,         setTextColor]          = useState(() => readVar('--text-color')           || DEFAULTS['--text-color'])
@@ -272,6 +273,7 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
   const [bgDataUrl,         setBgDataUrl]          = useState(null)
   const [activeTheme,       setActiveTheme]        = useState(null)
   const [activeTab,         setActiveTab]           = useState('theme')
+  const [flavor,            setFlavor]              = useState(() => ({ ...DEFAULT_FLAVOR, ...flavorText }))
 
   const bgInputRef     = useRef()
   const importInputRef = useRef()
@@ -427,6 +429,12 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
     setVar('--panel-spacing', `${val}rem`)
   }
 
+  function handleFlavor(key, val) {
+    const next = { ...flavor, [key]: val }
+    setFlavor(next)
+    onFlavorTextChange(next)
+  }
+
   function handleBgUpload(e) {
     const file = e.target.files[0]
     if (!file) return
@@ -459,6 +467,7 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
       headerEffect,
       statNames: { potency: potencyName, toxicity: toxicityName },
       labels: labels || {},
+      flavorText: flavor,
       background: bgDataUrl || null,
     }
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
@@ -512,6 +521,11 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
         if (data.labels && Object.keys(data.labels).length > 0) {
           onLabelsChange(data.labels)
         }
+        if (data.flavorText) {
+          const merged = { ...DEFAULT_FLAVOR, ...data.flavorText }
+          setFlavor(merged)
+          onFlavorTextChange(merged)
+        }
         if (data.background) {
           setBgDataUrl(data.background)
           setBgFileName('imported')
@@ -535,6 +549,11 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
     localStorage.setItem('workshop-body-class', bodyClass)
     localStorage.setItem('workshop-header-effect', headerEffect)
     document.querySelector('header')?.setAttribute('data-effect', headerEffect)
+    const resolvedFlavor = Object.fromEntries(
+      Object.keys(DEFAULT_FLAVOR).map(k => [k, flavor[k]?.trim() || DEFAULT_FLAVOR[k]])
+    )
+    localStorage.setItem('workshop-flavor-text', JSON.stringify(resolvedFlavor))
+    onFlavorTextChange(resolvedFlavor)
     onClose()
   }
 
@@ -565,6 +584,8 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
     setToxicityName('Toxicity')
     onStatNamesChange({ potency: 'Potency', toxicity: 'Toxicity' })
     onLabelsChange({})
+    setFlavor({ ...DEFAULT_FLAVOR })
+    onFlavorTextChange({ ...DEFAULT_FLAVOR })
     clearBg()
     setActiveTheme(null)
     const bodyClasses = Object.values(THEMES).map(t => t.bodyClass).filter(Boolean)
@@ -572,6 +593,7 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
     localStorage.removeItem('workshop-settings')
     localStorage.removeItem('workshop-body-class')
     localStorage.removeItem('workshop-header-effect')
+    localStorage.removeItem('workshop-flavor-text')
   }
 
   return (
@@ -583,7 +605,7 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
             <p>Changes preview instantly — closing this panel saves them to your browser.</p>
           </div>
           <div className="modal-warning">
-            ⚠ Refreshing the page will lose unsaved changes.<br />Use <strong>Export Theme</strong> to keep a portable backup.
+            ⚠ Remember to <strong>Export Theme</strong> — it saves colors, labels, and flavor text, but not background images.<br /><strong>Reset to Default</strong> wipes all of them.
           </div>
         </div>
         <hr />
@@ -592,6 +614,7 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
           <button className={`settings-tab ${activeTab === 'theme'  ? 'settings-tab--active' : ''}`} onClick={() => setActiveTab('theme')}>Theme</button>
           <button className={`settings-tab ${activeTab === 'header' ? 'settings-tab--active' : ''}`} onClick={() => setActiveTab('header')}>Header</button>
           <button className={`settings-tab ${activeTab === 'labels' ? 'settings-tab--active' : ''}`} onClick={() => setActiveTab('labels')}>Labels</button>
+          <button className={`settings-tab ${activeTab === 'flavor' ? 'settings-tab--active' : ''}`} onClick={() => setActiveTab('flavor')}>Flavor Text</button>
         </div>
 
         <div className="settings-tab-content">
@@ -807,6 +830,81 @@ export default function SettingsModal({ statNames, onStatNamesChange, labels, on
           </div>
 
         </div>}
+
+        {activeTab === 'flavor' && (
+          <div id="settings-flavor">
+            <div className="settings-col">
+              <h3>Brew Outcomes</h3>
+              <div className="flavor-field">
+                <span className="flavor-field-label">Not enough ingredients</span>
+                <input className="flavor-input" type="text" value={flavor.brewNotEnough} maxLength={120} onChange={e => handleFlavor('brewNotEnough', e.target.value)} />
+              </div>
+              <div className="flavor-field">
+                <span className="flavor-field-label">No matching recipe</span>
+                <input className="flavor-input" type="text" value={flavor.brewFailure} maxLength={120} onChange={e => handleFlavor('brewFailure', e.target.value)} />
+              </div>
+              <div className="flavor-field">
+                <span className="flavor-field-label">Success — use <code>{'{name}'}</code> for the result name</span>
+                <input className="flavor-input" type="text" value={flavor.brewSuccess} maxLength={120} onChange={e => handleFlavor('brewSuccess', e.target.value)} />
+              </div>
+              <div className="flavor-field">
+                <span className="flavor-field-label">Failure log entry</span>
+                <input className="flavor-input" type="text" value={flavor.brewFailureLog} maxLength={80} onChange={e => handleFlavor('brewFailureLog', e.target.value)} />
+              </div>
+
+              <h3>Cauldron Counter</h3>
+              <div className="flavor-field">
+                <span className="flavor-field-label">Empty cauldron</span>
+                <input className="flavor-input" type="text" value={flavor.counterEmpty} maxLength={80} onChange={e => handleFlavor('counterEmpty', e.target.value)} />
+              </div>
+              <div className="flavor-field">
+                <span className="flavor-field-label">Gathering — <code>{'{count}'}</code> and <code>{'{total}'}</code></span>
+                <input className="flavor-input" type="text" value={flavor.counterGathering} maxLength={80} onChange={e => handleFlavor('counterGathering', e.target.value)} />
+              </div>
+              <div className="flavor-field">
+                <span className="flavor-field-label">Ready to brew — <code>{'{count}'}</code></span>
+                <input className="flavor-input" type="text" value={flavor.counterReady} maxLength={80} onChange={e => handleFlavor('counterReady', e.target.value)} />
+              </div>
+            </div>
+
+            <div className="settings-col-divider" />
+
+            <div className="settings-col">
+              <h3>Proximity Hints</h3>
+              <div className="flavor-field">
+                <span className="flavor-field-label">Exact match in cauldron</span>
+                <input className="flavor-input" type="text" value={flavor.hintExact} maxLength={100} onChange={e => handleFlavor('hintExact', e.target.value)} />
+              </div>
+              <div className="flavor-field">
+                <span className="flavor-field-label">Partial match (subset)</span>
+                <input className="flavor-input" type="text" value={flavor.hintPartial} maxLength={100} onChange={e => handleFlavor('hintPartial', e.target.value)} />
+              </div>
+              <div className="flavor-field">
+                <span className="flavor-field-label">No match</span>
+                <input className="flavor-input" type="text" value={flavor.hintNone} maxLength={100} onChange={e => handleFlavor('hintNone', e.target.value)} />
+              </div>
+
+              <h3>Idle Text</h3>
+              <div className="flavor-field">
+                <span className="flavor-field-label">Ingredient Grimoire</span>
+                <input className="flavor-input" type="text" value={flavor.idleIngredient} maxLength={120} onChange={e => handleFlavor('idleIngredient', e.target.value)} />
+              </div>
+              <div className="flavor-field">
+                <span className="flavor-field-label">Recipe Book (no discoveries yet)</span>
+                <input className="flavor-input" type="text" value={flavor.idleRecipeBook} maxLength={120} onChange={e => handleFlavor('idleRecipeBook', e.target.value)} />
+              </div>
+              <div className="flavor-field">
+                <span className="flavor-field-label">Output panel</span>
+                <input className="flavor-input" type="text" value={flavor.idleOutput} maxLength={120} onChange={e => handleFlavor('idleOutput', e.target.value)} />
+              </div>
+              <div className="flavor-field">
+                <span className="flavor-field-label">Potion Grimoire</span>
+                <input className="flavor-input" type="text" value={flavor.idlePotionGrimoire} maxLength={120} onChange={e => handleFlavor('idlePotionGrimoire', e.target.value)} />
+              </div>
+              <p className="settings-label-hint">Leave a field blank to restore its default on close.</p>
+            </div>
+          </div>
+        )}
 
         </div>{/* end settings-tab-content */}
 

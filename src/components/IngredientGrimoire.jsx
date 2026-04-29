@@ -20,7 +20,7 @@ function statBloom(k, v) {
   return { filter: `drop-shadow(0 0 ${(2 + v * 0.5).toFixed(1)}px rgba(${color},${inner})) drop-shadow(0 0 ${(v * 1.8).toFixed(1)}px rgba(${color},${outer}))` }
 }
 
-export default function IngredientGrimoire({ selectedIngredient, ingredients, recipes, statNames, labels }) {
+export default function IngredientGrimoire({ selectedIngredient, ingredients, recipes, statNames, labels, flavorText }) {
   const discoveredRecipes = recipes.filter(r => r.discovered)
 
   return (
@@ -66,7 +66,7 @@ export default function IngredientGrimoire({ selectedIngredient, ingredients, re
           ) : (
             <div className="grimoire-idle">
               <span className="grimoire-idle-glyph">⚗</span>
-              <p className="grimoire-idle-text">Select an ingredient from the Satchel to reveal its arcane properties.</p>
+              <p className="grimoire-idle-text">{flavorText?.idleIngredient}</p>
             </div>
           )}
         </div>
@@ -76,7 +76,7 @@ export default function IngredientGrimoire({ selectedIngredient, ingredients, re
           {discoveredRecipes.length === 0 ? (
             <div className="grimoire-idle grimoire-idle--small">
               <span className="grimoire-idle-glyph grimoire-idle-glyph--small">✦</span>
-              <p className="grimoire-idle-text">No recipes discovered yet. Experiment in the Cauldron.</p>
+              <p className="grimoire-idle-text">{flavorText?.idleRecipeBook}</p>
             </div>
           ) : (
             discoveredRecipes.map(r => {

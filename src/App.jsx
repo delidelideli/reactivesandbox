@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { INGREDIENTS, RECIPES, buildCounts, buildCauldron, MIN_BREW_INGREDIENTS } from './data'
+import { DEFAULT_FLAVOR } from './flavorDefaults'
 import Satchel from './components/Satchel'
 import IngredientGrimoire from './components/IngredientGrimoire'
 import PotionGrimoire from './components/PotionGrimoire'
@@ -12,12 +13,12 @@ import SettingsModal from './components/SettingsModal'
 function computeEssenceStats(cauldron, ingredients) {
   const filled = cauldron.filter(id => id !== null)
   if (filled.length === 0) return null
-  const potency  = filled.reduce((s, id) => s + (ingredients.find(x => x.id === id)?.stats?.potency  ?? 0), 0) / filled.length
-  const toxicity = filled.reduce((s, id) => s + (ingredients.find(x => x.id === id)?.stats?.toxicity ?? 0), 0) / filled.length
+  const potency  = Math.min(filled.reduce((s, id) => s + (ingredients.find(x => x.id === id)?.stats?.potency  ?? 0), 0), 10)
+  const toxicity = Math.min(filled.reduce((s, id) => s + (ingredients.find(x => x.id === id)?.stats?.toxicity ?? 0), 0), 10)
   return { potency: Math.round(potency * 10) / 10, toxicity: Math.round(toxicity * 10) / 10 }
 }
 
-function getProximityHint(cauldron, recipes) {
+function getProximityHint(cauldron, recipes, flavor) {
   const filled = cauldron.filter(id => id !== null)
   if (filled.length === 0) return null
   const exactMatch   = recipes.some(r => {
@@ -25,9 +26,9 @@ function getProximityHint(cauldron, recipes) {
     return s1.length === s2.length && s1.every((id, i) => id === s2[i])
   })
   const partialMatch = recipes.some(r => filled.every(id => r.inputs.includes(id)) && filled.length < r.inputs.length)
-  if (exactMatch)   return 'A formula takes hold.'
-  if (partialMatch) return 'Something stirs in the confluence...'
-  return 'The essences resist each other\'s presence.'
+  if (exactMatch)   return flavor.hintExact
+  if (partialMatch) return flavor.hintPartial
+  return flavor.hintNone
 }
 
 function readStatHex(varName, fallback) {
@@ -40,13 +41,13 @@ function computeCauldronGlow(cauldron, ingredients) {
   const filled = cauldron.filter(id => id !== null)
   if (filled.length === 0) return 'none'
 
-  const avgPotency = filled.reduce((s, id) => {
+  const avgPotency = Math.min(filled.reduce((s, id) => {
     return s + (ingredients.find(x => x.id === id)?.stats?.potency ?? 0)
-  }, 0) / filled.length / 10
+  }, 0), 10) / 10
 
-  const avgToxicity = filled.reduce((s, id) => {
+  const avgToxicity = Math.min(filled.reduce((s, id) => {
     return s + (ingredients.find(x => x.id === id)?.stats?.toxicity ?? 0)
-  }, 0) / filled.length / 10
+  }, 0), 10) / 10
 
   const potencyRgb  = readStatHex('--stat-potency-color',  '#c49a2a')
   const toxicityRgb = readStatHex('--stat-toxicity-color', '#a060c8')
@@ -117,12 +118,16 @@ export default function App() {
     try { return JSON.parse(localStorage.getItem('ui-labels')) || {} }
     catch { return {} }
   })
+  const [flavorText, setFlavorText]             = useState(() => {
+    try { return { ...DEFAULT_FLAVOR, ...JSON.parse(localStorage.getItem('workshop-flavor-text')) } }
+    catch { return { ...DEFAULT_FLAVOR } }
+  })
   const [showCustomize, setShowCustomize]       = useState(false)
   const [showSettings, setShowSettings]         = useState(false)
 
   const cauldronGlow  = computeCauldronGlow(cauldron, ingredients)
   const essenceStats  = computeEssenceStats(cauldron, ingredients)
-  const proximityHint = getProximityHint(cauldron, recipes)
+  const proximityHint = getProximityHint(cauldron, recipes, flavorText)
 
   function addToCauldron(id) {
     const empty = cauldron.indexOf(null)
@@ -142,7 +147,7 @@ export default function App() {
   function brew() {
     const filled = cauldron.filter(id => id !== null)
     if (filled.length < MIN_BREW_INGREDIENTS) {
-      setBrewMessage('More essences are required.')
+      setBrewMessage(flavorText.brewNotEnough)
       triggerBrewResult('failure')
       return
     }
@@ -155,15 +160,19 @@ export default function App() {
       )
     })
     if (!match) {
-      setBrewMessage('The essences resist each other — no formula takes hold.')
+      setBrewMessage(flavorText.brewFailure)
       triggerBrewResult('failure')
-      setBrewHistory(h => [{ outcome: 'failure', text: 'The essences resisted.' }, ...h].slice(0, 4))
+      setBrewHistory(h => [{ outcome: 'failure', text: flavorText.brewFailureLog }, ...h].slice(0, 4))
       return
     }
-    setBrewed(prev => [...prev, match])
+    const computedStats = {
+      potency:  Math.min(match.inputs.reduce((s, id) => s + (ingredients.find(x => x.id === id)?.stats?.potency  ?? 0), 0), 10),
+      toxicity: Math.min(match.inputs.reduce((s, id) => s + (ingredients.find(x => x.id === id)?.stats?.toxicity ?? 0), 0), 10),
+    }
+    setBrewed(prev => [...prev, { ...match, stats: computedStats }])
     setRecipes(prev => prev.map(r => r.id === match.id ? { ...r, discovered: true } : r))
     setCauldron(buildCauldron(maxSlots))
-    setBrewMessage(`${match.name} has been drawn forth!`)
+    setBrewMessage(flavorText.brewSuccess.replace('{name}', match.name))
     triggerBrewResult('success')
     setBrewHistory(h => [{ outcome: 'success', text: match.name }, ...h].slice(0, 4))
   }
@@ -260,6 +269,7 @@ export default function App() {
             recipes={recipes}
             statNames={statNames}
             labels={labels}
+            flavorText={flavorText}
           />
           <Cauldron
             cauldron={cauldron}
@@ -272,6 +282,7 @@ export default function App() {
             brewHistory={brewHistory}
             statNames={statNames}
             labels={labels}
+            flavorText={flavorText}
             onBrew={brew}
             onClear={clearCauldron}
             onRemoveFromCauldron={removeFromCauldron}
@@ -279,6 +290,7 @@ export default function App() {
           <Output
             brewed={brewed}
             labels={labels}
+            flavorText={flavorText}
             onHover={setHoveredPotion}
             onPin={setSelectedPotion}
           />
@@ -286,6 +298,7 @@ export default function App() {
             selectedPotion={hoveredPotion ?? selectedPotion}
             statNames={statNames}
             labels={labels}
+            flavorText={flavorText}
             ingredients={ingredients}
           />
         </div>
@@ -313,6 +326,11 @@ export default function App() {
           onLabelsChange={next => {
             setLabels(next)
             localStorage.setItem('ui-labels', JSON.stringify(next))
+          }}
+          flavorText={flavorText}
+          onFlavorTextChange={next => {
+            setFlavorText(next)
+            localStorage.setItem('workshop-flavor-text', JSON.stringify(next))
           }}
           onClose={() => setShowSettings(false)}
         />

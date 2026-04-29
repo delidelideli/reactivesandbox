@@ -4,6 +4,16 @@ This file tracks every task requested during this project. Update it at the end 
 
 ---
 
+## Session 17 (2026-04-29)
+
+1. Updated Theme Settings warning text — replaced the "refreshing the page" warning with a more directive message: "Remember to Export Theme — it saves colors, labels, and flavor text. Reset to Default wipes all of them."
+2. Added Flavor Text tab to Theme Settings — fourth tab alongside Theme, Header, and Labels. Two-column layout: left column covers Brew Outcomes (not enough, failure, success template with `{name}`, failure log entry) and Cauldron Counter (empty, gathering with `{count}`/`{total}`, ready with `{count}`); right column covers Proximity Hints (exact match, partial match, no match) and Idle Text (Ingredient Grimoire, Recipe Book, Output, Potion Grimoire). All 14 fields are text inputs with live preview on keystroke. Template placeholders displayed inline as styled `<code>` tags.
+3. Created `src/flavorDefaults.js` — shared DEFAULT_FLAVOR constant with all 14 default strings, imported by both App.jsx (for state initialization) and SettingsModal.jsx (for reset and import merge).
+4. Wired flavor text end-to-end — `flavorText` state in App.jsx (initialized from `{ ...DEFAULT_FLAVOR, ...localStorage }`) passed as props to Cauldron, IngredientGrimoire, PotionGrimoire, and Output. `getProximityHint()` and `brew()` in App.jsx now read from `flavorText` for proximity hints and all three brew outcome messages. `getEssenceText()` in Cauldron.jsx uses `{count}`/`{total}` template substitution from `flavorText`.
+5. Flavor text included in theme export/import — `exportTheme()` adds `flavorText: flavor` to the JSON; `handleImport()` merges imported `flavorText` over DEFAULT_FLAVOR and calls `onFlavorTextChange`. `save()` resolves empty fields back to defaults before persisting to `localStorage('workshop-flavor-text')`. `reset()` restores DEFAULT_FLAVOR, calls `onFlavorTextChange`, and removes the localStorage key.
+
+---
+
 ## Session 16 (2026-04-28)
 
 1. Potion Grimoire now shows recipe inputs — when a brewed potion is selected or hovered, the Potion Grimoire displays a "Made from:" section listing the ingredient names that produced it. `ingredients` prop added to PotionGrimoire; uses `selectedPotion.inputs` (already on the recipe object) to look up names.
