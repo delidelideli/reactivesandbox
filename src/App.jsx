@@ -8,6 +8,7 @@ import Cauldron from './components/Cauldron'
 import Output from './components/Output'
 import CustomizeModal from './components/CustomizeModal'
 import SettingsModal from './components/SettingsModal'
+import TutorialModal from './components/TutorialModal'
 
 
 function computeEssenceStats(cauldron, ingredients) {
@@ -124,6 +125,7 @@ export default function App() {
   })
   const [showCustomize, setShowCustomize]       = useState(false)
   const [showSettings, setShowSettings]         = useState(false)
+  const [showTutorial, setShowTutorial]         = useState(false)
 
   const cauldronGlow  = computeCauldronGlow(cauldron, ingredients)
   const essenceStats  = computeEssenceStats(cauldron, ingredients)
@@ -246,6 +248,7 @@ export default function App() {
         <div id="header-spacer" />
         <h1>{labels.siteTitle || "Alchemist's Workshop"}</h1>
         <div id="header-btns">
+          <button onClick={() => setShowTutorial(true)}>?</button>
           <button onClick={() => setShowCustomize(true)}>Customize</button>
           <button onClick={() => setShowSettings(true)}>Theme Settings</button>
         </div>
@@ -303,6 +306,10 @@ export default function App() {
           />
         </div>
       </main>
+
+      {showTutorial && (
+        <TutorialModal onClose={() => setShowTutorial(false)} />
+      )}
 
       {showCustomize && (
         <CustomizeModal
