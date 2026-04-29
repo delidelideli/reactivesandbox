@@ -513,7 +513,7 @@ section ul { padding-left: 1.1rem; }
 .dot--empty    { background: rgba(60,40,10,0.4); border: 1px solid rgba(140,105,45,0.5); }
 .dot--filled.dot--potent  { background: var(--stat-potency-color);  box-shadow: 0 0 5px var(--stat-potency-color); }
 .dot--filled.dot--toxic   { background: var(--stat-toxicity-color); box-shadow: 0 0 5px var(--stat-toxicity-color); }
-.dot--filled.dot--balanced{ background: #a07828; box-shadow: 0 0 4px rgba(160,120,40,0.6); }
+.dot--filled.dot--balanced{ background: color-mix(in srgb, var(--stat-potency-color) 50%, var(--stat-toxicity-color)); box-shadow: 0 0 4px color-mix(in srgb, var(--stat-potency-color) 50%, var(--stat-toxicity-color)); }
 
 .ingredient-btn:disabled,
 .potion-card:disabled { opacity: 0.28; cursor: default; }

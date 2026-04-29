@@ -4,6 +4,12 @@ This file tracks every task requested during this project. Update it at the end 
 
 ---
 
+## Session 19 (2026-04-29)
+
+1. Fixed Ashwood Bark and Thornvine item dots not responding to stat color changes — both have equal potency and toxicity so they use the `balanced` class, whose dot CSS used a hardcoded `#a07828` instead of CSS variables. Changed to `color-mix(in srgb, var(--stat-potency-color) 50%, var(--stat-toxicity-color))` so balanced dots blend the two live stat colors.
+
+---
+
 ## Session 18 (2026-04-29)
 
 1. Replaced themed `graph TD` user flow diagram in README with a clean `classDiagram` showing data entities (Item, Combination, Result, AppState), their fields with types, and relationships — no theme-specific styling or alchemy language.
