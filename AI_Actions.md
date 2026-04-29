@@ -11,6 +11,13 @@ This file tracks every task requested during this project. Update it at the end 
 3. Created `src/flavorDefaults.js` — shared DEFAULT_FLAVOR constant with all 14 default strings, imported by both App.jsx (for state initialization) and SettingsModal.jsx (for reset and import merge).
 4. Wired flavor text end-to-end — `flavorText` state in App.jsx (initialized from `{ ...DEFAULT_FLAVOR, ...localStorage }`) passed as props to Cauldron, IngredientGrimoire, PotionGrimoire, and Output. `getProximityHint()` and `brew()` in App.jsx now read from `flavorText` for proximity hints and all three brew outcome messages. `getEssenceText()` in Cauldron.jsx uses `{count}`/`{total}` template substitution from `flavorText`.
 5. Flavor text included in theme export/import — `exportTheme()` adds `flavorText: flavor` to the JSON; `handleImport()` merges imported `flavorText` over DEFAULT_FLAVOR and calls `onFlavorTextChange`. `save()` resolves empty fields back to defaults before persisting to `localStorage('workshop-flavor-text')`. `reset()` restores DEFAULT_FLAVOR, calls `onFlavorTextChange`, and removes the localStorage key.
+6. Updated Theme Settings warning to note background images are not included in export.
+7. Updated Customize modal recipe hint text — now reads "max {slotCount} (up to 8 via toggle above). No duplicate ingredients."
+8. Halved all ingredient stats so values accumulate meaningfully on the cauldron stat bars (e.g. Voidmoss 8/9 → 4/5, Deathbell 1/9 → 1/5). Changed `computeEssenceStats` and `computeCauldronGlow` in App.jsx from average to sum (capped at 10).
+9. Removed `stats` field from all recipes in data.json — recipe stats are now computed at brew time in `brew()` as the sum of input ingredient stats (capped at 10) and attached to the brewed potion object. Ingredient stats are now the single source of truth; recipe stats no longer exist as a separate field.
+10. Removed potency/toxicity inputs from Customize modal recipe form — `recPotency`, `recToxicity` state, `buildRecStats()`, and the two number inputs removed from CustomizeModal.jsx. Recipe import/init handlers cleaned up accordingly.
+11. Added split gold→purple diagonal gradient border and new `card-glow-balanced` / `potion-hover-pulse-balanced` hover animations for equal-stat (balanced) cards — affects both ingredient cards in Satchel and potion cards in Output.
+12. Added tutorial modal (`TutorialModal.jsx`) — six sections covering Satchel, Cauldron, Recipe Discovery, Output & Grimoires, Customize, and Theme Settings, written in the workshop's in-world register. Accessible via a `?` button in the header to the left of Customize. Closes on button click or backdrop click.
 
 ---
 

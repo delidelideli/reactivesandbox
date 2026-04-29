@@ -24,6 +24,7 @@ The potion brewer is the proof of concept. The framework is the product.
 - **Customize Modal:** Define your own items, combinations, and outputs without touching code. Includes a slot count toggle (4 or 8) to expand the Controller for more complex combinations.
 - **Theme Settings Modal:** Four tabs — **Theme** (5 presets, color pickers for every panel surface and stat, font selector, spacing slider, background upload, theme export/import), **Header** (background, height, title size, glow color, animated effect picker), **Labels** (rename the site title, all panel headers, and action buttons), and **Flavor Text** (edit every piece of atmospheric copy on the site: brew outcome messages, proximity hints, cauldron counter text, and all four panel idle messages). Template placeholders (`{name}`, `{count}`, `{total}`) supported. All flavor text is included in theme export/import and wiped by Reset to Default.
 - **Import / Export:** Export and re-import the full item and combination set as a JSON file.
+- **Tutorial Modal:** A `?` button in the header opens a concise six-section guide covering all five panels and both modals, written in the workshop's in-world register.
 
 ## User Flow Diagram
 ```mermaid
